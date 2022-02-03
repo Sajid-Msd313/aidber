@@ -1,4 +1,6 @@
+import 'package:aidber/screens/create_new_event/create_new_event_view.dart';
 import 'package:aidber/screens/edit_profile/edit_profile_view.dart';
+import 'package:aidber/screens/menu/menu_view.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +19,7 @@ debugShowCheckedModeBanner: false,
 
         primarySwatch: Colors.blue,
       ),
-      home: EditPtofile(),
+      home: MenuScreen(),
     );
   }
 }

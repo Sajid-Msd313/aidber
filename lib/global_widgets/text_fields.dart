@@ -17,11 +17,13 @@ class CustomAuthTextFormField extends StatelessWidget {
         this.suffixIcon,
         this.prefixIcon,
         this.maxlin=0,
+        required this.labeltext,
         this.fillColor = Colors.white,
       })
       : super(key: key);
   final int maxlin;
   final String hint;
+  final String labeltext;
   final TextEditingController? controller;
   final bool obscureText;
   final TextInputAction textInputAction;
@@ -40,26 +42,17 @@ class CustomAuthTextFormField extends StatelessWidget {
       },
       textInputAction: textInputAction,
 
-      style: const TextStyle(fontSize: 18,color: Colors.black),
+      style: const TextStyle(fontSize: 16,color: Colors.black,),
 
-      decoration: InputDecoration(
-        fillColor: fillColor,
-        prefixIcon:prefixIcon,
-        suffixIcon: suffixIcon,
-        contentPadding:
-        EdgeInsets.only(top: 15, bottom: 15, left: 40, right: 5),
+      decoration:  InputDecoration(
+        labelText: labeltext,
+        prefixIcon: prefixIcon,
         hintText: hint,
-        hintStyle: TextStyle(color: Colors.grey[400]),
-        filled: true,
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10.0),
-          ),
-          borderSide: BorderSide(
-            width: 0,
-            style: BorderStyle.none,
-          ),
-        ),
+        suffixIcon: suffixIcon,
+        fillColor: fillColor,
+       // filled: true,
+        border: const UnderlineInputBorder(),
+
       ),
     );
   }
@@ -74,12 +67,14 @@ class CustomMaxTextFormField extends StatelessWidget {
         this.textInputAction = TextInputAction.done,
         this.suffixIcon,
         this.prefixIcon,
+        required this.labeltext,
         this.fillColor = Colors.white,
       })
       : super(key: key);
   final String hint;
   final TextEditingController? controller;
   final bool obscureText;
+  final String labeltext;
   final TextInputAction textInputAction;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
@@ -88,9 +83,10 @@ class CustomMaxTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-maxLines: 5,
+maxLines: 3,
       controller: controller,
       obscureText: obscureText,
+
       validator: (_) {
         if (_!.isEmpty && _.length <3) return "Please fill properly";
       },
@@ -98,24 +94,15 @@ maxLines: 5,
 
       style: const TextStyle(fontSize: 18,color: Colors.black),
 
-      decoration: InputDecoration(
-        fillColor: fillColor,
-        prefixIcon:prefixIcon,
-        suffixIcon: suffixIcon,
-        contentPadding:
-        EdgeInsets.only(top: 15, bottom: 15, left: 40, right: 5),
+      decoration:  InputDecoration(
+        labelText: labeltext,
+        prefixIcon: prefixIcon,
         hintText: hint,
-        hintStyle: TextStyle(color: Colors.grey[400]),
-        filled: true,
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10.0),
-          ),
-          borderSide: BorderSide(
-            width: 0,
-            style: BorderStyle.none,
-          ),
-        ),
+        suffixIcon: suffixIcon,
+        fillColor: fillColor,
+       // filled: true,
+        border: UnderlineInputBorder(),
+
       ),
     );
   }

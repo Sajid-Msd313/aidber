@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 
-class header extends StatelessWidget {
-  const header({Key? key}) : super(key: key);
+class headerEditProfile extends StatelessWidget {
+  const headerEditProfile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
