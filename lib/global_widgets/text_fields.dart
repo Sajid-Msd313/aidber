@@ -107,3 +107,58 @@ maxLines: 3,
     );
   }
 }
+
+class CustomHeaderTextFormField extends StatelessWidget {
+  const CustomHeaderTextFormField(
+      {Key? key,
+        required this.hint,
+        this.controller,
+        this.obscureText = false,
+        this.textInputAction = TextInputAction.done,
+        this.suffixIcon,
+        this.prefixIcon,
+        this.fillColor = Colors.white})
+      : super(key: key);
+
+  final String hint;
+  final TextEditingController? controller;
+  final bool obscureText;
+  final TextInputAction textInputAction;
+  final Widget? suffixIcon;
+  final Widget? prefixIcon;
+  final Color fillColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      obscureText: obscureText,
+      validator: (_) {
+        if (_!.isEmpty && _.length <3) return "Please fill properly";
+      },
+      textInputAction: textInputAction,
+
+      style: const TextStyle(fontSize: 18,color: Colors.black),
+
+      decoration: InputDecoration(
+        fillColor: fillColor,
+        prefixIcon:prefixIcon,
+        suffixIcon: suffixIcon,
+        contentPadding:
+        EdgeInsets.only(top: 10, bottom: 10, left: 40, right: 5),
+        hintText: hint,
+        hintStyle: TextStyle(color: Colors.grey[400]),
+        filled: true,
+        border: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(10.0),
+          ),
+          borderSide: BorderSide(
+            width: 0,
+            style: BorderStyle.none,
+          ),
+        ),
+      ),
+    );
+  }
+}

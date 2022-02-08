@@ -4,8 +4,8 @@ import 'package:aidber/screens/edit_profile/widgets/body.dart';
 import 'package:aidber/screens/edit_profile/widgets/header.dart';
 import 'package:flutter/material.dart';
 
-class EditPtofile extends StatelessWidget {
-  const EditPtofile({Key? key}) : super(key: key);
+class EditProfile extends StatelessWidget {
+  const EditProfile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
