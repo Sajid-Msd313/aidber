@@ -1,7 +1,7 @@
 import 'package:aidber/global_widgets/appbar.dart';
-import 'package:aidber/global_widgets/custom_button.dart';
 import 'package:aidber/screens/event_detail_screen/widgets/body.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class EventDetailView extends StatelessWidget {
   const EventDetailView({Key? key}) : super(key: key);
@@ -12,8 +12,8 @@ class EventDetailView extends StatelessWidget {
       appBar: CustomAppbar,
       body: SafeArea(
           child: SingleChildScrollView(
-            child: Column(
-        children: [
+        child: Column(
+          children: [
             Stack(
               children: [
                 Image.asset(
@@ -22,14 +22,20 @@ class EventDetailView extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   fit: BoxFit.fill,
                 ),
-                Positioned(top: 10,left: 5,
-                    child: Icon(Icons.arrow_back,color: Colors.white,))
+                Positioned(
+                    top: 10,
+                    left: 5,
+                    child: InkWell(
+                        onTap: (){
+                          Get.back();
+                        },
+                        child: const Icon(Icons.arrow_back)),)
               ],
             ),
             EventDetailBody()
-        ],
-      ),
-          )),
+          ],
+        ),
+      )),
     );
   }
 }

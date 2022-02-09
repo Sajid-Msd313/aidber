@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class headerCreateEvent extends StatelessWidget {
   const headerCreateEvent({Key? key}) : super(key: key);
@@ -12,7 +13,11 @@ class headerCreateEvent extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Icon(Icons.arrow_back),
+              InkWell(
+                  onTap: (){
+                    Get.back();
+                  },
+                  child: const Icon(Icons.arrow_back)),
               Text('Edit Profile'),
             ],
           ),

@@ -113,7 +113,7 @@ class EventDetailBody extends StatelessWidget {
                   ),
                   children: [
                     TextSpan(
-                      text: "\nLorem ipsum dolor shakoor khan saddar ttol app jorr dai ka sa krrai shy waka D ta dy ka"*4,
+                      text: "\nLorem ipsum dolor sadar seb is good and working realy hard lorem ipsum"*4,
                       style: TextStyle(fontSize: 14, color: Colors.black),
                     )
                   ])),
@@ -128,7 +128,7 @@ class EventDetailBody extends StatelessWidget {
                   ),
                   children: [
                     TextSpan(
-                      text: "\nLorem ipsum dolor shakoor khan saddar ttol app jorr dai ka sa krrai shy waka D ta dy ka"*4,
+                      text: "\nLorem ipsum dolor sLorem ipsum dolor sadar seb is good and working realy hard lorem ipsum"*4,
                       style: TextStyle(fontSize: 14, color: Colors.black),
                     )
                   ])),

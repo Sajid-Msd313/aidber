@@ -12,16 +12,23 @@ class HomeScreenView extends StatelessWidget {
       appBar: CustomAppbar,
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(mainAxisAlignment: MainAxisAlignment.start,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Container(margin: const EdgeInsets.symmetric(vertical: 10,horizontal: 15),
+              Container(
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                   child: const HomeHeader()),
-              const SizedBox(height: 10,),
-              Divider(height: 2,
-                thickness:6,color: Colors.grey.shade200,
+              const SizedBox(
+                height: 10,
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+              Divider(
+                height: 2,
+                thickness: 6,
+                color: Colors.grey.shade200,
+              ),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: PostsList(),
               )
             ],

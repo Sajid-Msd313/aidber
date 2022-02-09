@@ -1,6 +1,9 @@
 import 'package:aidber/global_widgets/colors.dart';
 import 'package:aidber/global_widgets/custom_button.dart';
+import 'package:aidber/screens/events/events_view.dart';
+import 'package:aidber/screens/login/login_view.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class bodymenu extends StatelessWidget {
   const bodymenu({Key? key}) : super(key: key);
@@ -8,7 +11,7 @@ class bodymenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10,horizontal: 10),
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       child: Column(children: [
         RichText(
             text: const TextSpan(
@@ -22,7 +25,9 @@ class bodymenu extends StatelessWidget {
                   style: TextStyle(
                       fontWeight: FontWeight.normal, color: Colors.grey))
             ])),
-        const SizedBox(height: 10,),
+        const SizedBox(
+          height: 10,
+        ),
         GridView.count(
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
@@ -40,7 +45,9 @@ class bodymenu extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text("Doctor's Lounge",softWrap: true,overflow: TextOverflow.visible,
+                      const Text("Doctor's Lounge",
+                          softWrap: true,
+                          overflow: TextOverflow.visible,
                           style: TextStyle(fontSize: 15, color: Colors.white),
                           textAlign: TextAlign.start),
                       Image.asset(
@@ -49,24 +56,29 @@ class bodymenu extends StatelessWidget {
                       )
                     ],
                   )),
-              Container(
-                  decoration: BoxDecoration(
-                      color: PRIMARY_COLOR,
-                      borderRadius: BorderRadius.circular(10)),
-                  padding: const EdgeInsets.all(5),
-                  // margin: EdgeInsets.symmetric(vertical: 5, ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text("Events",
-                          style: TextStyle(fontSize: 15, color: Colors.white),
-                          textAlign: TextAlign.center),
-                      Image.asset(
-                        "assets/events.png",
-                        scale: 4,
-                      )
-                    ],
-                  )),
+              InkWell(
+                onTap: (){
+                  Get.to(()=> EventsScreen());
+                },
+                child: Container(
+                    decoration: BoxDecoration(
+                        color: PRIMARY_COLOR,
+                        borderRadius: BorderRadius.circular(10)),
+                    padding: const EdgeInsets.all(5),
+                    // margin: EdgeInsets.symmetric(vertical: 5, ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text("Events",
+                            style: TextStyle(fontSize: 15, color: Colors.white),
+                            textAlign: TextAlign.center),
+                        Image.asset(
+                          "assets/events.png",
+                          scale: 4,
+                        )
+                      ],
+                    )),
+              ),
               Container(
                   decoration: BoxDecoration(
                       color: PRIMARY_COLOR,
@@ -107,7 +119,12 @@ class bodymenu extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        CustomLogOutButton(btnText: "Log Out", primary: true, onPressed: () {})
+        CustomLogOutButton(
+            btnText: "Log Out",
+            primary: true,
+            onPressed: () {
+              Get.offAll(() => const Sign_In2());
+            })
       ]),
     );
   }

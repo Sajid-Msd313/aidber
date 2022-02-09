@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class headerMenu extends StatelessWidget {
   const headerMenu({Key? key}) : super(key: key);
@@ -6,20 +7,22 @@ class headerMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      ListTile(
-        leading: Icon(Icons.arrow_back),
-        title: Text('Menu'),
-        trailing: Icon(Icons.search),
+       ListTile(
+        leading: InkWell( onTap: (){
+          Get.back();
+        },child: const Icon(Icons.arrow_back)),
+        title: const Text('Menu'),
+        trailing: const Icon(Icons.search),
       ),
       ListTile(leading:  ClipRRect(
         borderRadius: BorderRadius.circular(10), // Image border
         child: SizedBox.fromSize(
-          size: Size.fromRadius(30), // Image radius
+          size: const Size.fromRadius(30), // Image radius
           child: Image.asset('assets/sajidmsd.jpg', fit: BoxFit.cover),
         ),
       ),
-      title: Text("Sajid"),
-      subtitle: Text("View Profile"),
+      title: const Text("Sajid"),
+      subtitle: const Text("View Profile"),
       ),
     ],);
   }
