@@ -27,7 +27,7 @@ class HomeScreenView extends StatelessWidget {
                 thickness: 6,
                 color: Colors.grey.shade200,
               ),
-              const Padding(
+               Padding(
                 padding: EdgeInsets.all(8.0),
                 child: PostsList(),
               )

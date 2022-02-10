@@ -8,6 +8,8 @@ import 'package:aidber/screens/menu/menu_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'global_widgets/report_dialog.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -26,7 +28,7 @@ debugShowCheckedModeBanner: false,
         primaryColor: const Color(0xFF282d6b),
 
       ),
-      home: const Sign_In2(),
+      home:  Sign_In2(),
     );
   }
 }
