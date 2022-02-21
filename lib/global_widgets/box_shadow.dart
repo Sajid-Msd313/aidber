@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'colors.dart';
 Decoration boxdecoration = BoxDecoration(
-    color: Colors.white,
+    color: PRIMARY_COLOR,
     borderRadius: BorderRadius.circular(15.0),
     boxShadow: [
       BoxShadow(

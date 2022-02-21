@@ -28,7 +28,7 @@ debugShowCheckedModeBanner: false,
         primaryColor: const Color(0xFF282d6b),
 
       ),
-      home:  Sign_In2(),
+      home:  HomeScreenView(),
     );
   }
 }

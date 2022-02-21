@@ -9,5 +9,18 @@ var CustomAppbar=AppBar(
     style: TextStyle(color: Colors.white, fontSize: 20),
     textAlign: TextAlign.center,
   ),
-
+actions: [
+  IconButton(
+    icon: Image.asset('assets/search.png',height:30,width:40,),
+    onPressed: () {},
+  ),
+  IconButton(
+    icon: Image.asset('assets/notification.png',),
+    onPressed: () {},
+  ),
+  IconButton(
+    icon: Image.asset('assets/message.png',height:30,width:40,),
+    onPressed: () {},
+  ),
+],
 );

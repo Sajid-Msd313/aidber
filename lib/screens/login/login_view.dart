@@ -1,7 +1,10 @@
 import 'package:aidber/global_widgets/box_shadow.dart';
+import 'package:aidber/global_widgets/colors.dart';
 import 'package:aidber/screens/home_screen/home_screen_view.dart';
 import 'package:aidber/screens/recover_password_screen/recover_password.dart';
+import 'package:aidber/screens/sign_up_screen/sign_up.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,210 +19,172 @@ class _Sign_In2State extends State<Sign_In2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: LayoutBuilder(
-        builder: (_, constraints){
-          print("height: "  + constraints.maxHeight.toString());
-          print("width: "  + constraints.maxWidth.toString());
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: LayoutBuilder(
+          builder: (_, constraints) {
+            print("height: " + constraints.maxHeight.toString());
+            print("width: " + constraints.maxWidth.toString());
 
-          final width = constraints.biggest.width;
-          final height = constraints.biggest.height;
-          return SingleChildScrollView(
-            child: Container(
-              constraints: constraints.widthConstraints(),
-              height:width> constraints.maxHeight? width : constraints.maxHeight,
-              child: Stack(
-
-                children: [
-                  ClipPath(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      height:  height *.55,
-                      color: Get.theme.primaryColor,
-                    ),
-                    clipper: CustomClipPath(),
-                  ),
-                  Positioned(
-                    top: height *.07,
-                    left: 0,
-                    right: width*.85,
-                    child: InkWell(
-                      onTap: (){
-                        Get.back();
-                      },
-                      child:const Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: height *.12,
-                    left:  width*.05,
-                    right: 0,
-                    child: Text(
-                      'Sign In',
+            final width = constraints.biggest.width;
+            final height = constraints.biggest.height;
+            return SingleChildScrollView(
+              child: Container(
+                margin: EdgeInsets.symmetric(vertical: 20),
+                constraints: constraints.widthConstraints(),
+                height: width > constraints.maxHeight
+                    ? width
+                    : constraints.maxHeight,
+                child: Column(
+                  children: [
+                    Text(
+                      'Welcome to Lorem',
                       style: TextStyle(
-                          color: Colors.white,
+                          color: PRIMARY_COLOR,
                           fontSize: 23,
                           fontWeight: FontWeight.bold),
                     ),
-                  ),
-                  Positioned(
-
-                    bottom: height * .04,
-                    left: width * .05,
-                    width: width *.9,
-                    child: Column(
+                    Column(
                       children: [
-                        Align(
-                          alignment: Alignment.center,
-                          child: Container(
-                            child: Row(
+                        Container(
+                          margin: EdgeInsets.only(top: 40),
+                          decoration: boxdecoration,
+                          padding: const EdgeInsets.all(20.0),
+                          child: Center(
+                            child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Container(
-                                  height: 1,
-                                  width: MediaQuery.of(context).size.width * .2,
-                                  color: Colors.black,
+                                const SizedBox(
+                                  height: 10,
                                 ),
-                                const Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 10, horizontal: 10),
-                                  child: Text(
-                                    'Or connect using',
-                                    style: TextStyle(fontWeight: FontWeight.w400),
+                                TextField(
+                                  decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.grey.shade300,
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(13)),
+                                      prefixIcon:
+                                          const Icon(Icons.contact_mail),
+                                      labelText: '| Username',
+                                      enabled: true),
+                                  enabled: true,
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                TextField(
+                                  decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.grey.shade300,
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(13)),
+                                      prefixIcon: const Icon(Icons.lock),
+                                      labelText: '| Password',
+                                      enabled: true),
+                                  enabled: true,
+                                ),
+                                Align(alignment: Alignment.centerRight,
+                                  child: FlatButton(
+                                    child:  Text('Forgot Password?', style:  TextStyle(color:  Colors.white),),
+                                    onPressed: () {
+                                      Get.to(()=> const Recover_Password());
+                                    },
                                   ),
                                 ),
-                                Container(
-                                  height: 1,
-                                  width: MediaQuery.of(context).size.width * .2,
-                                  color: Colors.black,
+                                const SizedBox(
+                                  height: 20,
                                 ),
+                                Container(
+                                  width: Get.width * .9,
+                                  height: 45,
+                                  child: FlatButton(
+                                    child: const Text('Sign In'),
+                                    color: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0)),
+                                    textColor: PRIMARY_COLOR,
+                                    onPressed: () {
+                                      Get.off(() => const HomeScreenView());
+                                    },
+                                  ),
+                                ),
+
                               ],
                             ),
                           ),
                         ),
-                        Container(margin: const EdgeInsets.symmetric( vertical: 10),
-                          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                          // width: 250,
-                          // height: 50,
-                          decoration: boxdecoration,
-                          // borderRadius: BorderRadius.circular(10.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              CircleAvatar(
-                                child: Image.asset("assets/facebook.jpg"),
-
+                        Column(
+                          children: [
+                            Align(
+                              alignment: Alignment.center,
+                              child: Container(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      height: 1,
+                                      width: MediaQuery.of(context).size.width *
+                                          .2,
+                                      color: Colors.black,
+                                    ),
+                                    const Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 15, horizontal: 10),
+                                      child: Text(
+                                        'Or Sign up using',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 1,
+                                      width: MediaQuery.of(context).size.width *
+                                          .2,
+                                      color: Colors.black,
+                                    ),
+                                  ],
+                                ),
                               ),
-                              const   SizedBox(
-                                width: 10,
-                              ),
-
-                              CircleAvatar(
-                                child: Image.asset("assets/google.jpg"),
-                              ),
-                            ],
-                          ),
+                            ),
+                            CircleAvatar(
+                              child: Image.asset("assets/google.jpg"),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ),
-
-                  Positioned(
-                      top: height * .3,
-                      left: width * .05,
-                      width: width *.9,
-                      child: Container(
-                        decoration: boxdecoration,
-                        padding: const  EdgeInsets.all(20.0),
-                        child: Column(
-                          children: [
-                            const   SizedBox(
-                              height: 10,
-                            ),
-                            TextField(
-                              decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.grey.shade300,
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(13)),
-                                  prefixIcon: const Icon(Icons.contact_mail),
-                                  labelText: '| Email',
-                                  enabled: true),
-                              enabled: true,
-                            ),
-                            const  SizedBox(
-                              height: 10,
-                            ),
-                            TextField(
-                              decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.grey.shade300,
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(13)),
-                                  prefixIcon: const Icon(Icons.lock),
-                                  labelText: '| Password',
-                                  enabled: true),
-                              enabled: true,
-                            ),
-                            const  SizedBox(
-                              height: 30,
-                            ),
-                            Container(
-                              width: Get.width *.8,
-                              height: 52,
-                              child: FlatButton(
-                                child: const Text('Sign In'),
-                                color:  Get.theme.primaryColor,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0)),
-                                textColor: Colors.white,
-                                onPressed: () {
-                                  Get.off(()=>const HomeScreenView());
-                                },
-                              ),
-                            ),
-                            Container(
-                              child: FlatButton(
-                                child:  Text('Forgot Password?', style:  TextStyle(color:  Get.theme.primaryColor),),
-                                onPressed: () {
-                                  Get.to(()=> const Recover_Password());
-                                },
-                              ),
-                            )
-                          ],
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.12,
+                    ),
+                    Row(mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Do not have an Account? ',
+                          style: TextStyle(fontSize: 16, color: Colors.black),
                         ),
-                      )),
-                ],
+                        InkWell(
+                          onTap: (){
+                            Get.to(SignUp());
+                          },
+                          child: Text(
+                            "Create Account",
+                            style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.blue)),
+                        )],
+                    )
+                  ],
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
 }
-
-class CustomClipPath extends CustomClipper<Path> {
-  var radius = 10.0;
-
-  @override
-  Path getClip(Size size) {
-    Path path = Path();
-    path.lineTo(0, size.height - 100);
-    path.quadraticBezierTo(
-        size.width / 2, size.height, size.width, size.height - 100);
-    path.lineTo(size.width, 0);
-    path.close();
-
-    return path;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
-    return false;
-  }
-}
-

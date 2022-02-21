@@ -1,5 +1,5 @@
 import 'package:aidber/global_widgets/report_dialog.dart';
-import 'package:aidber/screens/home_screen/home_controller.dart';
+import 'package:aidber/screens/home_screen/controller/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,26 +22,37 @@ class single_post extends StatelessWidget {
             ),
             title: Padding(
               padding: const EdgeInsets.only(bottom: 6.0),
-              child: RichText(
-                text: const TextSpan(
-                    text: "username1",
-                    style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.w500),
-                    children: [
-                      TextSpan(
-                          text: "     31s",
-                          style: TextStyle(fontSize: 11, color: Colors.black38))
-                    ]),
-              ),
-            ),
-            subtitle: Text(
-              'And Most Importantly,take good care of yourself first:of your body,mind, and soul!',
+              child:
+                Column(mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                         "username1",
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.w500),
+                    ),
+                    const Text(
+                        "31s",
+                        style: TextStyle(fontSize: 11, color: Colors.black38)),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 3),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: Colors.black)
+                      ),
+                      child: const Text("Career"),
+                    )
+                  ],
+                ),
             ),
             trailing: const report_dialog(),
           ),
+          const SizedBox(height: 5,),
+          const Text(
+            'And Most Importantly,take good care of yourself first:of your body,mind, and soul!',
+          ),
           const SizedBox(
             height: 10,
-          ),
+          ),//wala aleka
           Container(
             clipBehavior: Clip.antiAlias,
             height: MediaQuery.of(context).size.height * 0.3,
@@ -73,14 +84,6 @@ class make_reaction_row extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 6.0),
-              child: Image.asset(
-                "assets/comments.png",
-                height: 25,
-                width: 25,
-              ),
-            ),
             GetBuilder<home_controller>(
                 init: Get.find<home_controller>(),
                 builder: (c) {
@@ -94,16 +97,24 @@ class make_reaction_row extends StatelessWidget {
                         c.isLiked.value
                             ? "assets/likes.png"
                             : "assets/like.png",
-                        height: 25,
-                        width: 25,
+                        height: 27,
+                        width: 27,
                       ),
                     ),
                   );
                 }),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 6.0),
+              child: Image.asset(
+                "assets/comment.png",
+                height: 30,
+                width: 40,
+              ),
+            ),
             Image.asset(
               "assets/share.png",
-              height: 25,
-              width: 25,
+              height: 22,
+              width: 22,
             ),
           ],
         ),

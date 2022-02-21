@@ -15,18 +15,18 @@ class HomeScreenView extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Container(
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                  child: const HomeHeader()),
-              const SizedBox(
-                height: 10,
-              ),
-              Divider(
-                height: 2,
-                thickness: 6,
-                color: Colors.grey.shade200,
-              ),
+              // Container(
+              //     margin:
+              //         const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+              //     child: const HomeHeader()),
+              // const SizedBox(
+              //   height: 10,
+              // ),
+              // Divider(
+              //   height: 2,
+              //   thickness: 6,
+              //   color: Colors.grey.shade200,
+              // ),
                Padding(
                 padding: EdgeInsets.all(8.0),
                 child: PostsList(),
