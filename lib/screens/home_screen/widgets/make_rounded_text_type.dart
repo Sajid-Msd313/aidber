@@ -11,7 +11,7 @@ make_rounded_text_type({required this.text});
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: Colors.black)
       ),
-      child:  Text(text, style: TextStyle(fontSize: 12),),
+      child:  Text(text),
     );
   }
 }
