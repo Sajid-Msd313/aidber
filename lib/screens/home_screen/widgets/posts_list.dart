@@ -1,5 +1,5 @@
+import 'package:aidber/global_widgets/single_post.dart';
 import 'package:aidber/screens/home_screen/controller/home_controller.dart';
-import 'package:aidber/screens/home_screen/widgets/single_post.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

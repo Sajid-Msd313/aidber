@@ -1,4 +1,6 @@
 
+import 'package:aidber/screens/login/login_view.dart';
+import 'package:aidber/screens/view_page/view_page_main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,10 +17,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-     // showPerformanceOverlay: true,
-   //   debugShowMaterialGrid: true,
-//showSemanticsDebugger: true,
-//debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       defaultTransition: Transition.cupertino,
       theme: ThemeData(
@@ -26,7 +24,8 @@ class MyApp extends StatelessWidget {
         primaryColor: const Color(0xFF282d6b),
 
       ),
-      home:  bottom_nav_bar_custom(),
+     // home:  Sign_In2(),
+      home:  view_page_main_screen(),
     );
   }
 }

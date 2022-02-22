@@ -2,7 +2,6 @@ import 'package:aidber/global_widgets/box_shadow.dart';
 import 'package:aidber/global_widgets/colors.dart';
 import 'package:aidber/screens/home_screen/home_screen_view.dart';
 import 'package:aidber/screens/recover_password_screen/recover_password.dart';
-import 'package:aidber/screens/sign_up_screen/sign_up.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -25,17 +24,13 @@ class _Sign_In2State extends State<Sign_In2> {
           builder: (_, constraints) {
             print("height: " + constraints.maxHeight.toString());
             print("width: " + constraints.maxWidth.toString());
-
             final width = constraints.biggest.width;
-            final height = constraints.biggest.height;
             return SingleChildScrollView(
+              dragStartBehavior: DragStartBehavior.down,
               child: Container(
-                margin: EdgeInsets.symmetric(vertical: 20),
-                constraints: constraints.widthConstraints(),
-                height: width > constraints.maxHeight
-                    ? width
-                    : constraints.maxHeight,
+                height: constraints.maxHeight,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       'Welcome to Lorem',
@@ -47,9 +42,11 @@ class _Sign_In2State extends State<Sign_In2> {
                     Column(
                       children: [
                         Container(
-                          margin: EdgeInsets.only(top: 40),
+                          margin: EdgeInsets.symmetric(horizontal: 20,vertical: 40),
+                          //  margin: EdgeInsets.only(top: 40),
                           decoration: boxdecoration,
                           padding: const EdgeInsets.all(20.0),
+
                           child: Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -60,13 +57,14 @@ class _Sign_In2State extends State<Sign_In2> {
                                 TextField(
                                   decoration: InputDecoration(
                                       filled: true,
+                                      contentPadding: EdgeInsets.all(20),
                                       fillColor: Colors.grey.shade300,
+                                      focusColor: Colors.white,
                                       border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(13)),
-                                      prefixIcon:
-                                          const Icon(Icons.contact_mail),
-                                      labelText: '| Username',
+                                          borderRadius: BorderRadius.circular(13)),
+                                      prefixIcon: const Icon(Icons.contact_mail),
+                                     // labelText: '| Username',
+                                      hintText: "| Username",
                                       enabled: true),
                                   enabled: true,
                                 ),
@@ -78,18 +76,21 @@ class _Sign_In2State extends State<Sign_In2> {
                                       filled: true,
                                       fillColor: Colors.grey.shade300,
                                       border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(13)),
+                                          borderRadius: BorderRadius.circular(13)),
                                       prefixIcon: const Icon(Icons.lock),
-                                      labelText: '| Password',
+                                      hintText: '| Password',
                                       enabled: true),
                                   enabled: true,
                                 ),
-                                Align(alignment: Alignment.centerRight,
+                                Align(
+                                  alignment: Alignment.centerRight,
                                   child: FlatButton(
-                                    child:  Text('Forgot Password?', style:  TextStyle(color:  Colors.white),),
+                                    child: Text(
+                                      'Forgot Password?',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
                                     onPressed: () {
-                                      Get.to(()=> const Recover_Password());
+                                      Get.to(() => const Recover_Password());
                                     },
                                   ),
                                 ),
@@ -103,15 +104,13 @@ class _Sign_In2State extends State<Sign_In2> {
                                     child: const Text('Sign In'),
                                     color: Colors.white,
                                     shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0)),
+                                        borderRadius: BorderRadius.circular(8.0)),
                                     textColor: PRIMARY_COLOR,
                                     onPressed: () {
-                                      Get.off(() => const HomeScreenView());
+                                      Get.off(() => HomeScreenView());
                                     },
                                   ),
                                 ),
-
                               ],
                             ),
                           ),
@@ -127,8 +126,7 @@ class _Sign_In2State extends State<Sign_In2> {
                                   children: [
                                     Container(
                                       height: 1,
-                                      width: MediaQuery.of(context).size.width *
-                                          .2,
+                                      width: MediaQuery.of(context).size.width * .2,
                                       color: Colors.black,
                                     ),
                                     const Padding(
@@ -136,14 +134,13 @@ class _Sign_In2State extends State<Sign_In2> {
                                           vertical: 15, horizontal: 10),
                                       child: Text(
                                         'Or Sign up using',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w400),
+                                        style:
+                                        TextStyle(fontWeight: FontWeight.w400),
                                       ),
                                     ),
                                     Container(
                                       height: 1,
-                                      width: MediaQuery.of(context).size.width *
-                                          .2,
+                                      width: MediaQuery.of(context).size.width * .2,
                                       color: Colors.black,
                                     ),
                                   ],
@@ -157,7 +154,7 @@ class _Sign_In2State extends State<Sign_In2> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    /*SizedBox(
                       height: MediaQuery.of(context).size.height * 0.12,
                     ),
                     Row(mainAxisAlignment: MainAxisAlignment.center,
@@ -177,7 +174,7 @@ class _Sign_In2State extends State<Sign_In2> {
                                 fontWeight: FontWeight.w500,
                                 color: Colors.blue)),
                         )],
-                    )
+                    )*/
                   ],
                 ),
               ),

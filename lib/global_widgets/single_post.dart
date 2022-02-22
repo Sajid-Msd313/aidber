@@ -1,7 +1,10 @@
 import 'package:aidber/global_widgets/report_dialog.dart';
 import 'package:aidber/screens/home_screen/controller/home_controller.dart';
+import 'package:aidber/screens/home_screen/widgets/make_rounded_text_type.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:readmore/readmore.dart';
+
 
 class single_post extends StatelessWidget {
   const single_post({Key? key}) : super(key: key);
@@ -33,23 +36,24 @@ class single_post extends StatelessWidget {
                     const Text(
                         "31s",
                         style: TextStyle(fontSize: 11, color: Colors.black38)),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 3),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: Colors.black)
-                      ),
-                      child: const Text("Career"),
-                    )
+                    make_rounded_text_type(text: "Career"),
                   ],
                 ),
             ),
             trailing: const report_dialog(),
           ),
           const SizedBox(height: 5,),
-          const Text(
-            'And Most Importantly,take good care of yourself first:of your body,mind, and soul!',
-          ),
+       ReadMoreText(
+        'And Most Importantly,take good care of yourself first:of your body,mind, and soul!' *5,
+        trimLines: 2,
+        style: const TextStyle(color: Colors.black),
+        colorClickableText: Get.theme.primaryColor,
+        trimMode: TrimMode.Line,
+        trimCollapsedText: 'Show more',
+        trimExpandedText: 'Show less',
+        lessStyle: TextStyle( color: Get.theme.primaryColor, fontWeight: FontWeight.bold),
+        moreStyle: TextStyle( color: Get.theme.primaryColor, fontWeight: FontWeight.bold),
+      ),
           const SizedBox(
             height: 10,
           ),//wala aleka
