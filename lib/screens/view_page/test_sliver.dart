@@ -7,12 +7,12 @@ import 'package:aidber/screens/view_page/widgets/make_profile_header.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class view_page_main_screen extends StatefulWidget {
+class MainCollapsingToolbar extends StatefulWidget {
   @override
-  _view_page_main_screenState createState() => _view_page_main_screenState();
+  _MainCollapsingToolbarState createState() => _MainCollapsingToolbarState();
 }
 
-class _view_page_main_screenState extends State<view_page_main_screen> {
+class _MainCollapsingToolbarState extends State<MainCollapsingToolbar> {
   TabController? _tabController;
 
   @override
