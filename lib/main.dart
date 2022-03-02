@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
 
       ),
      // home:  Sign_In2(),
-      home:  SignUp(),
+      home:  Sign_In2(),
     );
   }
 }

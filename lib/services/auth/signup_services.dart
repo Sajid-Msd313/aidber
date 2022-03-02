@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:aidber/models/signup_model.dart';
+import 'package:aidber/models/auth/signup_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:aidber/api_urls.dart';
 class signup_services {

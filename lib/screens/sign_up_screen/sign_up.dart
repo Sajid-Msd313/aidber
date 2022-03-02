@@ -1,4 +1,4 @@
-import 'package:aidber/controllers/signup_controller.dart';
+import 'package:aidber/controllers/auth/signup_controller.dart';
 import 'package:aidber/global_widgets/box_shadow.dart';
 import 'package:aidber/global_widgets/circluar_progressIndicator.dart';
 import 'package:aidber/global_widgets/colors.dart';
