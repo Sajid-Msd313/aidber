@@ -16,8 +16,8 @@ class make_profile_header extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Column(
-              children: [
-                const make_profile_avatar(),
+              children: const [
+                make_profile_avatar(),
               ],
             ),
             Column(

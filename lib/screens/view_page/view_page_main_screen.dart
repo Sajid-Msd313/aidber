@@ -7,12 +7,12 @@ import 'package:aidber/screens/view_page/widgets/make_profile_header.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class view_page_main_screen extends StatefulWidget {
+class view_page_mainScreen extends StatefulWidget {
   @override
-  _view_page_main_screenState createState() => _view_page_main_screenState();
+  _view_page_mainScreenState createState() => _view_page_mainScreenState();
 }
 
-class _view_page_main_screenState extends State<view_page_main_screen> {
+class _view_page_mainScreenState extends State<view_page_mainScreen> {
   TabController? _tabController;
 
   @override

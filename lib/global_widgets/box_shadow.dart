@@ -14,3 +14,6 @@ Decoration boxdecoration = BoxDecoration(
         Offset(5, 3), // changes position of shadow
       ),
     ]);
+
+InputBorder input_border = OutlineInputBorder(
+borderRadius: BorderRadius.circular(13));

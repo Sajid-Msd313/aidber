@@ -1,5 +1,6 @@
 
 import 'package:aidber/screens/login/login_view.dart';
+import 'package:aidber/screens/sign_up_screen/sign_up.dart';
 import 'package:aidber/screens/view_page/test_sliver.dart';
 import 'package:aidber/screens/view_page/view_page_main_screen.dart';
 import 'package:aidber/screens/view_page/widgets/sliver_tabbar.dart';
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
 
       ),
      // home:  Sign_In2(),
-      home:  MainCollapsingToolbar(),
+      home:  SignUp(),
     );
   }
 }

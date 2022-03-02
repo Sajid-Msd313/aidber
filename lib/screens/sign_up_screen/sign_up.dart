@@ -1,70 +1,65 @@
+import 'package:aidber/controllers/signup_controller.dart';
+import 'package:aidber/global_widgets/box_shadow.dart';
+import 'package:aidber/global_widgets/circluar_progressIndicator.dart';
 import 'package:aidber/global_widgets/colors.dart';
-import 'package:flutter/material.dart';
-
+import 'package:aidber/global_widgets/responsive_body.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SignUp extends StatefulWidget {
-  const SignUp({Key? key}) : super(key: key);
-
-  @override
-  _SignUpState createState() => _SignUpState();
-}
-
-class _SignUpState extends State<SignUp> {
+class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(margin: EdgeInsets.symmetric(vertical: 10),
-              height: MediaQuery.of(context).size.height,
+        child: responsive_body(
+            child: GetBuilder<signup_controller>(
+          init: signup_controller(),
+          builder: (controller) {
+            return Form(
+              key: controller.formKey,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10),
-                    child: InkWell(
-                        onTap: (){
-                          Get.back();
-                        },
-                        child:  Icon(Icons.arrow_back,color: PRIMARY_COLOR,)),
-                  ),
-                  Container(margin: EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(
-                      'Sign Up',
-                      style: TextStyle(
-                          color:PRIMARY_COLOR,
-                          fontSize: 23,
-                          fontWeight: FontWeight.bold),
+                  Spacer(),
+                  InkWell(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Icon(
+                        Icons.arrow_back,
+                        color: PRIMARY_COLOR,
+                      )),
+                  Text(
+                    'Sign Up',
+                    style: TextStyle(
+                      color: PRIMARY_COLOR,
+                      fontSize: 23,
                     ),
                   ),
-                  SizedBox(height: 30,),
+                  SizedBox(
+                    height: 30,
+                  ),
                   Container(
-                    decoration: BoxDecoration(
-                        color: PRIMARY_COLOR,
-                        borderRadius: BorderRadius.circular(15.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey..withOpacity(0.5),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset:
-                            const Offset(5, 3), // changes position of shadow
-                          ),
-                        ]),
-                    padding: const EdgeInsets.all(20.0),
+                    margin: EdgeInsets.symmetric(horizontal: 5),
+                    decoration: boxdecoration,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 23.0, vertical: 23),
                     child: Column(
                       children: [
-
-                        TextField(
+                        TextFormField(
+                          validator: (val){
+                            if(!GetUtils.isUsername(val!)){
+                              return "Enter valid username";
+                            }
+                          },
+                          controller: controller.username,
                           decoration: InputDecoration(
                               filled: true,
+                              contentPadding: EdgeInsets.all(5),
                               fillColor: Colors.grey.shade300,
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(13)),
+                              border: input_border,
                               prefixIcon: const Icon(Icons.contact_mail),
                               labelText: '| Username',
                               enabled: true),
@@ -73,9 +68,16 @@ class _SignUpState extends State<SignUp> {
                         const SizedBox(
                           height: 5,
                         ),
-                        TextField(
+                        TextFormField(
+                          validator: (val){
+                            if(val!.length <3){
+                              return "Enter valid name";
+                            }
+                          },
+                          controller: controller.full_name,
                           decoration: InputDecoration(
                               filled: true,
+                              contentPadding: EdgeInsets.all(5),
                               fillColor: Colors.grey.shade300,
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(13)),
@@ -87,9 +89,16 @@ class _SignUpState extends State<SignUp> {
                         const SizedBox(
                           height: 5,
                         ),
-                        TextField(
+                        TextFormField(
+                          validator: (_){
+                            if(!GetUtils.isEmail(_!)){
+                              return "Enter valid email";
+                            }
+                          },
+                          controller: controller.email,
                           decoration: InputDecoration(
                               filled: true,
+                              contentPadding: EdgeInsets.all(5),
                               fillColor: Colors.grey.shade300,
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(13)),
@@ -101,9 +110,19 @@ class _SignUpState extends State<SignUp> {
                         const SizedBox(
                           height: 5,
                         ),
-                        TextField(
+                        TextFormField(
+                          validator: (_){
+                            if(_!.isEmpty){
+                              return "Password must be entered";
+                            }
+                            if(_.length <5){
+                              return "Password must be strong";
+                            }
+                          },
+                          controller: controller.password,
                           decoration: InputDecoration(
                               filled: true,
+                              contentPadding: EdgeInsets.all(5),
                               fillColor: Colors.grey.shade300,
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(13)),
@@ -115,16 +134,18 @@ class _SignUpState extends State<SignUp> {
                         const SizedBox(
                           height: 30,
                         ),
-                        Container(
+                    controller.isLoading?circular_progressIndicator():    Container(
                           width: 310,
                           height: 40,
                           child: FlatButton(
                             child: const Text('Sign Up'),
-                            color:  Colors.white,
+                            color: Colors.white,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8.0)),
                             textColor: PRIMARY_COLOR,
-                            onPressed: () {},
+                            onPressed: () {
+                              controller.validate();
+                            },
                           ),
                         ),
                         const SizedBox(
@@ -133,13 +154,16 @@ class _SignUpState extends State<SignUp> {
                         const Text(
                           'By Continuing, I confirm that I have read and agree to the Terms & Condition and Privacy Policy ',
                           style: TextStyle(
-                              fontSize: 12, fontWeight: FontWeight.w400,color: Colors.white),textAlign: TextAlign.center,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.white),
+                          textAlign: TextAlign.center,
                         ),
                         Center(
-                          child:  Text(
+                          child: Text(
                             'Terms and Conditions and Privacy Policy',
                             style: TextStyle(
-                                color:  Get.theme.primaryColor,
+                                color: Get.theme.primaryColor,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400),
                           ),
@@ -147,7 +171,9 @@ class _SignUpState extends State<SignUp> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 10,),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   Column(
                     children: [
                       Align(
@@ -177,19 +203,23 @@ class _SignUpState extends State<SignUp> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 5,),
+                      SizedBox(
+                        height: 5,
+                      ),
                       CircleAvatar(
                         child: Image.asset("assets/google.jpg"),
                       ),
                     ],
                   ),
-
-
+                  Spacer(
+                    flex: 5,
+                  ),
                 ],
-              )),
-        ),
+              ),
+            );
+          },
+        )),
       ),
     );
   }
 }
-
