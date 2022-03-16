@@ -6,10 +6,8 @@ import 'package:aidber/api_urls.dart';
 class signin_services {
   static var client = http.Client();
 
-  static Future post_signin_api(
-      {
-        required String email,
-        required String password}) async {
+  static Future post_signin_api({required String email, required String password}) async
+  {
     Map<String, String> body = {
       'email': email,
       'password': password,
@@ -32,19 +30,4 @@ class signin_services {
       print(body);
     }
   }
-// static post_signup_api({required String username, required String full_name, required String email, required String password}) async {
-//   var request = http.MultipartRequest(
-//       'POST', Uri.parse('https://www.paakhealth.com/dochealth/api/signup'));
-//
-//   request.fields.addAll(body);
-//
-//   http.StreamedResponse response = await request.send();
-//
-//   if (response.statusCode == 200) {
-//     print(await response.stream.bytesToString());
-//
-//   } else {
-//     print(response.reasonPhrase);
-//   }
-// }
 }
