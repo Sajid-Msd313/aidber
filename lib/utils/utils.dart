@@ -1,11 +1,42 @@
 
+import 'package:aidber/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/snackbar/snackbar.dart';
 import 'package:get/get_utils/src/extensions/num_extensions.dart';
+import 'package:google_api_headers/google_api_headers.dart';
+import 'package:google_maps_webservice/src/places.dart';
+import 'package:intl/src/intl/date_format.dart';
+
+TextStyle kHintStyle = TextStyle(color: Colors.grey.shade400, fontSize: 15);
+TextStyle kstyle1 = TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold);
+TextStyle kstyleAppBar  = TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 23);
 
 
-   show_snackBarSuccess({required String title, required String description}) {
+
+ String formate_Date1 (String datetime){
+if(datetime.toString() == "" || datetime.toString() == "null"){
+return "";
+}
+
+DateTime time = DateTime.parse(datetime);
+String formattedDate = DateFormat('yyyy-MM-dd').format(time);
+
+return formattedDate.toString();
+}
+
+Future displayPrediction(Prediction? p,) async {
+  if (p != null) {
+    GoogleMapsPlaces _places = GoogleMapsPlaces(
+      apiKey: constans.GOOGLE_API_KEY,
+      apiHeaders: await const GoogleApiHeaders().getHeaders(),
+    );
+    PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(p.placeId!);
+    return detail;
+  }
+}
+
+  show_snackBarSuccess({required String title, required String description}) {
     Get.snackbar(
       title,
       description,
@@ -41,9 +72,6 @@ import 'package:get/get_utils/src/extensions/num_extensions.dart';
       snackPosition: SnackPosition.BOTTOM,
     );
   }
-
-
-
 //platformexeption errors
    check_errormessage({required String e}){
     if(e.toString().contains("Failed host lookup")){

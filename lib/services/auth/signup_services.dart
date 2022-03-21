@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:aidber/models/auth/signup_model.dart';
 import 'package:http/http.dart' as http;
-import 'package:aidber/api_urls.dart';
+import 'package:aidber/utils/api_urls.dart';
 class signup_services {
   static var client = http.Client();
 
@@ -19,7 +19,7 @@ class signup_services {
     };
     print("POST body ====> \n" +body.toString());
     var response = await client
-        .post(Uri.parse(api_urls.BASE_URL + api_urls.SIGN_UP,),body: body);
+        .post(Uri.parse(api_urls.SIGN_UP,),body: body);
     print("=======> RESPONSE BODY FOR SIGNUP");
     print(response.body);
     try {

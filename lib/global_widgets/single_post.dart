@@ -1,16 +1,33 @@
 import 'package:aidber/global_widgets/report_dialog.dart';
+import 'package:aidber/screens/home_screen/controller/all_post_controller.dart';
 import 'package:aidber/screens/home_screen/controller/home_controller.dart';
 import 'package:aidber/screens/home_screen/widgets/make_rounded_text_type.dart';
+import 'package:aidber/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:readmore/readmore.dart';
 
+import '../utils/utils.dart';
 
 class single_post extends StatelessWidget {
-  const single_post({Key? key}) : super(key: key);
+  final String img_url;
+  final String post_type;
+  final String time;
+  final String caption;
+  final String user_name;
+  final bool isLiked;
+
+  single_post(
+      {required this.caption,
+        required this.isLiked,
+      required this.img_url,
+      required this.post_type,
+      required this.time,
+      required this.user_name});
 
   @override
   Widget build(BuildContext context) {
+    print(img_url);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -20,66 +37,155 @@ class single_post extends StatelessWidget {
             contentPadding: EdgeInsets.zero,
             style: ListTileStyle.drawer,
             leading: ClipRRect(
-              child: Image.asset('assets/sajidmsd.jpg'),
-              borderRadius: BorderRadius.circular(10),
-            ),
+                child: Container(
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Image.network(constans.DEFAULT_IMAGE),
+            )),
             title: Padding(
               padding: const EdgeInsets.only(bottom: 6.0),
-              child:
-                Column(mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                         "username1",
-                        style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.w500),
-                    ),
-                    const Text(
-                        "31s",
-                        style: TextStyle(fontSize: 11, color: Colors.black38)),
-                    make_rounded_text_type(text: "Career"),
-                  ],
-                ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "username1",
+                    style: TextStyle(
+                      fontSize: 15,
+                        color: Colors.black, fontWeight: FontWeight.w500),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4.0),
+                    child: Text(formate_Date1(time),
+                        style: TextStyle(fontSize: 13, color: Colors.black38)),
+                  ),
+                  make_rounded_text_type(text: post_type),
+                ],
+              ),
             ),
             trailing: const report_dialog(),
           ),
-          const SizedBox(height: 5,),
-       ReadMoreText(
-        'And Most Importantly,take good care of yourself first:of your body,mind, and soul!' *5,
-        trimLines: 2,
-        style: const TextStyle(color: Colors.black),
-        colorClickableText: Get.theme.primaryColor,
-        trimMode: TrimMode.Line,
-        trimCollapsedText: 'Show more',
-        trimExpandedText: 'Show less',
-        lessStyle: TextStyle( color: Get.theme.primaryColor, fontWeight: FontWeight.bold),
-        moreStyle: TextStyle( color: Get.theme.primaryColor, fontWeight: FontWeight.bold),
-      ),
+          const SizedBox(
+            height: 5,
+          ),
+          ReadMoreText(
+            caption,
+            trimLines: 2,
+            textAlign: TextAlign.start,
+            style: const TextStyle(
+              color: Colors.black,
+            ),
+            colorClickableText: Get.theme.primaryColor,
+            trimMode: TrimMode.Line,
+            trimCollapsedText: 'Show more',
+            trimExpandedText: 'Show less',
+            lessStyle: TextStyle(
+                color: Get.theme.primaryColor, fontWeight: FontWeight.bold),
+            moreStyle: TextStyle(
+                color: Get.theme.primaryColor, fontWeight: FontWeight.bold),
+          ),
           const SizedBox(
             height: 10,
-          ),//wala aleka
-          Container(
-            clipBehavior: Clip.antiAlias,
+          ), //wala aleka
+       if(img_url != constans.DEFAULT_IMAGE)   Container(
+            // clipBehavior: Clip.antiAlias,
             height: MediaQuery.of(context).size.height * 0.3,
             // width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(10),
-                image: const DecorationImage(
-                    filterQuality: FilterQuality.high,
-                    fit: BoxFit.fill,
-                    image: AssetImage("assets/crazy.jpg"))),
+            child: Container(
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Image.network(img_url)),
           ),
           const SizedBox(
             height: 10,
           ),
-          make_reaction_row()
+          make_reaction_row(isLiked: isLiked,timestamp: time,)
         ],
       ),
     );
   }
 }
 
+class make_like_button extends StatefulWidget {
+  bool isLiked;
+  String timestamp;
+ make_like_button({required this.isLiked, required this.timestamp});
+
+  @override
+  _make_like_buttonState createState() => _make_like_buttonState();
+}
+
+class _make_like_buttonState extends State<make_like_button> {
+
+  toggle_like(){
+    widget.isLiked = !widget.isLiked;
+    Get.find<all_post_controller>().update_likePost(timeStampISO: widget.timestamp);
+    setState(() {
+    });
+  }
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        toggle_like();
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 6.0),
+        child: Image.asset(
+          widget.isLiked
+              ? "assets/likes.png"
+              : "assets/like.png",
+          height: 27,
+          width: 27,
+        ),
+      ),
+    );
+  }
+}
+
+
+class make_save_button extends StatefulWidget {
+  bool isSaved ;
+  make_save_button({required this.isSaved});
+
+  @override
+  _make_save_buttonState createState() => _make_save_buttonState();
+}
+
+class _make_save_buttonState extends State<make_save_button> {
+  toggle_save(){
+    widget.isSaved = !widget.isSaved;
+    setState(() {
+    });
+  }
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        toggle_save();
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 6.0),
+        child: Image.asset(
+          "assets/save.png",
+          color:widget.isSaved? Colors.red : Colors.black,
+          height: 25,
+          width: 25,
+        ),
+      ),
+    );
+  }
+}
+
+
 class make_reaction_row extends StatelessWidget {
+  String timestamp;
+  bool isLiked;
+  make_reaction_row({required this.isLiked,required this.timestamp});
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -88,25 +194,7 @@ class make_reaction_row extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            GetBuilder<home_controller>(
-                init: Get.find<home_controller>(),
-                builder: (c) {
-                  return InkWell(
-                    onTap: () {
-                      c.toggle_like();
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                      child: Image.asset(
-                        c.isLiked.value
-                            ? "assets/likes.png"
-                            : "assets/like.png",
-                        height: 27,
-                        width: 27,
-                      ),
-                    ),
-                  );
-                }),
+            make_like_button(isLiked:isLiked,timestamp: timestamp,),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 6.0),
               child: Image.asset(
@@ -122,20 +210,7 @@ class make_reaction_row extends StatelessWidget {
             ),
           ],
         ),
-        GetBuilder<home_controller>(
-            init: Get.find<home_controller>(),
-            builder: (c) {
-              return InkWell(
-                  onTap: () {
-                    c.toggle_save();
-                  },
-                  child: Image.asset(
-                    "assets/save.png",
-                    color: c.isSaved.value ? Colors.black : Colors.red,
-                    height: 25,
-                    width: 25,
-                  ));
-            }),
+        make_save_button(isSaved: false,)
       ],
     );
   }

@@ -1,7 +1,7 @@
 import 'package:aidber/global_widgets/colors.dart';
 import 'package:aidber/global_widgets/custom_button.dart';
+import 'package:aidber/screens/auth/login/login_view.dart';
 import 'package:aidber/screens/events/events_view.dart';
-import 'package:aidber/screens/login/login_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -45,11 +45,13 @@ class bodymenu extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text("Doctor's Lounge",
-                          softWrap: true,
-                          overflow: TextOverflow.visible,
-                          style: TextStyle(fontSize: 15, color: Colors.white),
-                          textAlign: TextAlign.start),
+                      Expanded(
+                        child: const Text("Healthcare Lounge",
+                            softWrap: true,
+                            overflow: TextOverflow.visible,
+                            style: TextStyle(fontSize: 18, color: Colors.white),
+                            textAlign: TextAlign.start),
+                      ),
                       Image.asset(
                         "assets/doctor_lounge.png",
                         scale: 4,
@@ -70,7 +72,7 @@ class bodymenu extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text("Events",
-                            style: TextStyle(fontSize: 15, color: Colors.white),
+                            style: TextStyle(fontSize: 18, color: Colors.white),
                             textAlign: TextAlign.center),
                         Image.asset(
                           "assets/events.png",
@@ -88,8 +90,8 @@ class bodymenu extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text("Career",
-                          style: TextStyle(fontSize: 15, color: Colors.white),
+                      const Text("Find a Job's",
+                          style: TextStyle(fontSize: 18, color: Colors.white),
                           textAlign: TextAlign.center),
                       Image.asset(
                         "assets/career.png",
@@ -106,8 +108,8 @@ class bodymenu extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text("Advancements",
-                          style: TextStyle(fontSize: 15, color: Colors.white),
+                      const Text("Innovation",
+                          style: TextStyle(fontSize: 18, color: Colors.white),
                           textAlign: TextAlign.center),
                       Image.asset(
                         "assets/advancements.png",
@@ -119,6 +121,28 @@ class bodymenu extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
+
+        CustomLogMenuButton(
+            btnText: "Saved",
+            primary: true,
+            onPressed: () {
+              Get.offAll(() => const Sign_In2());
+            }),
+        SizedBox(height: 7,),
+        CustomLogMenuButton(
+            btnText: "Create Business Account",
+            primary: true,
+            onPressed: () {
+              Get.offAll(() => const Sign_In2());
+            }),
+        SizedBox(height: 7,),
+        CustomLogMenuButton(
+            btnText: "Business Accounts",
+            primary: true,
+            onPressed: () {
+              Get.offAll(() => const Sign_In2());
+            }),
+        SizedBox(height: 7,),
         CustomLogOutButton(
             btnText: "Log Out",
             primary: true,

@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../../../models/posts/all_posts_model.dart';
+
 class home_controller extends GetxController{
 
   var isLiked = false.obs;

@@ -1,5 +1,5 @@
 import 'package:aidber/models/auth/signup_model.dart';
-import 'package:aidber/utils.dart';
+import 'package:aidber/utils/utils.dart';
 import 'package:get/get.dart';
 import 'package:aidber/services/auth/signup_services.dart';
 import 'package:flutter/material.dart';
