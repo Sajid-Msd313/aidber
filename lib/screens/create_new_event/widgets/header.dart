@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../utils/dimensions.dart';
+import '../../../utils/styles.dart';
+
 class headerCreateEvent extends StatelessWidget {
   const headerCreateEvent({Key? key}) : super(key: key);
 
@@ -10,15 +13,14 @@ class headerCreateEvent extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
+          child:   Row(
+            children:  [
               InkWell(
                   onTap: (){
                     Get.back();
                   },
-                  child: const Icon(Icons.arrow_back)),
-              Text('Edit Profile'),
+                  child: const Icon(Icons.arrow_back_ios,)),
+              Text('Edit Profile',style: kstyle1.copyWith(fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE,fontWeight: FontWeight.w800),),
             ],
           ),
         ),
@@ -28,7 +30,7 @@ class headerCreateEvent extends StatelessWidget {
           color: Colors.black12,
           child: Center(
             child: Column(mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: const [
                 Icon(
                   Icons.camera_alt,
                   size: 40,

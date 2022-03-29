@@ -19,4 +19,8 @@ class api_urls {
   static const String GET_ALL_POST = "$BASE_URL/$API_URL/get_all_posts";
   static const String LIKE_POST = "$BASE_URL/$API_URL/get_all_posts";
   //===========POST ENDS HEREURLS============//
+
+
+  //===========EVENT URLS============//
+  static const String ADD_EVENT = "$BASE_URL/$API_URL/add_event";
 }

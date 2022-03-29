@@ -1,7 +1,7 @@
 import 'package:aidber/global_widgets/colors.dart';
 import 'package:flutter/material.dart';
 
-var CustomAppbar=AppBar(
+AppBar CustomAppbar=AppBar(
   backgroundColor: PRIMARY_COLOR,
 
   title:  Text(
@@ -23,4 +23,16 @@ actions: [
     onPressed: () {},
   ),
 ],
+);
+AppBar CustomAppbar1=AppBar(
+  backgroundColor: PRIMARY_COLOR,
+elevation: 0,
+
+  automaticallyImplyLeading: false,
+  title:Text(
+    'LOGO',
+    style: TextStyle(color: Colors.white, fontSize: 20),
+    textAlign: TextAlign.center,
+  ) ,
+
 );

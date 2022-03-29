@@ -11,7 +11,7 @@ class CreateNewEvent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar,
+      appBar: CustomAppbar1,
       body:SafeArea(child: SingleChildScrollView(
         child: Column(
           children: [

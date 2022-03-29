@@ -92,8 +92,7 @@ maxLines: 3,
       },
       textInputAction: textInputAction,
 
-      style: const TextStyle(fontSize: 18,color: Colors.black),
-
+      style: const TextStyle(fontSize: 16,color: Colors.black,),
       decoration:  InputDecoration(
         labelText: labeltext,
         prefixIcon: prefixIcon,

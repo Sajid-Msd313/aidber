@@ -6,6 +6,7 @@ import 'package:aidber/screens/create_a_post/widgets/make_select_optionWidget.da
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../utils/styles.dart';
 import 'widgets/make_category_selection_chips.dart';
 import '../../utils/utils.dart';
 class create_post_screen extends GetView<create_post_controller> {

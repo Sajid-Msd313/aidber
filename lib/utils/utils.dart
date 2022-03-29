@@ -8,9 +8,7 @@ import 'package:google_api_headers/google_api_headers.dart';
 import 'package:google_maps_webservice/src/places.dart';
 import 'package:intl/src/intl/date_format.dart';
 
-TextStyle kHintStyle = TextStyle(color: Colors.grey.shade400, fontSize: 15);
-TextStyle kstyle1 = TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold);
-TextStyle kstyleAppBar  = TextStyle(color: Colors.white, fontWeight: FontWeight.normal, fontSize: 23);
+
 
 
 
