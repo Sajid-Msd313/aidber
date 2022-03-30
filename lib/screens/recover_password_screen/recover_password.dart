@@ -1,4 +1,5 @@
 import 'package:aidber/global_widgets/colors.dart';
+import 'package:aidber/global_widgets/custom_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -36,7 +37,7 @@ class _Recover_PasswordState extends State<Recover_Password> {
                         Get.back();
                       },
                       child: Icon(
-                        Icons.arrow_back,
+                        Icons.arrow_back_ios,
                         color: PRIMARY_COLOR,
                       ),
                     ),
@@ -65,17 +66,9 @@ class _Recover_PasswordState extends State<Recover_Password> {
                     width: width *.9,
                     child: Container(
                       decoration: BoxDecoration(
-                          color: PRIMARY_COLOR,
+                          // color: PRIMARY_COLOR,
                           borderRadius: BorderRadius.circular(15.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset: const Offset(
-                                  5, 3), // changes position of shadow
-                            ),
-                          ]),
+                         ),
                       padding: const EdgeInsets.all(20.0),
                       child: Column(
                         children: [
@@ -87,30 +80,18 @@ class _Recover_PasswordState extends State<Recover_Password> {
                                 filled: true,
                                 fillColor: Colors.grey.shade300,
                                 border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
                                     borderRadius: BorderRadius.circular(13)),
                                 prefixIcon: const Icon(Icons.contact_mail),
-                                labelText: 'Email',
+                                labelText: '| Email',
                                 enabled: true),
                             enabled: true,
                           ),
                           const SizedBox(
                             height: 40,
                           ),
-                          Container(
-                            width: Get.width * .8,
-                            height: 52,
-                            child: FlatButton(
-                              child: const Text(
-                                'Recover Password',
-                                style: TextStyle(fontSize: 18),
-                              ),
-                              color:  Colors.white,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8.0)),
-                              textColor: PRIMARY_COLOR,
-                              onPressed: () {},
-                            ),
-                          ),
+                         CustomButton(btnText: "Recover Password", primary: true, onPressed: (){},showShadow: false,)
+
                         ],
                       ),
                     ),
