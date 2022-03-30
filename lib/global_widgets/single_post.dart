@@ -210,7 +210,7 @@ class make_reaction_row extends StatelessWidget {
             ),
           ],
         ),
-        make_save_button(isSaved: false,)
+        // make_save_button(isSaved: false,)
       ],
     );
   }

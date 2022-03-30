@@ -4,8 +4,11 @@ import 'package:aidber/global_widgets/circluar_progressIndicator.dart';
 import 'package:aidber/global_widgets/colors.dart';
 import 'package:aidber/screens/recover_password_screen/recover_password.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../sign_up_screen/sign_up.dart';
 
 class Sign_In2 extends StatefulWidget {
   const Sign_In2({Key? key}) : super(key: key);
@@ -50,7 +53,7 @@ class _Sign_In2State extends State<Sign_In2> {
                                   margin: EdgeInsets.symmetric(
                                       horizontal: 20, vertical: 40),
                                   //  margin: EdgeInsets.only(top: 40),
-                                  decoration: boxdecoration,
+                                 // decoration: boxdecoration,
                                   padding: const EdgeInsets.all(20.0),
 
                                   child: Center(
@@ -81,6 +84,7 @@ class _Sign_In2State extends State<Sign_In2> {
                                                 fillColor: Colors.grey.shade300,
                                                 focusColor: Colors.white,
                                                 border: OutlineInputBorder(
+                                                    borderSide: BorderSide.none,
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             13)),
@@ -107,6 +111,7 @@ class _Sign_In2State extends State<Sign_In2> {
                                                 filled: true,
                                                 fillColor: Colors.grey.shade300,
                                                 border: OutlineInputBorder(
+                                                  borderSide: BorderSide.none,
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             13)),
@@ -122,7 +127,7 @@ class _Sign_In2State extends State<Sign_In2> {
                                               child: Text(
                                                 'Forgot Password?',
                                                 style: TextStyle(
-                                                    color: Colors.white),
+                                                    color: Colors.grey),
                                               ),
                                               onPressed: () {
                                                 Get.to(() =>
@@ -139,8 +144,8 @@ class _Sign_In2State extends State<Sign_In2> {
                                                   width: Get.width * .9,
                                                   height: 45,
                                                   child: FlatButton(
-                                                    child: const Text('Sign In'),
-                                                    color: Colors.white,
+                                                    child: const Text('Sign In',style: TextStyle(color: Colors.white),),
+                                                    color: PRIMARY_COLOR,
                                                     shape: RoundedRectangleBorder(
                                                         borderRadius:
                                                             BorderRadius.circular(
@@ -202,6 +207,10 @@ class _Sign_In2State extends State<Sign_In2> {
                                     ),
                                   ],
                                 ),
+                                SizedBox(height: Get.height *.2,),
+                                RichText(text: TextSpan(text: "Don't have an account?",style: TextStyle(color: Colors.black),children: [
+                                  TextSpan(text: "Create an Account",recognizer: new TapGestureRecognizer()..onTap = () => Get.to(SignUp()),style: TextStyle(color: Colors.blueAccent))
+                                ]))
                               ],
                             ),
                           );

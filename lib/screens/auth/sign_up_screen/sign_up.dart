@@ -43,7 +43,7 @@ class SignUp extends StatelessWidget {
                   ),
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 5),
-                    decoration: boxdecoration,
+                    //decoration: boxdecoration,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 23.0, vertical: 23),
                     child: Column(
@@ -80,6 +80,7 @@ class SignUp extends StatelessWidget {
                               contentPadding: EdgeInsets.all(5),
                               fillColor: Colors.grey.shade300,
                               border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
                                   borderRadius: BorderRadius.circular(13)),
                               prefixIcon: const Icon(Icons.email_outlined),
                               labelText: '| Full Name',
@@ -101,6 +102,7 @@ class SignUp extends StatelessWidget {
                               contentPadding: EdgeInsets.all(5),
                               fillColor: Colors.grey.shade300,
                               border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
                                   borderRadius: BorderRadius.circular(13)),
                               prefixIcon: const Icon(Icons.email_outlined),
                               labelText: '| Email',
@@ -125,6 +127,7 @@ class SignUp extends StatelessWidget {
                               contentPadding: EdgeInsets.all(5),
                               fillColor: Colors.grey.shade300,
                               border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
                                   borderRadius: BorderRadius.circular(13)),
                               prefixIcon: const Icon(Icons.lock),
                               labelText: '| Password',
@@ -138,8 +141,8 @@ class SignUp extends StatelessWidget {
                           width: 310,
                           height: 40,
                           child: FlatButton(
-                            child: const Text('Sign Up'),
-                            color: Colors.white,
+                            child: const Text('Sign Up',style: TextStyle(color: Colors.white),),
+                            color: PRIMARY_COLOR,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8.0)),
                             textColor: PRIMARY_COLOR,
