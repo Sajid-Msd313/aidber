@@ -2,6 +2,7 @@ import 'package:aidber/menu/navigation_bar/bottom_nav_bar_custom.dart';
 import 'package:aidber/screens/auth/login/login_view.dart';
 import 'package:aidber/screens/create_a_post/create_post_screen.dart';
 import 'package:aidber/screens/home_screen/home_screen_view.dart';
+import 'package:aidber/screens/network/network_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'controllers/storage_controller/storage_controller.dart';
@@ -25,7 +26,8 @@ class MyApp extends StatelessWidget {
         primaryColor: const Color(0xFF282d6b),
       ),
       // home:  Sign_In2(),
-      home: Get.find<storage_controller>().restoreLoginModel() == null? Sign_In2() : root_page(),
+    //  home: Get.find<storage_controller>().restoreLoginModel() == null? Sign_In2() : root_page(),
+      home: Network_Screen(),
     );
   }
 }
