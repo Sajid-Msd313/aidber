@@ -26,8 +26,8 @@ class MyApp extends StatelessWidget {
         primaryColor: const Color(0xFF282d6b),
       ),
       // home:  Sign_In2(),
-    //  home: Get.find<storage_controller>().restoreLoginModel() == null? Sign_In2() : root_page(),
-      home: Network_Screen(),
+      home: Get.find<storage_controller>().restoreLoginModel() == null? Sign_In2() : root_page(),
+     // home: Network_Screen(),
     );
   }
 }

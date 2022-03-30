@@ -18,6 +18,8 @@ class make_category_selection_chips extends GetView<create_post_controller> {
         builder: (controller){
 
       return ChipsChoice<String>.single(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        padding: const EdgeInsets.symmetric(horizontal: 0,vertical: 2),
         value: controller.post_categoryField,
         onChanged: (val) {
           controller.post_categoryField = val;
@@ -29,14 +31,14 @@ class make_category_selection_chips extends GetView<create_post_controller> {
         ),
         choiceActiveStyle: C2ChoiceStyle(
           color: Get.theme.backgroundColor,
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+          borderRadius: BorderRadius.all(const Radius.circular(10)),
         ),
         choiceStyle: C2ChoiceStyle(
           showCheckmark: false,
           color: Colors.black,
           backgroundColor: Colors.grey.shade200,
-          labelStyle: TextStyle(fontSize: 14,fontWeight: FontWeight.w400),
-          borderRadius: BorderRadius.all(Radius.circular(15)),
+          labelStyle: const TextStyle(fontSize: 13,fontWeight: FontWeight.w400),
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
         ),
         wrapped: true,
       );

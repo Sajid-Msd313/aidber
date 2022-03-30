@@ -13,7 +13,7 @@ class MyEventsList extends StatelessWidget {
         Get.to(() => const EventDetailView());
       },
       child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.43,
+        height: MediaQuery.of(context).size.height * 0.3,
         child: ListView.builder(
           shrinkWrap: true,
           scrollDirection: Axis.horizontal,
@@ -21,7 +21,7 @@ class MyEventsList extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) => Container(
             margin: const EdgeInsets.all(5),
             // height: 200,
-            width: MediaQuery.of(context).size.width * 0.92,
+            width: Get.width * 0.92,
             //height: MediaQuery.of(context).size.height*0.43,
             child: Container(
               decoration: BoxDecoration(
@@ -34,6 +34,7 @@ class MyEventsList extends StatelessWidget {
                     child: Image.asset(
                       'assets/sajidmsd.jpg',
                       // scale: 4,
+                      height: Get.height*.3,
                       fit: BoxFit.fitWidth,
                     ),
                     borderRadius: const BorderRadius.only(

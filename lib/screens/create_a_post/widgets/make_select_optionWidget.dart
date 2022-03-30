@@ -11,32 +11,42 @@ class make_selection_optionWidget extends GetView<create_post_controller> {
   Widget build(BuildContext context) {
     final List<String> options = [
       'Add Photo/Video',
+      'Add Link',
       'Tag People',
       'Add location',
       'Add collaborator'
     ];
     return ChipsChoice<String>.single(
+      verticalDirection: VerticalDirection.down,
+      direction: Axis.vertical,
+      alignment: WrapAlignment.start,
       value: "",
       onChanged: (val) {
           if(val.contains('Add Photo/Video')){
             controller.open_imageImagePicker(context);
-          }else if(val.contains('Add location')){
+          }else if(val.contains('Add Link')){
+          print('add link');
+          } else if(val.contains('Add location')){
             controller.open_search_map(context);
           }else if(val.contains('Tag People')){
 
-          }else{
+          }
+          else{
 
           }
       },
       choiceAvatarBuilder: (_) {
         if (_.label.contains('Add Photo/Video')) {
-          return const Icon(Icons.add_a_photo);
+          return  Image.asset("assets/add_photo.png");
+        } else if (_.label.contains('Add Link')) {
+          return Image.asset("assets/add_link.png");
         } else if (_.label.contains('Tag People')) {
-          return const Icon(Icons.people_alt_outlined);
-        } else if (_.label.contains('Add location')) {
-          return const Icon(Icons.location_on_outlined);
+          return Image.asset("assets/tag_people.png");
+        }
+        else if (_.label.contains('Add location')) {
+          return Image.asset("assets/add_location.png");
         } else {
-          return const Icon(Icons.menu_book);
+          return Image.asset("assets/add_cola.png");
         }
       },
       choiceItems: C2Choice.listFrom<String, String>(
@@ -56,10 +66,11 @@ class make_selection_optionWidget extends GetView<create_post_controller> {
         labelStyle: kstyle1.copyWith(fontWeight: FontWeight.w500) ,//TextStyle(fontSize: 15,fontWeight: FontWeight.w500),
         backgroundColor: Colors.grey.shade200,
         //padding: EdgeInsets.all(12),
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 5),
         borderRadius: const BorderRadius.all(Radius.circular(10)),
       ),
       wrapped: true,
+      padding: EdgeInsets.symmetric(horizontal: 0,vertical: 0),
     );
   }
 }
