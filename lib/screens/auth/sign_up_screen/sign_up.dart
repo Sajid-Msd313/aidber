@@ -2,7 +2,9 @@ import 'package:aidber/controllers/auth/signup_controller.dart';
 import 'package:aidber/global_widgets/box_shadow.dart';
 import 'package:aidber/global_widgets/circluar_progressIndicator.dart';
 import 'package:aidber/global_widgets/colors.dart';
+import 'package:aidber/global_widgets/custom_button.dart';
 import 'package:aidber/global_widgets/responsive_body.dart';
+import 'package:aidber/utils/styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,9 +30,12 @@ class SignUp extends StatelessWidget {
                         Get.back();
                       },
                       child: Icon(
-                        Icons.arrow_back,
+                        Icons.arrow_back_ios,
                         color: PRIMARY_COLOR,
                       )),
+                  SizedBox(
+                    height: 5,
+                  ),
                   Text(
                     'Sign Up',
                     style: TextStyle(
@@ -39,18 +44,17 @@ class SignUp extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 30,
+                    height: Get.height * .1,
                   ),
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 5),
                     //decoration: boxdecoration,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 23.0, vertical: 23),
+
                     child: Column(
                       children: [
                         TextFormField(
-                          validator: (val){
-                            if(!GetUtils.isUsername(val!)){
+                          validator: (val) {
+                            if (!GetUtils.isUsername(val!)) {
                               return "Enter valid username";
                             }
                           },
@@ -69,8 +73,8 @@ class SignUp extends StatelessWidget {
                           height: 5,
                         ),
                         TextFormField(
-                          validator: (val){
-                            if(val!.length <3){
+                          validator: (val) {
+                            if (val!.length < 3) {
                               return "Enter valid name";
                             }
                           },
@@ -91,8 +95,8 @@ class SignUp extends StatelessWidget {
                           height: 5,
                         ),
                         TextFormField(
-                          validator: (_){
-                            if(!GetUtils.isEmail(_!)){
+                          validator: (_) {
+                            if (!GetUtils.isEmail(_!)) {
                               return "Enter valid email";
                             }
                           },
@@ -113,11 +117,11 @@ class SignUp extends StatelessWidget {
                           height: 5,
                         ),
                         TextFormField(
-                          validator: (_){
-                            if(_!.isEmpty){
+                          validator: (_) {
+                            if (_!.isEmpty) {
                               return "Password must be entered";
                             }
-                            if(_.length <5){
+                            if (_.length < 5) {
                               return "Password must be strong";
                             }
                           },
@@ -137,29 +141,28 @@ class SignUp extends StatelessWidget {
                         const SizedBox(
                           height: 30,
                         ),
-                    controller.isLoading?circular_progressIndicator():    Container(
-                          width: 310,
-                          height: 40,
-                          child: FlatButton(
-                            child: const Text('Sign Up',style: TextStyle(color: Colors.white),),
-                            color: PRIMARY_COLOR,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0)),
-                            textColor: PRIMARY_COLOR,
-                            onPressed: () {
-                              controller.validate();
-                            },
-                          ),
-                        ),
+                        controller.isLoading
+                            ? circular_progressIndicator()
+                            : Container(
+                                width: double.infinity,
+                                height: 40,
+                                child: CustomButton(
+                                  btnText: "Sign Up",
+                                  showShadow: false,
+                                  onPressed: () {
+                                    controller.validate();
+                                  },
+                                  primary: true,
+                                )),
                         const SizedBox(
                           height: 10,
                         ),
                         const Text(
-                          'By Continuing, I confirm that I have read and agree to the Terms & Condition and Privacy Policy ',
+                          'By Continuing, I confirm that I have read and agree to the',
                           style: TextStyle(
-                              fontSize: 12,
+                              fontSize: 13.2,
                               fontWeight: FontWeight.w400,
-                              color: Colors.white),
+                              color: primaryColor),
                           textAlign: TextAlign.center,
                         ),
                         Center(
@@ -167,15 +170,15 @@ class SignUp extends StatelessWidget {
                             'Terms and Conditions and Privacy Policy',
                             style: TextStyle(
                                 color: Get.theme.primaryColor,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400),
+                                fontSize: 13.2,
+                                fontWeight: FontWeight.w700),
                           ),
                         )
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
+                  Spacer(
+                    flex: 3,
                   ),
                   Column(
                     children: [

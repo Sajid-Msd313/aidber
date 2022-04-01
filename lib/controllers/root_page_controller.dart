@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 import '../screens/create_a_post/create_post_screen.dart';
+import '../screens/network/network_screen.dart';
 
 class root_page_controller extends GetxController {
   PersistentTabController navBar_controller =
@@ -15,9 +16,7 @@ class root_page_controller extends GetxController {
   List<Widget> buildScreens() {
     return [
       HomeScreenView(),
-      Center(
-        child: Text("Connect Page"),
-      ),
+      Network_Screen(),
       create_post_screen(),
       hot_topics(),
       MenuScreen(),
