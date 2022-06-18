@@ -42,8 +42,10 @@ class create_post_screen extends GetView<create_post_controller> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
                     border: Border.all(
                       color: Colors.grey,
+                      
                     ),
                   ),
                   child: Center(
@@ -60,7 +62,7 @@ class create_post_screen extends GetView<create_post_controller> {
                         focusColor: Colors.grey,
                         hintText: 'Share your thoughts...',
                         hintStyle: kHintStyle.copyWith(fontSize: 16),
-                        border: InputBorder.none,
+                       
                         focusedBorder: InputBorder.none,
                         enabledBorder: InputBorder.none,
                         errorBorder: InputBorder.none,

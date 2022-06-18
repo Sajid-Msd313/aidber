@@ -1,8 +1,10 @@
+import 'package:aidber/global_widgets/colors.dart';
 import 'package:aidber/screens/create_a_post/controller/create_post_controller.dart';
 import 'package:aidber/screens/create_a_post/widgets/tag_people_search.dart';
 import 'package:aidber/utils/styles.dart';
 import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:multi_select_flutter/dialog/mult_select_dialog.dart';
 
@@ -20,7 +22,7 @@ class make_selection_optionWidget extends GetView<create_post_controller> {
     ];
     return ChipsChoice<String>.single(
       verticalDirection: VerticalDirection.down,
-      direction: Axis.vertical,
+      direction: Axis.horizontal,
       alignment: WrapAlignment.start,
       value: "",
       onChanged: (val) {
@@ -40,16 +42,16 @@ class make_selection_optionWidget extends GetView<create_post_controller> {
       },
       choiceAvatarBuilder: (_) {
         if (_.label.contains('Add Photo/Video')) {
-          return  Image.asset("assets/add_photo.png");
+          return   FaIcon(FontAwesomeIcons.images, color: PRIMARY_COLOR,);
         } else if (_.label.contains('Add Link')) {
-          return Image.asset("assets/add_link.png");
+          return  FaIcon(FontAwesomeIcons.link,color: PRIMARY_COLOR,);
         } else if (_.label.contains('Tag People')) {
-          return Image.asset("assets/tag_people.png");
+          return  FaIcon(FontAwesomeIcons.userTag,color: PRIMARY_COLOR,);
         }
         else if (_.label.contains('Add location')) {
-          return Image.asset("assets/add_location.png");
+          return  FaIcon(FontAwesomeIcons.locationDot,color: PRIMARY_COLOR,);
         } else {
-          return Image.asset("assets/add_cola.png");
+          return  FaIcon(FontAwesomeIcons.handshakeSimple,color: PRIMARY_COLOR,);
         }
       },
       choiceItems: C2Choice.listFrom<String, String>(

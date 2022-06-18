@@ -1,3 +1,4 @@
+import 'package:aidber/global_widgets/colors.dart';
 import 'package:aidber/screens/create_a_post/controller/create_post_controller.dart';
 import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,12 @@ class make_category_selection_chips extends GetView<create_post_controller> {
           label: (i, v) => v,
         ),
         choiceActiveStyle: C2ChoiceStyle(
-          color: Get.theme.backgroundColor,
+          showCheckmark: true,
+          color: PRIMARY_COLOR,
+
+          backgroundColor: Colors.grey.shade200,
+          labelStyle: const TextStyle(fontSize: 13,fontWeight: FontWeight.bold),
+
           borderRadius: BorderRadius.all(const Radius.circular(10)),
         ),
         choiceStyle: C2ChoiceStyle(

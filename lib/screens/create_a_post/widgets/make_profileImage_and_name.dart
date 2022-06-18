@@ -1,9 +1,10 @@
 import 'package:aidber/controllers/storage_controller/storage_controller.dart';
 import 'package:aidber/screens/create_a_post/controller/create_post_controller.dart';
 import 'package:aidber/utils/constants.dart';
+import 'package:aidber/utils/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:aidber/utils/extension.dart';
+
 class make_profileImage_name extends StatelessWidget {
   final Function callBackRemoveAddress;
   final Function callBackRemoveLink;
@@ -49,7 +50,6 @@ class make_profileImage_name extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text.rich(
-
                         TextSpan(
                           children: [
                             TextSpan(
@@ -68,24 +68,28 @@ class make_profileImage_name extends StatelessWidget {
                                         .userName
                                         ?.toTitleCase()
                                     : "User Name",
-                                style: const TextStyle(fontWeight: FontWeight.bold)),
-                      if(controller.selectedPeopleNames.isNotEmpty)      const TextSpan(text: ' is with '),
-                            if(controller.selectedPeople.isNotEmpty)      TextSpan(
-                                text: controller.selectedPeople.length == 1
-                                    ? controller.selectedPeople.first?.name
-                                    : controller.selectedPeople.join(", "),
-                                style: const TextStyle(fontWeight: FontWeight.bold)),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold)),
+                            if (controller.selectedPeopleNames.isNotEmpty)
+                              const TextSpan(text: ' is with '),
+                            if (controller.selectedPeople.isNotEmpty)
+                              TextSpan(
+                                  text: controller.selectedPeople.length == 1
+                                      ? controller.selectedPeople.first?.name
+                                      : controller.selectedPeople.join(", "),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold)),
                           ],
                         ),
                         softWrap: true,
                       ),
                       controller.address == ""
                           ? Container()
-                          : _spanIcon(
+                          : textIcon(
                               controller.address, callBackRemoveAddress),
                       controller.link == ""
                           ? Container()
-                          : _spanIcon(controller.link, callBackRemoveLink,
+                          : textIcon(controller.link, callBackRemoveLink,
                               icon: Icons.link),
                     ],
                   );
@@ -96,35 +100,35 @@ class make_profileImage_name extends StatelessWidget {
     );
   }
 
-  Widget _spanIcon(String text, callBack, {icon: Icons.location_on}) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Icon(icon, size: 14),
-        SizedBox(
-          width: 6,
-        ),
-        Flexible(
-            child: Text(
-          text,
-          maxLines: 3,
-        )),
-        SizedBox(
-          width: 6,
-        ),
-        InkWell(
-          onTap: callBack,
-          child: Text(
-            "Remove",
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-                color: Theme.of(Get.context!).primaryColor),
-          ),
-        )
-      ],
+  Widget textIcon(String text, callBack, {icon: Icons.location_on}){
+    return Text.rich(
+      TextSpan(
+        children: [
+          WidgetSpan(
+              alignment: PlaceholderAlignment.middle,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 4.0),
+                child: Icon(icon),
+              )),
+          TextSpan(text: text *8),
+          WidgetSpan(
+              alignment: PlaceholderAlignment.middle,
+              child: InkWell(
+                onTap: callBack,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  child: Text("Remove",style: TextStyle(
+
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+
+                      color: Theme.of(Get.context!).primaryColor),),
+                ),
+              )),
+
+        ]
+      )
     );
   }
+
 }
