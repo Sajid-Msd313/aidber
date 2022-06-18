@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
+import '../../utils/get_di.dart';
+
 class root_page extends StatelessWidget {
   //const MyApp({Key key}) : super(key: key);
 
@@ -10,6 +12,8 @@ class root_page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    init();
     return PersistentTabView(
       context,
       controller: a.navBar_controller,
@@ -32,12 +36,12 @@ class root_page extends StatelessWidget {
       ),
       popAllScreensOnTapOfSelectedTab: true,
       popActionScreens: PopActionScreensType.all,
-      itemAnimationProperties: ItemAnimationProperties(
+      itemAnimationProperties: const ItemAnimationProperties(
         // Navigation Bar's items animation properties.
         duration: Duration(milliseconds: 200),
         curve: Curves.ease,
       ),
-      screenTransitionAnimation: ScreenTransitionAnimation(
+      screenTransitionAnimation: const ScreenTransitionAnimation(
         // Screen transition animation on change of selected tab.
         animateTabTransition: true,
         curve: Curves.ease,

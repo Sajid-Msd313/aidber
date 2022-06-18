@@ -23,10 +23,11 @@ class MyApp extends StatelessWidget {
       defaultTransition: Transition.cupertino,
       theme: ThemeData(
         primarySwatch: Colors.indigo,
+        accentColor:  Colors.blueAccent,
         primaryColor: const Color(0xFF282d6b),
       ),
       // home:  Sign_In2(),
-      home: Get.find<storage_controller>().restoreLoginModel() == null? Sign_In2() : root_page(),
+      home: Get.find<storage_controller>().restoreLoginModel() == null? const Sign_In2() : root_page(),
      // home: Network_Screen(),
     );
   }

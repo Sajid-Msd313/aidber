@@ -1,6 +1,6 @@
 class api_urls {
   //===========BASE URLS============//
-  static const String BASE_URL = "https://www.paakhealth.com/dochealth";
+  static const String BASE_URL = "http://www.paakhealth.com/dochealth";
   static const String API_URL = "api";
   static const String BASE_URL_POSTS = "$BASE_URL/public/Posts";
   //===========BASE URLS ENDS HERE============//

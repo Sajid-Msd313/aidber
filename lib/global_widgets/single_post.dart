@@ -2,12 +2,15 @@ import 'package:aidber/global_widgets/report_dialog.dart';
 import 'package:aidber/screens/home_screen/controller/all_post_controller.dart';
 import 'package:aidber/screens/home_screen/controller/home_controller.dart';
 import 'package:aidber/screens/home_screen/widgets/make_rounded_text_type.dart';
+import 'package:aidber/utils/api_urls.dart';
 import 'package:aidber/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:readmore/readmore.dart';
 
 import '../utils/utils.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+
 
 class single_post extends StatelessWidget {
   final String img_url;
@@ -89,7 +92,7 @@ class single_post extends StatelessWidget {
           const SizedBox(
             height: 10,
           ), //wala aleka
-       if(img_url != constans.DEFAULT_IMAGE)   Container(
+       if(img_url != constans.DEFAULT_IMAGE)   SizedBox(
             // clipBehavior: Clip.antiAlias,
             height: MediaQuery.of(context).size.height * 0.3,
             // width: MediaQuery.of(context).size.width,
@@ -98,8 +101,8 @@ class single_post extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Image.network(img_url)),
-          ),
+                child: Image.network(img_url),  //imageViewSinglePost(imagesList: img_urls,)),
+            ) ),
           const SizedBox(
             height: 10,
           ),
@@ -212,6 +215,42 @@ class make_reaction_row extends StatelessWidget {
         ),
         // make_save_button(isSaved: false,)
       ],
+    );
+  }
+}
+
+//TODO implement it for list of images...
+class imageViewSinglePost extends StatefulWidget {
+List<String> imagesList;
+imageViewSinglePost({required this.imagesList});
+  @override
+  _imageViewSinglePostState createState() => _imageViewSinglePostState();
+}
+
+class _imageViewSinglePostState extends State<imageViewSinglePost> {
+  @override
+  Widget build(BuildContext context) {
+    return CarouselSlider(
+      items: widget.imagesList
+          .map(
+            (p) => Image.network(
+              api_urls.BASE_URL_POSTS + "/" +p,
+          width: MediaQuery.of(context).size.width,
+          fit: BoxFit.cover,
+        ),
+      )
+          .toList(),
+      options: CarouselOptions(
+        viewportFraction: 1.0,
+        enlargeCenterPage: false,
+        initialPage: 0,
+        // onPageChanged: (index, reason) {
+        //   setState(() {
+        //     currentIndex = index;
+        //     _product = _products[index];
+        //   });
+        // },
+      ),
     );
   }
 }

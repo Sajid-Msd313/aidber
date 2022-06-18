@@ -16,48 +16,48 @@ class root_page_controller extends GetxController {
   List<Widget> buildScreens() {
     return [
       HomeScreenView(),
-      Network_Screen(),
-      create_post_screen(),
-      hot_topics(),
-      MenuScreen(),
+      const Network_Screen(),
+      const create_post_screen(),
+      const hot_topics(),
+      const MenuScreen(),
     ];
   }
 
   List<PersistentBottomNavBarItem> navBarsItems() {
     return [
       PersistentBottomNavBarItem(
-        icon: Icon(CupertinoIcons.home),
+        icon: const Icon(CupertinoIcons.home),
         title: ("Home"),
         activeColorPrimary: Get.theme.primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(CupertinoIcons.person_2),
+        icon: const Icon(CupertinoIcons.person_2),
         title: ("Connect"),
         activeColorPrimary: Get.theme.primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(
+        icon: const Icon(
           CupertinoIcons.add_circled_solid,
         ),
 
         iconSize: 35,
         onPressed: (_) {
-          Get.to(create_post_screen(), transition: Transition.downToUp);
+          Get.to(()=>const create_post_screen(), transition: Transition.cupertinoDialog,duration: 200.milliseconds);
         },
         //  title: ("Settings"),
         activeColorPrimary: Get.theme.primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.whatshot_outlined),
+        icon: const Icon(Icons.whatshot_outlined),
         title: ("Hot Topics"),
         activeColorPrimary: Get.theme.primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(CupertinoIcons.rectangle_grid_2x2),
+        icon: const Icon(CupertinoIcons.rectangle_grid_2x2),
         title: ("Menu"),
         activeColorPrimary: Get.theme.primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:aidber/controllers/storage_controller/storage_controller.dart';
+import 'package:aidber/data/api.dart';
 import 'package:aidber/models/posts/all_posts_model.dart';
 import 'package:aidber/utils/api_urls.dart';
 import 'package:aidber/utils/constants.dart';
@@ -14,20 +15,25 @@ class all_post_services {
   static var client = http.Client();
   static String url = api_urls.GET_ALL_POST;
 
-  static Future fetch_all_post_services() async {
+  static Future fetch_all_post_services({required ApiClient client}) async {
     print("**hitting ${url}");
-    var headers = {
-      'x-api-key': '${Get.find<storage_controller>().userModel.result!.token.toString()}',
+    Map<String,String> headers = {
+      'x-api-key': client.token.toString(),
       'Content-Type': 'application/json'
     };
-    var response = await client.post(Uri.parse(url), headers: headers,
-    );
+    try {
+      Response response = await client.postData(url,"",headers: headers);
+      if(response.statusCode == 200){
+        return GetAllPost.fromJson(response.body);
+      }else{
+        return response;
+      }
     if (kDebugMode) {
       print(response.body);
     }
 
     final requestbody = json.decode(response.body);
-    try {
+
       if (requestbody.isNotEmpty || requestbody != null) {
         print("API response good api_urls....$url");
         return getAllPostFromJson(response.body);

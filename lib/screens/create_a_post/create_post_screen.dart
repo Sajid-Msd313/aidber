@@ -5,9 +5,9 @@ import 'package:aidber/screens/create_a_post/widgets/make_select_optionWidget.da
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../global_widgets/image_view_widget.dart';
 import '../../utils/styles.dart';
 import 'widgets/make_category_selection_chips.dart';
-import '../../utils/utils.dart';
 
 class create_post_screen extends GetView<create_post_controller> {
   const create_post_screen({Key? key}) : super(key: key);
@@ -17,28 +17,30 @@ class create_post_screen extends GetView<create_post_controller> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Create Post",
           style: kstyleAppBar,
         ),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Form(
             key: controller.formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                make_profileImage_name(),
-                SizedBox(
+                 make_profileImage_name(
+                   callBackRemoveLink: controller.clearLink,
+                   callBackRemoveAddress: controller.clearAddress,),
+                const SizedBox(
                   height: 20,
                 ),
                 Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: Colors.grey,
@@ -57,7 +59,7 @@ class create_post_screen extends GetView<create_post_controller> {
                       decoration: InputDecoration(
                         focusColor: Colors.grey,
                         hintText: 'Share your thoughts...',
-                        hintStyle: kHintStyle,
+                        hintStyle: kHintStyle.copyWith(fontSize: 16),
                         border: InputBorder.none,
                         focusedBorder: InputBorder.none,
                         enabledBorder: InputBorder.none,
@@ -68,20 +70,61 @@ class create_post_screen extends GetView<create_post_controller> {
                   ),
                 ),
                 make_category_selection_chips(),
-                make_selection_optionWidget(),
-                SizedBox(
+                const make_selection_optionWidget(),
+                const SizedBox(
+                  height: 8,
+                ),
+          /*    Obx((){
+                if(controller.pickedImagesPath.isNotEmpty){
+                  ListView.builder(itemBuilder: (context, index){
+                    return  image_view_widget(
+                      imageFilePath: controller.pickedImagesPath[index],
+                      height: MediaQuery.of(context).size.height*.3,
+                      callBack: ()=>controller.clearImage(path: controller.pickedImagesPath[index]),
+                    );
+                  });
+                }
+                return Center(
+                    child: Text("Not Selected"));
+              })*/
+                GetBuilder<create_post_controller>(
+                    init: Get.find<create_post_controller>(),
+                    builder: (controller){
+                 return      Obx(()=>
+                 controller.pickedImagesPath.isNotEmpty?  Container(
+                   alignment: Alignment.center,
+                       height:  MediaQuery.of(context).size.height*.3,
+                       child: ListView.builder(
+                         padding: const EdgeInsets.symmetric(horizontal: 8),
+                         itemCount: controller.pickedImagesPath.length,
+                           shrinkWrap: true,
+                           scrollDirection: Axis.horizontal,
+                           itemBuilder: (context, index){
+                         return  Padding(
+                           padding: const EdgeInsets.all(8.0),
+                           child: image_view_widget(
+                             imageFilePath: controller.pickedImagesPath[index],
+                             height: MediaQuery.of(context).size.height*.3,
+                             callBack: ()=>controller.clearImage(path: controller.pickedImagesPath[index]),
+                           ),
+                         );
+                       }),
+                     ) : Container(),
+                   );
+                })
+                , SizedBox(
                   height: 8,
                 ),
                 SizedBox(
                     // width: Get.width * .8,
                     child: CustomButton(
-                      btnText: "Post",
-                      primary: true,
-                      onPressed: () {
-                        controller.validate();
-                      },
-                      showShadow: false,
-                    ))
+                  btnText: "Post",
+                  primary: true,
+                  onPressed: () {
+                    controller.validate();
+                  },
+                  showShadow: false,
+                ))
               ],
             ),
           ),

@@ -16,7 +16,7 @@ class SignUp extends StatelessWidget {
       body: SafeArea(
         child: responsive_body(
             child: GetBuilder<signup_controller>(
-          init: signup_controller(),
+          init: Get.find<signup_controller>(),
           builder: (controller) {
             return Form(
               key: controller.formKey,

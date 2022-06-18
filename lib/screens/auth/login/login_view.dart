@@ -9,6 +9,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../utils/get_di.dart';
 import '../sign_up_screen/sign_up.dart';
 
 class Sign_In2 extends StatefulWidget {
@@ -19,6 +20,13 @@ class Sign_In2 extends StatefulWidget {
 }
 
 class _Sign_In2State extends State<Sign_In2> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    init();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +54,7 @@ class _Sign_In2State extends State<Sign_In2> {
                           fontWeight: FontWeight.bold),
                     ),
                     GetBuilder<signin_controller>(
-                        init: signin_controller(),
+                        init: Get.find<signin_controller>(),
                         builder: (controller) {
                           return Column(
 
@@ -141,8 +149,8 @@ class _Sign_In2State extends State<Sign_In2> {
                                           height: 20,
                                         ),
                                         controller.isLoading
-                                            ? circular_progressIndicator()
-                                            : Container(
+                                            ? const circular_progressIndicator()
+                                            : SizedBox(
                                                 width: Get.width * .9,
                                                 height: 45,
                                                 child: FlatButton(

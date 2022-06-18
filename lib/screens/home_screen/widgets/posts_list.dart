@@ -39,20 +39,24 @@ class _PostsListState extends State<PostsList> {
           //    enablePullDown: true,
           enablePullUp: true,
 
-          header: WaterDropHeader(),
+          header:  WaterDropHeader(
+            completeDuration: 100.milliseconds,
+            waterDropColor: Theme.of(context).primaryColor,
+            complete: const SizedBox.shrink(),
+          ),
           footer: CustomFooter(
             builder: (BuildContext context, LoadStatus? mode) {
               Widget body;
               if (mode == LoadStatus.idle) {
-                body = Text("pull up load");
+                body = const Text("pull up load");
               } else if (mode == LoadStatus.loading) {
-                body = CupertinoActivityIndicator();
+                body = const CupertinoActivityIndicator();
               } else if (mode == LoadStatus.failed) {
-                body = Text("Load Failed!Click retry!");
+                body = const Text("Load Failed!Click retry!");
               } else if (mode == LoadStatus.canLoading) {
-                body = Text("release to load more");
+                body = const Text("release to load more");
               } else {
-                body = Text("No more Data");
+                body = const Text("No more Data");
               }
               return Container(
                 height: 55.0,
@@ -86,7 +90,7 @@ class _PostsListState extends State<PostsList> {
                   post_type: controller.getAllPost.data![index].type!,
                   time: controller.getAllPost.data![index].createdAt!
                       .toIso8601String(),
-                  user_name: "user_name");
+                  user_name:controller.getAllPost.data![index].user?.username);
             },
           ),
         ),

@@ -14,6 +14,7 @@ class storage_controller extends GetxController implements GetxService {
 
   Future<void> storeLoginModel(LoginModel loginModel) async {
     await box.write("login_model", loginModel.toJson());
+    await box.write("token", loginModel.result?.token.toString());
     print("storing");
     await Future.delayed(Duration(milliseconds: 200));
     userModel = loginModel;

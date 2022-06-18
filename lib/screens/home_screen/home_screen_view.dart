@@ -20,7 +20,7 @@ class HomeScreenView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
                Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: PostsList(),
               )
             ],

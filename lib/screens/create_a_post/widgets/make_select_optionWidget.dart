@@ -1,8 +1,10 @@
 import 'package:aidber/screens/create_a_post/controller/create_post_controller.dart';
+import 'package:aidber/screens/create_a_post/widgets/tag_people_search.dart';
 import 'package:aidber/utils/styles.dart';
 import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:multi_select_flutter/dialog/mult_select_dialog.dart';
 
 class make_selection_optionWidget extends GetView<create_post_controller> {
   const make_selection_optionWidget({Key? key}) : super(key: key);
@@ -25,12 +27,13 @@ class make_selection_optionWidget extends GetView<create_post_controller> {
           if(val.contains('Add Photo/Video')){
             controller.open_imageImagePicker(context);
           }else if(val.contains('Add Link')){
+            controller.displayLinkinputDialog(context);
           print('add link');
           } else if(val.contains('Add location')){
             controller.open_search_map(context);
           }else if(val.contains('Tag People')){
-
-          }
+            controller.showtagPeopleDialog(context);
+                  }
           else{
 
           }

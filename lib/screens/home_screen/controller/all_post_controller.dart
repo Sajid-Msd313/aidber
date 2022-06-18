@@ -1,9 +1,13 @@
+import 'package:aidber/data/services/posts/all_post_services.dart';
 import 'package:aidber/models/posts/all_posts_model.dart';
-import 'package:aidber/services/posts/all_post_services.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import '../../../data/api.dart';
+
 class all_post_controller extends GetxController {
+  ApiClient apiClient;
+  all_post_controller({required this.apiClient});
  @override
   onInit(){
     super.onInit();
@@ -26,7 +30,7 @@ class all_post_controller extends GetxController {
 
   Future<void> fetch_allPosts({bool isInitial = true}) async {
     if(isInitial) isLoading = true;
-    var detail = await all_post_services.fetch_all_post_services();
+    var detail = await all_post_services.fetch_all_post_services(client: apiClient);
     if(isInitial) isLoading = false;
     if (detail is GetAllPost) {
       getAllPost = detail;

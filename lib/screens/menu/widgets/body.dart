@@ -1,3 +1,4 @@
+import 'package:aidber/controllers/storage_controller/storage_controller.dart';
 import 'package:aidber/global_widgets/colors.dart';
 import 'package:aidber/global_widgets/custom_button.dart';
 import 'package:aidber/screens/auth/login/login_view.dart';
@@ -147,7 +148,11 @@ class bodymenu extends StatelessWidget {
             btnText: "Log Out",
             primary: true,
             onPressed: () {
-              Get.offAll(() => const Sign_In2());
+              Get.find<storage_controller>().clear_storage();
+              Get.offAll(() {
+                const Sign_In2();
+
+              } );
             })
       ]),
     );

@@ -23,7 +23,7 @@ String formattedDate = DateFormat('yyyy-MM-dd').format(time);
 return formattedDate.toString();
 }
 
-Future displayPrediction(Prediction? p,) async {
+Future<PlacesDetailsResponse?> displayPrediction(Prediction? p,) async {
   if (p != null) {
     GoogleMapsPlaces _places = GoogleMapsPlaces(
       apiKey: constans.GOOGLE_API_KEY,
