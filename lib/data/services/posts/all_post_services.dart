@@ -16,7 +16,7 @@ class all_post_services {
   static String url = api_urls.GET_ALL_POST;
 
   static Future fetch_all_post_services({required ApiClient client}) async {
-    print("**hitting ${url}");
+    print("**hitting $url");
     Map<String,String> headers = {
       'x-api-key': client.token.toString(),
       'Content-Type': 'application/json'

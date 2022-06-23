@@ -1,5 +1,8 @@
 import 'package:aidber/data/services/posts/all_post_services.dart';
+import 'package:aidber/data/services/posts/like_post_services.dart';
 import 'package:aidber/models/posts/all_posts_model.dart';
+import 'package:aidber/models/posts/like_post_model.dart';
+import 'package:aidber/utils/utils.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -7,9 +10,11 @@ import '../../../data/api.dart';
 
 class all_post_controller extends GetxController {
   ApiClient apiClient;
+
   all_post_controller({required this.apiClient});
- @override
-  onInit(){
+
+  @override
+  onInit() {
     super.onInit();
     fetch_allPosts();
   }
@@ -17,43 +22,59 @@ class all_post_controller extends GetxController {
   bool _isLoading = false;
   GetAllPost _getAllPost = GetAllPost();
 
-  update_likePost({required String timeStampISO}){
-    _getAllPost.data!.forEach((element) {
-      if( element.createdAt!.toIso8601String() == timeStampISO){
+  reactAPost({required String postId, required String reactionType}) async {
+    var detail = await like_post_services.like_post(
+        client: apiClient, post_id: postId, type: reactionType);
+    if (detail != null && detail is LikePostModel) {
+      show_snackBarSuccess(
+          title: "Post Reaction Updated",
+          description: detail.message.toString());
+      if(detail.message == "Post Unliked!"){
+        _update_likePost(postId: int.parse(postId),reactionValue:-1);
+
+      }else{
+        _update_likePost(postId: int.parse(postId),reactionValue: int.parse(reactionType));
+
+      }
+    }
+  }
+
+  _update_likePost({required int postId, required int reactionValue}) {
+    for (var element in _getAllPost.data!) {
+      if (element.id == postId) {
         print("findeddd ${element.isLiked!}");
-        element.isLiked =!element.isLiked!;
+        element.isLiked = reactionValue;
         update();
         return;
       }
-    });
+    }
   }
 
   Future<void> fetch_allPosts({bool isInitial = true}) async {
-    if(isInitial) isLoading = true;
-    var detail = await all_post_services.fetch_all_post_services(client: apiClient);
-    if(isInitial) isLoading = false;
+    if (isInitial) isLoading = true;
+    var detail =
+        await all_post_services.fetch_all_post_services(client: apiClient);
+    if (isInitial) isLoading = false;
     if (detail is GetAllPost) {
       getAllPost = detail;
     }
   }
 
-
   //===>> refresh things here
- RefreshController refreshController =
- RefreshController(initialRefresh: false);
+  RefreshController refreshController =
+      RefreshController(initialRefresh: false);
 
- void onRefresh() async{
-   await fetch_allPosts(isInitial: false);
-   update();
-   refreshController.refreshCompleted();
- }
+  void onRefresh() async {
+    await fetch_allPosts(isInitial: false);
+    update();
+    refreshController.refreshCompleted();
+  }
 
- void onLoading() async{
+  void onLoading() async {
+    refreshController.loadComplete();
+  }
 
-   refreshController.loadComplete();
- }
-
- //======> GETTER SETTERS BELOW
+  //======> GETTER SETTERS BELOW
   bool get isLoading => _isLoading;
 
   set isLoading(bool value) {

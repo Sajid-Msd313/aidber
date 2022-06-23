@@ -80,17 +80,7 @@ class _PostsListState extends State<PostsList> {
             itemBuilder: (context, int index) {
             //  print(controller.getAllPost.data![index].postUrl);
               return single_post(
-                isLiked:controller.getAllPost.data![index].isLiked??false ,
-                  caption: controller.getAllPost.data![index].caption!,
-                  img_url: controller.getAllPost.data![index].postUrl == null
-                      ? constans.DEFAULT_IMAGE
-                      : api_urls.BASE_URL_POSTS +
-                          "/" +
-                          controller.getAllPost.data![index].postUrl!,
-                  post_type: controller.getAllPost.data![index].type!,
-                  time: controller.getAllPost.data![index].createdAt!
-                      .toIso8601String(),
-                  user_name:controller.getAllPost.data![index].user?.username);
+                 singleItemPost: controller.getAllPost.data![index]);
             },
           ),
         ),

@@ -10,6 +10,7 @@ import 'package:aidber/utils/api_urls.dart';
 import 'package:get/get.dart';
 
 import '../data/api.dart';
+import '../screens/comment_screen/controllers/comment_controller.dart';
 import '../screens/create_a_post/controller/create_post_controller.dart';
 
 Future<void> init()async{
@@ -20,5 +21,6 @@ Future<void> init()async{
   Get.lazyPut(() => signup_controller(apiClient: Get.find<ApiClient>()));
   Get.lazyPut(() => all_post_controller(apiClient: Get.find<ApiClient>()));
   Get.lazyPut(() => create_post_controller(apiClient: Get.find<ApiClient>()),fenix: true);
+  // Get.lazyPut(() => comment_controller(apiClient: Get.find<ApiClient>()));
 
 }

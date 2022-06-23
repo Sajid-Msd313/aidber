@@ -61,10 +61,10 @@ class Datum {
   DateTime? createdAt;
   DateTime? updatedAt;
   User? user;
-  bool? isLiked;
+  int? isLiked;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-    isLiked:  false,
+    isLiked:  -1,
     id: json["id"] == null ? null : json["id"],
     userId: json["user_id"] == null ? null : json["user_id"],
     caption: json["caption"] == null ? null : json["caption"],

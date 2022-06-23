@@ -17,7 +17,8 @@ class api_urls {
   //===========POST URLS============//
   static const String CREATE_POST = "$BASE_URL/$API_URL/create_post";
   static const String GET_ALL_POST = "$BASE_URL/$API_URL/get_all_posts";
-  static const String LIKE_POST = "$BASE_URL/$API_URL/get_all_posts";
+  static const String LIKE_POST = "$BASE_URL/$API_URL/add_like";
+  static const String COMMENT = "$BASE_URL/$API_URL/comment";
   //===========POST ENDS HEREURLS============//
 
 
