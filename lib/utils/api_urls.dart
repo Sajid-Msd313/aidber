@@ -20,6 +20,9 @@ class api_urls {
   static const String LIKE_POST = "$BASE_URL/$API_URL/add_like";
   static const String COMMENT = "$BASE_URL/$API_URL/comment";
   static const String REQUEST_TO_FOLLOW = "$BASE_URL/$API_URL/request-to-follow";
+  static const String GET_POST_COMMENT = "$BASE_URL/$API_URL/get-post-comment";
+
+
   //===========POST ENDS HEREURLS============//
 
 

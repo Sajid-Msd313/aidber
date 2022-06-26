@@ -10,11 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_reaction_button/flutter_reaction_button.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:readmore/readmore.dart';
 
+import '../screens/comment_screen/comment_widget.dart';
 import '../screens/comment_screen/controllers/comment_controller.dart';
 import '../utils/utils.dart';
-import '../screens/comment_screen/comment_widget.dart';
 
 class single_post extends StatelessWidget {
   Datum singleItemPost;
@@ -48,8 +47,8 @@ class single_post extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                   Text(
-                    singleItemPost.user!.username??"",
+                  Text(
+                    singleItemPost.user!.username ?? "",
                     style: const TextStyle(
                         fontSize: 15,
                         color: Colors.black,
@@ -67,7 +66,9 @@ class single_post extends StatelessWidget {
                 ],
               ),
             ),
-            trailing:  report_dialog(post: singleItemPost,),
+            trailing: report_dialog(
+              post: singleItemPost,
+            ),
           ),
           const SizedBox(
             height: 5,
@@ -93,7 +94,8 @@ class single_post extends StatelessWidget {
             height: 10,
           ),
           make_reaction_row(
-            reactionWidget: reactions.getReactionByValue(singleItemPost.isLiked??-1),
+            reactionWidget:
+                reactions.getReactionByValue(singleItemPost.isLiked ?? -1),
             postId: singleItemPost.id.toString(),
           )
         ],
@@ -102,9 +104,9 @@ class single_post extends StatelessWidget {
   }
 }
 
-reactionWidgetCheck(int reacted){
-  switch(reacted){
-    case 1 :
+reactionWidgetCheck(int reacted) {
+  switch (reacted) {
+    case 1:
       return Reaction<String>(
         value: '1',
         title: const Text(
@@ -119,7 +121,7 @@ reactionWidgetCheck(int reacted){
           FontAwesomeIcons.heart,
         ),
       );
-    case 2 :
+    case 2:
       return Reaction<String>(
         value: '2',
         title: const Text(
@@ -134,9 +136,7 @@ reactionWidgetCheck(int reacted){
           FontAwesomeIcons.heart,
         ),
       );
-
   }
-
 }
 
 class make_like_button extends StatefulWidget {
@@ -292,7 +292,13 @@ class make_reaction_row extends StatelessWidget {
               postId: postId,
             ),
             InkWell(
-              onTap: ()=>Get.to(()=>comment_widget(postId: postId,),transition: Transition.downToUp, binding:BindingsBuilder(() => {Get.put(comment_controller())})),
+              onTap: () => Get.to(
+                  () => comment_widget(
+                        postId: postId,
+                      ),
+                  transition: Transition.downToUp,
+                  binding:
+                      BindingsBuilder(() => {Get.put(comment_controller(postId: postId))})),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 6.0),
                 child: Image.asset(

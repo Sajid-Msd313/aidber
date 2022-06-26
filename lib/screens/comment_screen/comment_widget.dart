@@ -1,4 +1,6 @@
+import 'package:aidber/models/posts/comment_post_model.dart';
 import 'package:aidber/screens/comment_screen/controllers/comment_controller.dart';
+import 'package:aidber/screens/comment_screen/widget/comment_tree_widget.dart';
 import 'package:comment_tree/data/comment.dart';
 import 'package:comment_tree/widgets/comment_tree_widget.dart';
 import 'package:comment_tree/widgets/tree_theme_data.dart';
@@ -27,11 +29,23 @@ class comment_widget extends GetView<comment_controller> {
             child: GetBuilder<comment_controller>(
               init: Get.find<comment_controller>(),
               builder: (controller) {
+                if(controller.isLoading){
+                  return const Center(child: CircularProgressIndicator(),);
+                }
+                if(controller.commentPostList == null ||  controller.commentPostList?.first.comments == null || controller.commentPostList!.first.comments!.isEmpty){
+                  return const Center(child: Text('Be first to comment'),);
+                }
                 return ListView.builder(
                   shrinkWrap: true,
-                    itemCount: 4  ,
+                    padding: EdgeInsets.all(12),
+                    itemCount: controller.commentPostList!.first.comments?.length  ,
                     itemBuilder: (context, index) {
-                  return CommentTreeWidget<Comment, Comment>(
+                      return  Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        child: comment_tree_widget(comments: controller.commentPostList!.first.comments![index],),
+                      );
+
+                      /*return CommentTreeWidget<Comment, Comment>(
                     Comment(
                         commentId: '1',
                         avatar: 'null',
@@ -166,7 +180,7 @@ class comment_widget extends GetView<comment_controller> {
                     ),
                     treeThemeData: TreeThemeData(lineColor: Colors.grey[500]!, lineWidth: 1),
 
-                  );
+                  );*/
                 });
               }
             ),
@@ -182,7 +196,7 @@ class comment_widget extends GetView<comment_controller> {
                 decoration: InputDecoration(
                   suffixIcon: IconButton(
                       icon: const Icon(Icons.send),
-                      onPressed: () => controller.addToCommentList(isReply: true,postId: postId)),
+                      onPressed: () => controller.validateCommentToPost()),
                   labelText: "Type your comment here.",
                   labelStyle:
                       const TextStyle(fontSize: 14.0, color: Colors.black),

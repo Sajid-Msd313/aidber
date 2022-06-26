@@ -48,10 +48,10 @@ class ApiClient extends GetxService {
         print('====> API Call: $uri\nToken: $token');
       }
       Http.Response _response = await Http.get(
-        Uri.parse(appBaseUrl + uri),
+        Uri.parse(uri),
         headers: headers ?? _mainHeaders,
       ).timeout(Duration(seconds: timeoutInSeconds));
-      Response response = handleResponse(_response);
+    Response response = handleResponse(_response);
       if (kDebugMode) {
         print(
             '====> API Response: [${response.statusCode}] $uri\n${response.body}');
@@ -185,7 +185,7 @@ class ApiClient extends GetxService {
       statusCode: response.statusCode,
       statusText: response.reasonPhrase,
     );
-    print("CHECK RESP ${_response.body}");
+    /*print("CHECK RESP ${_response.body}");
     if (_response.isOk && _body["status"].toString() == "0") {
       Error _errorResponse = Error.fromJson(_response.body);
       _response = Response(
@@ -212,7 +212,7 @@ class ApiClient extends GetxService {
       }
     } else if (_response.statusCode != 200 && _response.body == null) {
       _response = Response(statusCode: 0, statusText: noInternetMessage);
-    }
+    }*/
     return _response;
   }
 }
