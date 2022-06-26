@@ -2,6 +2,7 @@ import 'package:aidber/data/services/posts/post_services.dart';
 import 'package:aidber/models/posts/all_posts_model.dart';
 import 'package:aidber/models/posts/like_post_model.dart';
 import 'package:aidber/utils/utils.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -57,8 +58,6 @@ class all_post_controller extends GetxController with SinglePostApis {
     }
   }
 
-
-
   //=====================================>> refresh things here
   RefreshController refreshController =
       RefreshController(initialRefresh: false);
@@ -90,17 +89,38 @@ class all_post_controller extends GetxController with SinglePostApis {
 }
 
 abstract class SinglePostApis {
-  Future<void> requestToFollow({required String postId})async{
-
+  Future<void> requestToFollow({required String postId}) async {
+    bool isSuccess = await post_services.requestToFollow(post_id: postId);
+    if(isSuccess) {
+      showSnackBarInformation( description: "Request Sent");
+    } else {
+      show_snackBarError(title: "Unable To Process", description: "Your Request wasn't processed");
+    }
   }
 
-  Future<void> blockUser({required String userId})async{
-    print("BLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOCK USER");
+  Future<void> blockUser({required String userId}) async {
+  //TODO:" needs implementation
   }
 
-  Future<void> savePost({required String postId})async{}
+  Future<void> savePost({required String postId}) async {
+    bool isSuccess = await post_services.savePost(post_id: postId);
+    if(isSuccess) {
 
-  Future<void> hidePost({required String postId})async{}
+      showSnackBarInformation(description: "Post has been saved");
+    } else {
+      show_snackBarError(title: "Unable To Process", description: "Your Request wasn't processed");
+    }
+  }
 
-  Future<void> reportPost({required String postId})async{}
+  Future<void> hidePost({required String postId}) async {}
+  Future<void> sharePost({required String postId}) async {
+    bool isSuccess = await post_services.sharePost(post_id: postId);
+    if(isSuccess) {
+      showSnackBarInformation(description: "Post has been shared!");
+    } else {
+      show_snackBarError(title: "Unable To Process", description: "Your Request wasn't processed");
+    }
+  }
+
+  Future<void> reportPost({required String postId}) async {}
 }

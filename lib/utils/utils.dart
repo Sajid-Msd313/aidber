@@ -37,34 +37,51 @@ show_snackBarSuccess({required String title, required String description}) {
     title,
     description,
     colorText: Colors.white,
-    borderRadius: 0,
+    borderRadius: 10,
     backgroundColor: Colors.green.shade400,
-    icon: Icon(Icons.check_circle, color: Colors.white),
+    icon: const Icon(Icons.check_circle, color: Colors.white),
     animationDuration: 0.45.seconds,
     forwardAnimationCurve: Curves.fastLinearToSlowEaseIn,
     reverseAnimationCurve: Curves.easeOutExpo,
     overlayColor: Colors.white54,
     overlayBlur: .1,
-    margin: EdgeInsets.symmetric(vertical: 24, horizontal: 12),
+    margin: const EdgeInsets.symmetric(vertical: 24, horizontal: 12),
     snackStyle: SnackStyle.FLOATING,
     snackPosition: SnackPosition.BOTTOM,
   );
 }
-
+void showSnackBarInformation({ required String description}) {
+  Get.showSnackbar(GetSnackBar(
+    backgroundColor: Colors.green,
+    message: description,
+    mainButton: TextButton(
+      onPressed: () => Get.closeCurrentSnackbar(),
+      child: const Text('close',style: TextStyle(color: Colors.white),),
+    ),
+    onTap: (_) => Get.closeCurrentSnackbar(),
+    duration: const Duration(seconds: 2),
+    snackStyle: SnackStyle.FLOATING,
+    margin: const EdgeInsets.all(20),
+    borderRadius: 10,
+    forwardAnimationCurve: Curves.decelerate,
+    isDismissible: true,
+    dismissDirection: DismissDirection.horizontal,
+  ));
+}
 show_snackBarError({required String title, required String description}) {
   Get.snackbar(
     title,
     description,
     colorText: Colors.white,
-    borderRadius: 0,
+    borderRadius: 10,
     backgroundColor: Colors.red.shade800,
-    icon: Icon(Icons.error, color: Colors.white),
+    icon: const Icon(Icons.error, color: Colors.white),
     animationDuration: 0.45.seconds,
-    forwardAnimationCurve: Curves.fastLinearToSlowEaseIn,
+    forwardAnimationCurve: Curves.decelerate,
     reverseAnimationCurve: Curves.easeOutExpo,
     overlayColor: Colors.white54,
     overlayBlur: .1,
-    margin: EdgeInsets.symmetric(vertical: 24, horizontal: 12),
+    margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
     snackStyle: SnackStyle.FLOATING,
     snackPosition: SnackPosition.BOTTOM,
   );

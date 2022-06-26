@@ -26,24 +26,7 @@ class post_services {
   static Map<String, String> headersV2= {
   'x-api-key': client.token.toString()
   };
-  static Future requestToFollow({
-    required ApiClient client,
-    required String post_id,
-  }) async {
-    var response = await client.postData(
-        api_urls.REQUEST_TO_FOLLOW + "/$post_id", null, headers: headers);
 
-    try {
-      if (response.statusCode == 200 && response.body.isNotEmpty) {
-        return LikePostModel.fromJson(response.body);
-      } else {
-        return null;
-      }
-    } catch (e) {
-      print(e);
-      print("error from api_urls.requestToFollow");
-    }
-  }
 
   static Future fetch_all_post_services({required ApiClient client}) async {
     String url = api_urls.GET_ALL_POST;
@@ -141,6 +124,62 @@ class post_services {
       print(e);
       debugPrint("error from $url");
       show_snackBarError(title: "Error", description: constans.NO_INTERNET_CONNECTION);
+    }
+  }
+
+
+  static Future<bool> requestToFollow({
+    required String post_id,
+  }) async {
+    var response = await client.postData(
+        api_urls.REQUEST_TO_FOLLOW + "/$post_id", null, headers: headers);
+
+    try {
+      if (response.statusCode == 200 && response.body.isNotEmpty) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print("error from api_urls.requestToFollow + $e");
+      return false;
+
+    }
+  }
+  static Future<bool> savePost({
+    required String post_id,
+  }) async {
+    var response = await client.getData(
+        api_urls.SAVE_POST + "/$post_id", headers: headers);
+
+    try {
+      if (response.statusCode == 200 && response.body.isNotEmpty) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print("error from api_urls.requestToFollow + $e");
+      return false;
+
+    }
+  }
+  static Future<bool> sharePost({
+    required String post_id,
+  }) async {
+    var response = await client.getData(
+        api_urls.SAVE_POST + "/$post_id", headers: headers);
+
+    try {
+      if (response.statusCode == 200 && response.body.isNotEmpty) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print("error from api_urls.requestToFollow + $e");
+      return false;
+
     }
   }
 }

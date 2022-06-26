@@ -8,7 +8,7 @@ import '../screens/home_screen/controller/all_post_controller.dart';
 class report_dialog extends GetView<all_post_controller> {
   Datum post;
 
-  report_dialog({required this.post});
+  report_dialog({Key? key, required this.post}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,31 +33,19 @@ class report_dialog extends GetView<all_post_controller> {
           MenuItem item = value as MenuItem;
           switch (item) {
             case MenuItems.report:
-              Get.snackbar("Report Demo", "You've reported it");
               controller.reportPost(postId: post.id.toString());
               break;
-              //Do something
-              break;
             case MenuItems.share:
-              Get.snackbar("Share Demo", "You've shared it");
               controller.savePost(postId: post.id.toString());
               break;
-
             case MenuItems.hide_post:
-              Get.snackbar("Share Demo", "You've shared it");
               controller.hidePost(postId: post.id.toString());
               break;
             case MenuItems.unfollow:
-              Get.snackbar("requestToFollow", "You've requestToFollow it");
               controller.requestToFollow(postId: post.id.toString());
               break;
-
             case MenuItems.block:
-              Get.snackbar("requestToFollow", "You've requestToFollow it");
               controller.blockUser(userId: post.userId.toString());
-              break;
-
-              //Do something
               break;
           }
         },
