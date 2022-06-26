@@ -10,6 +10,7 @@ import 'package:google_maps_webservice/src/core.dart';
 import 'package:google_maps_webservice/src/places.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_select_flutter/dialog/mult_select_dialog.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
 
 import '../../../data/api.dart';
@@ -123,12 +124,21 @@ class create_post_controller extends GetxController {
       builder: (ctx) {
         return MultiSelectDialog<UserModel?>(
           items: dummyUsertagPeople,
+          searchable: true,
+          searchHint: "Search user",
+          cancelText: const Text("Clear"),
+          unselectedColor: Colors.white,
+          title: const Text("Select People to tag"),
+          itemsTextStyle: const TextStyle(color: Colors.black),
+          selectedItemsTextStyle: const TextStyle(color: Colors.white),
+          selectedColor: Theme.of(context).primaryColor,
+          listType: MultiSelectListType.CHIP,
           initialValue: selectedPeople,
-          onConfirm: (values) {
+          onConfirm: (users) {
             selectedPeople.clear();
             selectedPeopleNames.clear();
-            selectedPeople.addAll(values);
-            for (UserModel? element in values) {
+            selectedPeople.addAll(users);
+            for (UserModel? element in users) {
               selectedPeopleNames.add(element!.name.toString());
             }
             update();
@@ -196,7 +206,7 @@ class create_post_controller extends GetxController {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('TextField in Dialog'),
+            title: const Text('Attach a link with your post'),
             content: Form(
               key: formKeyLink,
               child: TextFormField(
@@ -204,14 +214,13 @@ class create_post_controller extends GetxController {
                   link = _;
                 },
                 controller: linkController,
-                decoration: InputDecoration(hintText: "Type your link here..."),
+                decoration: const InputDecoration(hintText: "Paste your link here"),
               ),
             ),
             actions: <Widget>[
               FlatButton(
-                color: Colors.green,
-                textColor: Colors.white,
-                child: Text('OK'),
+                color:  Theme.of(context).primaryColor,
+                child: const Text('OK',style: TextStyle(color: Colors.white),),
                 onPressed: () {
                   link = linkController.text;
                   Get.back();
@@ -234,7 +243,7 @@ class create_post_controller extends GetxController {
   }
   void open_imageImagePicker(context) {
     Get.defaultDialog(
-        content: select_gallery_camera_widget(), title: "Select Image");
+        content: const select_gallery_camera_widget(), title: "Select Image");
   }
   void pick_image_camera() async {
     final XFile? image =

@@ -1,3 +1,4 @@
+import 'package:aidber/global_widgets/read_more_text.dart';
 import 'package:aidber/global_widgets/report_dialog.dart';
 import 'package:aidber/models/posts/all_posts_model.dart';
 import 'package:aidber/screens/home_screen/controller/all_post_controller.dart';
@@ -66,30 +67,15 @@ class single_post extends StatelessWidget {
                 ],
               ),
             ),
-            trailing: const report_dialog(),
+            trailing:  report_dialog(post: singleItemPost,),
           ),
           const SizedBox(
             height: 5,
           ),
-          ReadMoreText(
-            singleItemPost.caption ?? "",
-            trimLines: 2,
-            textAlign: TextAlign.start,
-            style: const TextStyle(
-              color: Colors.black,
-            ),
-            colorClickableText: Get.theme.primaryColor,
-            trimMode: TrimMode.Line,
-            trimCollapsedText: 'Show more',
-            trimExpandedText: 'Show less',
-            lessStyle: TextStyle(
-                color: Get.theme.primaryColor, fontWeight: FontWeight.bold),
-            moreStyle: TextStyle(
-                color: Get.theme.primaryColor, fontWeight: FontWeight.bold),
-          ),
+          readMore_textWidget(text: singleItemPost.caption ?? ""),
           const SizedBox(
             height: 10,
-          ), //wala aleka
+          ),
           if (url != constans.DEFAULT_IMAGE)
             SizedBox(
                 // clipBehavior: Clip.antiAlias,

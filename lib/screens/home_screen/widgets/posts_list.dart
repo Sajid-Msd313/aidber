@@ -26,7 +26,7 @@ class _PostsListState extends State<PostsList> {
         );
       }
       if (controller.getAllPost.data == null ||
-          controller.getAllPost.data!.length == 0) {
+          controller.getAllPost.data!.isEmpty ) {
         return Center(
           child: Text("No posts available"),
         );
