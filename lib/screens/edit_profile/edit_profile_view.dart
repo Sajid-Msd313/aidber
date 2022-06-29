@@ -17,7 +17,7 @@ class EditProfile extends StatelessWidget {
             child: Container(
         margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
         child: Column(
-            children: [
+            children: const [
               headerEditProfile(),
               bodyEditProfile()
             ],

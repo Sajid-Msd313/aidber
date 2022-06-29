@@ -16,7 +16,7 @@ import '../screens/comment_screen/controllers/comment_controller.dart';
 import '../utils/utils.dart';
 
 class single_post extends StatelessWidget {
-  Datum singleItemPost;
+  Posts singleItemPost;
 
   single_post({required this.singleItemPost});
 
@@ -95,7 +95,7 @@ class single_post extends StatelessWidget {
           ),
           make_reaction_row(
             reactionWidget:
-                reactions.getReactionByValue(singleItemPost.isLiked ?? -1),
+                reactions.getReactionByValue(singleItemPost.isLiked == null ||singleItemPost.isLiked!.likeType == null? "0": singleItemPost.isLiked!.likeType!.id.toString()),
             postId: singleItemPost.id.toString(),
           )
         ],

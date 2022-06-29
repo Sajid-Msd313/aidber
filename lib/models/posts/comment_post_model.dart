@@ -6,7 +6,9 @@ import 'dart:convert';
 
 import 'get_single_comment_model.dart';
 
+CommentPostModel commentPostModelFromJson(String str) => CommentPostModel.fromJson(json.decode(str));
 
+String commentPostModelToJson(CommentPostModel data) => json.encode(data.toJson());
 
 class CommentPostModel {
   CommentPostModel({
@@ -22,13 +24,13 @@ class CommentPostModel {
   factory CommentPostModel.fromJson(Map<String, dynamic> json) => CommentPostModel(
     status: json["status"],
     message: json["message"],
-    data: json["data"] == null ? null : Comment.fromJson(json["data"]),
+    data: json["data"] == null? null : Comment.fromJson(json["data"]),
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
     "message": message,
-    "data": data == null ? null : data?.toJson(),
+    "data": data?.toJson(),
   };
 }
 

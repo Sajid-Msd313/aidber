@@ -8,15 +8,13 @@ import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class PostsList extends StatefulWidget {
+
   @override
   State<PostsList> createState() => _PostsListState();
 }
 
 class _PostsListState extends State<PostsList> {
 
-  on_callback(bool value){
-
-  }
   @override
   Widget build(BuildContext context) {
     return GetBuilder<all_post_controller>(builder: (controller) {
@@ -26,15 +24,16 @@ class _PostsListState extends State<PostsList> {
         );
       }
       if (controller.getAllPost.data == null ||
-          controller.getAllPost.data!.isEmpty ) {
-        return Center(
-          child: Text("No posts available"),
+          controller.getAllPost.data!.data == null ) {
+        return const Center(
+          child:  Text("No posts available"),
         );
       }
 
       return Container(
         height: Get.height,
         // width: 300,
+
         child: SmartRefresher(
           //    enablePullDown: true,
           enablePullUp: true,
@@ -76,11 +75,11 @@ class _PostsListState extends State<PostsList> {
             shrinkWrap: true,
             cacheExtent: 50,
             scrollDirection: Axis.vertical,
-            itemCount: controller.getAllPost.data!.length,
+            itemCount: controller.getAllPost.data!.data?.length,
             itemBuilder: (context, int index) {
             //  print(controller.getAllPost.data![index].postUrl);
               return single_post(
-                 singleItemPost: controller.getAllPost.data![index]);
+                 singleItemPost: controller.getAllPost.data!.data![index]);
             },
           ),
         ),

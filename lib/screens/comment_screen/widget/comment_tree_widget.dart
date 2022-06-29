@@ -1,5 +1,6 @@
 import 'package:aidber/models/posts/get_single_comment_model.dart';
 import 'package:aidber/screens/comment_screen/controllers/comment_controller.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:comment_tree/widgets/comment_tree_widget.dart';
 import 'package:comment_tree/widgets/tree_theme_data.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,7 @@ class comment_tree_widget extends GetView<comment_controller> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  data.userId.toString(),
+                  data.user!.fullName.toString(),
                   style: Theme.of(context)
                       .textTheme
                       .caption!
@@ -62,25 +63,33 @@ class comment_tree_widget extends GetView<comment_controller> {
                     controller.replyCommentId = data.id.toString();
                     controller.commentNode.requestFocus();
                   },
-                  child: Text('Reply')),
+                  child: const Text('Reply')),
             ),
           )
         ],
       ),
-      avatarRoot: (context, data) => const PreferredSize(
+      avatarRoot: (context, data) =>  PreferredSize(
         child: CircleAvatar(
           radius: 18,
           backgroundColor: Colors.grey,
-          backgroundImage: AssetImage('assets/sajidmsd.jpg'),
+        child:CachedNetworkImage(
+          imageUrl:  data.user == null? "":data.user!.profilePictureUrl.toString(),
+          placeholder: (context, url) => const CircularProgressIndicator(),
+          errorWidget: (context, url, error) => const Icon(Icons.error),
+        ),
         ),
         preferredSize: Size.fromRadius(18),
       ),
       //CHILDS STARTs HERE
-      avatarChild: (context, data) => const PreferredSize(
+      avatarChild: (context, data) =>  PreferredSize(
         child: CircleAvatar(
           radius: 12,
           backgroundColor: Colors.grey,
-          backgroundImage: AssetImage('assets/google.jpg'),
+          child:CachedNetworkImage(
+            imageUrl:  data.user == null? "":data.user!.profilePictureUrl.toString(),
+            placeholder: (context, url) => const CircularProgressIndicator(),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
+          ),
         ),
         preferredSize: Size.fromRadius(12),
       ),
@@ -97,7 +106,7 @@ class comment_tree_widget extends GetView<comment_controller> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  data.userId.toString(),
+                  data.user!.fullName.toString(),
                   style: Theme.of(context)
                       .textTheme
                       .caption

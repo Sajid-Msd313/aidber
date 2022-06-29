@@ -91,13 +91,13 @@ class reactions {
   );
 
 
-  static getReactionByValue(int reactionId){
+  static getReactionByValue(String reactionId){
     switch(reactionId){
-      case 1 : return heart;
-      case 2: return good_luck;
-      case 3: return get_well_soon;
-      case 4: return clapping;
-      case 5: return happy;
+      case "1" : return heart;
+      case "2": return good_luck;
+      case "3": return get_well_soon;
+      case "4": return clapping;
+      case "5": return happy;
       default: return  initialHeart;
     }
   }

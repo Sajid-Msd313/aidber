@@ -66,8 +66,10 @@ class post_services {
 
     try {
       if (response.statusCode == 200 && response.body.isNotEmpty) {
+        print(response.body.toString() + " <<<<<<");
         return CommentPostModel.fromJson(response.body);
       } else {
+
         return null;
       }
     } catch (e) {
@@ -86,7 +88,7 @@ class post_services {
       'post_id': post_id,
     };
     print("POST body ====> \n" + body.toString());
-    var response = await client.postData(api_urls.LIKE_POST, body, headers: headers);
+    var response = await client.postData(api_urls.LIKE_POST, body, headers: headersV2);
     print("=======> RESPONSE BODY FOR likePost");
 
     try {

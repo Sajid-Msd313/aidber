@@ -2,7 +2,6 @@ import 'package:aidber/controllers/auth/signin_controller.dart';
 import 'package:aidber/global_widgets/box_shadow.dart';
 import 'package:aidber/global_widgets/circluar_progressIndicator.dart';
 import 'package:aidber/global_widgets/colors.dart';
-import 'package:aidber/screens/recover_password_screen/recover_password.dart';
 import 'package:aidber/utils/styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -10,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../utils/get_di.dart';
+import '../recover_password_screen/recover_password.dart';
 import '../sign_up_screen/sign_up.dart';
 
 class Sign_In2 extends StatefulWidget {

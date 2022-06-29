@@ -16,13 +16,13 @@ class storage_controller extends GetxController implements GetxService {
     await box.write("login_model", loginModel.toJson());
     await box.write("token", loginModel.result?.token.toString());
     print("storing");
-    await Future.delayed(Duration(milliseconds: 200));
+    await Future.delayed(const Duration(milliseconds: 200));
     userModel = loginModel;
     update();
   }
 
   LoginModel? restoreLoginModel() {
-    final map = box.read('login_model') ?? null;
+    final map = box.read('login_model');
     if (map == null) {
       return null;
     }

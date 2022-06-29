@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import '../screens/home_screen/controller/all_post_controller.dart';
 
 class report_dialog extends GetView<all_post_controller> {
-  Datum post;
+  Posts post;
 
   report_dialog({Key? key, required this.post}) : super(key: key);
 

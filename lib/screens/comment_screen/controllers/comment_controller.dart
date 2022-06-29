@@ -1,9 +1,11 @@
+import 'package:aidber/controllers/storage_controller/storage_controller.dart';
 import 'package:aidber/data/services/posts/post_services.dart';
 import 'package:aidber/models/posts/comment_post_model.dart';
 import 'package:aidber/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../models/auth/login_model.dart';
 import '../../../models/posts/get_single_comment_model.dart';
 
 class comment_controller extends GetxController {
@@ -48,6 +50,17 @@ class comment_controller extends GetxController {
   }
 
   addToCommentList({required Comment comment}) {
+    Result? userData =     Get.find<storage_controller>().userModel.result;
+    //adding userData so that null issue is resolved...
+    comment.user = User(
+       id: 1,
+       username: "",
+       fullName: 'You',
+       profilePictureUrl: userData?.userImage?? "",
+     );
+
+
+
     if (comment.replyTo != null) {
       int? parentCommentIndex = commentPostList?.first.comments
           ?.indexWhere((element) => element.id.toString() == comment.replyTo);
@@ -82,10 +95,9 @@ class comment_controller extends GetxController {
     var detail = await post_services.postComment(
         post_id: post_id, reply_to: replyToId, comment: comment);
 
-    if (detail != null && detail is CommentPostModel) {
-      if (detail.data != null) addToCommentList(comment: detail.data!);
-      show_snackBarSuccess(
-          title: "Comment posted", description: detail.message ?? "");
+    if (detail != null && detail is CommentPostModel && detail.data != null) {
+      addToCommentList(comment: detail.data!);
+      show_snackBarSuccess(title: "Comment posted", description: detail.message ?? "");
     } else {
       print("error from post_comment ${detail.runtimeType}");
     }

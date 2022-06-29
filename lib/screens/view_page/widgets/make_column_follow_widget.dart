@@ -4,25 +4,27 @@ class make_column_follow extends StatelessWidget {
   final String heading;
   final String subtitle;
   final bool isUserName;
-
+  final Color? textColor;
+final CrossAxisAlignment? crossAxisAlignment;
   make_column_follow(
-      {this.isUserName = false, required this.subtitle, required this.heading});
+      {this.isUserName = false, required this.subtitle, required this.heading, this.textColor, this.crossAxisAlignment});
 
-  final boldstyle = TextStyle(
-      color: Get.theme.primaryColor,
-      fontWeight: FontWeight.w900,
-      wordSpacing: 2,
-      fontSize: 28);
-  final lightstyle = TextStyle(
-      color: Get.theme.primaryColor, fontSize: 12, fontWeight: FontWeight.w400);
+
 
   @override
   Widget build(BuildContext context) {
+    final boldstyle = TextStyle(
+        color: textColor ?? Get.theme.primaryColor ,
+        fontWeight: FontWeight.w900,
+        wordSpacing: 2,
+        fontSize: 28);
+    final lightstyle = TextStyle(
+        color:textColor?? Get.theme.primaryColor, fontSize: 12, fontWeight: FontWeight.w400);
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: this.isUserName
+      crossAxisAlignment: crossAxisAlignment == null?  isUserName || textColor==null
           ? CrossAxisAlignment.start
-          : CrossAxisAlignment.center,
+          : CrossAxisAlignment.center :CrossAxisAlignment.start,
       children: [
         Text(
           heading,

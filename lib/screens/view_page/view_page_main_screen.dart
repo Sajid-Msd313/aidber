@@ -67,16 +67,16 @@ class _view_page_mainScreenState extends State<view_page_mainScreen> {
                                   )),
                               Positioned(
                                   top: Get.height * .26,
-                                  child: make_profile_header()),
+                                  child: const make_profile_header()),
                             ],
                           ),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Column(
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(
-                                  top: 0, left: 15, right: 15, bottom: 15),
+                                  top: 0, left: 15, right: 15, bottom: 8),
                               child: Text(
                                 "Lorem Ipsum is test very" * 10,
                                 maxLines: 2,
@@ -112,8 +112,8 @@ class _view_page_mainScreenState extends State<view_page_mainScreen> {
                 SliverPersistentHeader(
 
                   delegate: _SliverAppBarDelegate(
-                    minHeight: 45.0,
-                    maxHeight: 45.0,
+                    minHeight: 50.0,
+                    maxHeight: 60.0,
                     child: Container(
                       color: Colors.white,
                       child: TabBar(

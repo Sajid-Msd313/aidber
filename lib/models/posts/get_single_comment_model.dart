@@ -29,12 +29,12 @@ class SingleComment {
   int? id;
   String? userId;
   String? caption;
-  dynamic? image;
+  String? image;
   String? latitude;
   String? longitude;
   String? type;
-  dynamic? postUrl;
-  dynamic? link;
+  String? postUrl;
+  String? link;
   String? isShared;
   dynamic? sharedAt;
   DateTime? createdAt;
@@ -72,8 +72,7 @@ class SingleComment {
     "shared_at": sharedAt,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
-    "comments": comments == null? [] : List<dynamic>.from(comments!.map((x) => x.toJson())),
-  };
+    "comments": comments == null? [] : List<dynamic>.from(comments!.map((x) => x.toJson())),  };
 }
 
 class Comment {
@@ -85,6 +84,7 @@ class Comment {
     this.replyTo,
     this.createdAt,
     this.updatedAt,
+    this.user,
     this.replies,
   });
 
@@ -95,6 +95,7 @@ class Comment {
   String? replyTo;
   DateTime? createdAt;
   DateTime? updatedAt;
+  User? user;
   List<Comment>? replies;
 
   factory Comment.fromJson(Map<String, dynamic> json) => Comment(
@@ -105,8 +106,8 @@ class Comment {
     replyTo: json["reply_to"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
-    replies: json["replies"] == null ? [] : List<Comment>.from(json["replies"].map((x) => Comment.fromJson(x))),
-  );
+    user:json["user"] == null? null: User.fromJson(json["user"]),
+    replies: json["replies"] == null ? [] : List<Comment>.from(json["replies"].map((x) => Comment.fromJson(x))),  );
 
   Map<String, dynamic> toJson() => {
     "id": id,
@@ -116,6 +117,41 @@ class Comment {
     "reply_to": replyTo,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
-    "replies":  replies == null?[]:      List<dynamic>.from(replies!.map((x) => x.toJson())),
+    "user": user?.toJson(),
+    "replies":  replies == null?[]:      List<dynamic>.from(replies!.map((x) => x.toJson())),  };
+}
+
+class User {
+  User({
+    this.id,
+    this.email,
+    this.username,
+    this.fullName,
+    this.profilePictureUrl,
+  });
+
+  int? id;
+  String? email;
+  String? username;
+  String? fullName;
+  String? profilePictureUrl;
+
+  factory User.fromJson(Map<String, dynamic> json) => User(
+    id: json["id"],
+    email: json["email"],
+    username: json["username"],
+    fullName:json["full_name"],
+    profilePictureUrl: json["profile_picture_url"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "email": email,
+    "username": username,
+    "full_name": fullName,
+    "profile_picture_url": profilePictureUrl,
   };
 }
+
+
+

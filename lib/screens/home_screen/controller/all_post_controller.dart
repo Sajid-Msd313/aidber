@@ -39,10 +39,10 @@ class all_post_controller extends GetxController with SinglePostApis {
   }
 
   _update_likePost({required int postId, required int reactionValue}) {
-    for (var element in _getAllPost.data!) {
+    for (var element in _getAllPost.data!.data!) {
       if (element.id == postId) {
         print("findeddd ${element.isLiked!}");
-        element.isLiked = reactionValue;
+        element.isLiked?.likeType?.id = reactionValue.toString();
         update();
         return;
       }

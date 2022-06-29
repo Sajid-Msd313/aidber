@@ -24,10 +24,12 @@ class api_urls {
   static const String SAVE_POST = "$BASE_URL/$API_URL/save-post";
   static const String SHARE_POST = "$BASE_URL/$API_URL/share-post";
 
-
-
   //===========POST ENDS HEREURLS============//
 
+
+  //===========PROFILE URLS============//
+  static const String USER_PROFILE = "$BASE_URL/$API_URL/user-profile";
+  static const String UPDATE_PROFILE = "$BASE_URL/$API_URL/update-profile";
 
   //===========EVENT URLS============//
   static const String ADD_EVENT = "$BASE_URL/$API_URL/add_event";
