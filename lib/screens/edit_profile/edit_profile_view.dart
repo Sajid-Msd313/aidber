@@ -12,18 +12,17 @@ class EditProfile extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar:CustomAppbar,
-      body: SafeArea(
-          child: SingleChildScrollView(
-            child: Container(
+      body: SingleChildScrollView(
+        child: Container(
         margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
         child: Column(
-            children: const [
-              headerEditProfile(),
-              bodyEditProfile()
-            ],
+        children: const [
+          headerEditProfile(),
+          bodyEditProfile()
+        ],
         ),
       ),
-          )),
+      ),
     );
   }
 }

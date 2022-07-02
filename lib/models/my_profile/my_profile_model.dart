@@ -117,8 +117,8 @@ class Data {
     active: json["active"],
     deviceToken: json["device_token"],
     isActive: json["is_active"],
-    followers: json["followers"],
-    following: json["following"],
+    followers: json["followers"] ?? 0,
+    following: json["following"] ?? 0,
     posts:json["posts"] == null? [] :  List<Posts>.from(json["posts"].map((x) => Posts.fromJson(x))),
   );
 
@@ -148,8 +148,8 @@ class Data {
     "active": active,
     "device_token": deviceToken,
     "is_active": isActive,
-    "followers": followers,
-    "following": following,
+    "followers": followers ?? 0,
+    "following": following ?? 0,
     "posts":posts == null? [] : List<dynamic>.from(posts!.map((x) => x.toJson())),
   };
 }

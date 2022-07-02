@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:aidber/screens/edit_profile/widgets/body.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,13 +9,7 @@ import '../edit_profile/edit_profile_view.dart';
 import '../view_page/widgets/make_column_follow_widget.dart';
 import 'controllers/profile_controller.dart';
 
-class profile_page_mainScreen extends StatefulWidget {
-  @override
-  _profile_page_mainScreenState createState() =>
-      _profile_page_mainScreenState();
-}
-
-class _profile_page_mainScreenState extends State<profile_page_mainScreen> {
+class profile_page_mainScreen extends GetView<profile_controller> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,24 +68,38 @@ class _profile_page_mainScreenState extends State<profile_page_mainScreen> {
                                       MainAxisAlignment.spaceAround,
                                   children: [
                                     make_column_follow(
-crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       textColor: Colors.white,
-                                      subtitle: "76",
+                                      subtitle:
+                                          controller.myProfileModel.data == null
+                                              ? "0"
+                                              : controller.myProfileModel.data!
+                                                  .followers
+                                                  .toString(),
                                       heading: "Community",
                                     ),
                                     const SizedBox(
                                       height: 15,
                                     ),
-                                    const Text(
-                                      "Name",
+                                    Text(
+                                      controller.myProfileModel.data == null
+                                          ? 'Name'
+                                          : controller.myProfileModel.data!
+                                                  .fullName ??
+                                              '',
                                       style: const TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.w900,
                                           wordSpacing: 2,
                                           fontSize: 24),
                                     ),
-                                    const Text(
-                                      "CEO at abc",
+                                    Text(
+                                      controller.myProfileModel.data == null
+                                          ? ''
+                                          : controller
+                                              .myProfileModel.data!.country
+                                              .toString(),
                                       style: const TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.normal,
@@ -102,38 +109,52 @@ crossAxisAlignment: CrossAxisAlignment.start,
                                     const SizedBox(
                                       height: 25,
                                     ),
-                                    RichText(
-                                        text: TextSpan(children: [
-                                      WidgetSpan(
-                                        child: const Padding(
-                                          padding:
-                                              EdgeInsets.only(right: 4),
-                                          child: const Icon(
-                                            Icons.location_on,
-                                            color: Colors.white,
-                                            size: 18,
+                                    Visibility(
+                                      visible: controller.myProfileModel.data !=
+                                          null,
+                                      child: RichText(
+                                          text: TextSpan(children: [
+                                        const WidgetSpan(
+                                          child: Padding(
+                                            padding: EdgeInsets.only(right: 4),
+                                            child: Icon(
+                                              Icons.location_on,
+                                              color: Colors.white,
+                                              size: 18,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      const TextSpan(text: "Torronto, Canada"),
-                                    ]))
+                                        TextSpan(
+                                          text:
+                                              controller.myProfileModel.data ==
+                                                      null
+                                                  ? 'Location not specified'
+                                                  : controller.myProfileModel
+                                                      .data!.country
+                                                      .toString(),
+                                        ),
+                                      ])),
+                                    )
                                   ],
                                 ),
                               ),
                             ],
                           ),
                         ),
-                        Flexible(
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                top: 15, left: 20, right: 20),
-                            child: AutoSizeText(
-                              "lOREM ipsum asdias dasd sad" * 3,
-                              maxLines: 4,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  wordSpacing: 2,
-                                  fontSize: 24),
+                        Visibility(
+                          visible: controller.myProfileModel.data != null,
+                          child: Flexible(
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 15, left: 20, right: 20),
+                              child: AutoSizeText(
+                                "lOREM ipsum asdias dasd sad" * 3,
+                                maxLines: 4,
+                                style: const TextStyle(
+                                    color: Colors.white,
+                                    wordSpacing: 2,
+                                    fontSize: 24),
+                              ),
                             ),
                           ),
                         ),
@@ -142,16 +163,16 @@ crossAxisAlignment: CrossAxisAlignment.start,
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
-                               left: 20, right: 20,bottom: 0 ),
+                              left: 20, right: 20, bottom: 0),
                           child: TextButton(
                             style: TextButton.styleFrom(
                                 padding: EdgeInsets.zero,
                                 minimumSize: const Size(50, 30),
                                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                 alignment: Alignment.centerLeft),
-                            onPressed:()=> Get.to(()=>const EditProfile()),
+                            onPressed: () => Get.to(() => const EditProfile()),
                             child: const Text("Edit profile",
-                                style:  TextStyle(
+                                style: TextStyle(
                                     fontWeight: FontWeight.w300,
                                     color: Colors.white,
                                     fontSize: 14)),
@@ -162,51 +183,10 @@ crossAxisAlignment: CrossAxisAlignment.start,
                   ),
                 ),
               ),
-              /* SliverPersistentHeader(
-
-                delegate: _SliverAppBarDelegate(
-                  minHeight: 50.0,
-                  maxHeight: 60.0,
-                  child: Container(
-                    color: Colors.white,
-                    child: TabBar(
-                      unselectedLabelColor: Colors.grey.shade700,
-                      indicatorColor:  Get.theme.primaryColor,
-                      indicatorWeight: 4.0,
-                      labelColor: Get.theme.primaryColor,
-                      controller: _tabController,
-                      isScrollable: true,
-                      tabs:const [
-                        Tab(
-                          text: "Home",
-                        ),
-                        Tab(
-                          text: "Overview",
-                        ),
-                        Tab(
-                          text:   "Photos/Videos",
-
-                        ),
-                        Tab(
-                          text: "Blogs",
-
-                        ),
-                        Tab(
-                          text: "Job Posts",
-
-
-
-                        ),
-                      ],
-                      indicatorSize: TabBarIndicatorSize.tab,
-                    ),
-                  ),
-                ),
-              ),*/
             ];
           },
           body: GetBuilder<profile_controller>(
-              init: profile_controller(),
+              init: Get.find<profile_controller>(),
               builder: (controller) {
                 if (controller.isLoading) {
                   return const Center(
@@ -218,7 +198,8 @@ crossAxisAlignment: CrossAxisAlignment.start,
                     child: Text("No Posts"),
                   );
                 }
-                return  Text("Need Api Changes, below uncomment if ok ${controller.postList.length}");
+                return Text(
+                    "Need Api Changes, below uncomment if ok ${controller.postList.length}");
                 return ListView.builder(
                   primary: true,
                   //   physics: const NeverScrollableScrollPhysics(),

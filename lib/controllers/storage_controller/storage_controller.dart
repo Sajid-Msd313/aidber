@@ -8,6 +8,18 @@ class storage_controller extends GetxController implements GetxService {
   LoginModel userModel = LoginModel();
   final box = GetStorage(constans.STORAGE_NAME);
 
+  String? getProfileImage() {
+    return userModel.result?.userImage;
+  }
+
+  String? getUserName() {
+    return userModel.result?.userName;
+  }
+
+  int? getUserId() {
+    return userModel.result?.userId;
+  }
+
   Future<void> initStorage() async {
     await GetStorage.init(constans.STORAGE_NAME);
   }
@@ -30,9 +42,9 @@ class storage_controller extends GetxController implements GetxService {
     print("TOKEN: \n" + userModel.result!.token.toString());
     return userModel;
   }
+
   Future<void> clear_storage() async {
     await box.erase();
     Get.offAll(const Sign_In2());
   }
-
 }
