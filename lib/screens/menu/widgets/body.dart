@@ -2,6 +2,10 @@ import 'package:aidber/controllers/storage_controller/storage_controller.dart';
 import 'package:aidber/global_widgets/colors.dart';
 import 'package:aidber/global_widgets/custom_button.dart';
 import 'package:aidber/screens/auth/login/login_view.dart';
+import 'package:aidber/screens/business_account/controllers/business_mainController.dart';
+import 'package:aidber/screens/business_account/controllers/create_business_controller.dart';
+import 'package:aidber/screens/business_account/create_business_account_screen.dart';
+import 'package:aidber/screens/business_account/show_business_account_screen.dart';
 import 'package:aidber/screens/events/events_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -60,8 +64,8 @@ class bodymenu extends StatelessWidget {
                     ],
                   )),
               InkWell(
-                onTap: (){
-                  Get.to(()=> EventsScreen());
+                onTap: () {
+                  Get.to(() => EventsScreen());
                 },
                 child: Container(
                     decoration: BoxDecoration(
@@ -122,28 +126,44 @@ class bodymenu extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-
         CustomLogMenuButton(
             btnText: "Saved",
             primary: true,
             onPressed: () {
               Get.offAll(() => const Sign_In2());
             }),
-        SizedBox(height: 7,),
+        const SizedBox(
+          height: 7,
+        ),
         CustomLogMenuButton(
             btnText: "Create Business Account",
             primary: true,
             onPressed: () {
-              Get.offAll(() => const Sign_In2());
+              Get.to(
+                () => const create_business_accountview(),
+                binding: BindingsBuilder(
+                    () => {Get.put(create_business_controller())}),
+                //   binding: BindingsBuilder(()=>Get.put(create_business_controller()))
+              );
             }),
-        SizedBox(height: 7,),
+        SizedBox(
+          height: 7,
+        ),
         CustomLogMenuButton(
-            btnText: "Business Accounts",
-            primary: true,
-            onPressed: () {
-              Get.offAll(() => const Sign_In2());
-            }),
-        SizedBox(height: 7,),
+          btnText: "Business Accounts",
+          primary: true,
+          onPressed: () {
+            Get.to(
+              () => const show_business_accountScreen(),
+              // binding: BindingsBuilder(()=>Get.put( business_mainController())),
+              binding:
+                  BindingsBuilder(() => {Get.put(business_mainController())}),
+            );
+          },
+        ),
+        SizedBox(
+          height: 7,
+        ),
         CustomLogOutButton(
             btnText: "Log Out",
             primary: true,
@@ -151,8 +171,7 @@ class bodymenu extends StatelessWidget {
               Get.find<storage_controller>().clear_storage();
               Get.offAll(() {
                 const Sign_In2();
-
-              } );
+              });
             })
       ]),
     );

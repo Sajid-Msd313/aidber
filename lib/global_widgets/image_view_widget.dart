@@ -25,11 +25,11 @@ class image_view_widget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: imageFilePath == null || imageFilePath.toString() == ""
-                  ? Image.asset(constans.DEFAULT_IMAGE)
+                  ? Image.network(constans.DEFAULT_IMAGE)
                   : Image.file(File(imageFilePath.toString())),
             )),
           ),
-          Positioned(
+      if(callBack != null)    Positioned(
               right: -2,
               top: -9,
               child: IconButton(
