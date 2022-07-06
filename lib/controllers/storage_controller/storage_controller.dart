@@ -45,6 +45,7 @@ class storage_controller extends GetxController implements GetxService {
 
   Future<void> clear_storage() async {
     await box.erase();
+    box.remove("token");
     Get.offAll(const Sign_In2());
   }
 }

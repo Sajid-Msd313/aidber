@@ -5,10 +5,7 @@ import 'package:get/get.dart';
 import '../../../models/business/user_business_model.dart';
 
 class create_business_controller extends GetxController {
-  @override
-  onInit() {
-    super.onInit();
-  }
+  bool _isLoading = false;
 
   GlobalKey<FormState> formKey = GlobalKey();
   TextEditingController businessNameC = TextEditingController();
@@ -29,6 +26,7 @@ class create_business_controller extends GetxController {
   }
 
   createAccount() async {
+    isLoading = true;
     Map reqBody = {
       "business_name": businessTaglineC.text,
       "business_tagline": websiteC.text,
@@ -40,9 +38,17 @@ class create_business_controller extends GetxController {
       "about": aboutC.text,
     };
     var detail = await business_services.createAccountBusiness(reqBody: reqBody);
+    isLoading = false;
     if (detail is UserBusinessModel) {
       print("UserBusinessModel");
       print(detail.toJson());
     }
+  }
+
+  bool get isLoading => _isLoading;
+
+  set isLoading(bool value) {
+    _isLoading = value;
+    update();
   }
 }

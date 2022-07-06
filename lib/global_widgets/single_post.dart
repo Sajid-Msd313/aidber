@@ -5,6 +5,7 @@ import 'package:aidber/screens/home_screen/controller/all_post_controller.dart';
 import 'package:aidber/screens/home_screen/widgets/make_rounded_text_type.dart';
 import 'package:aidber/utils/api_urls.dart';
 import 'package:aidber/utils/constants.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reaction_button/flutter_reaction_button.dart';
@@ -47,12 +48,15 @@ class single_post extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    singleItemPost.user!.username ?? "",
-                    style: const TextStyle(
-                        fontSize: 15,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500),
+                  Visibility(
+                    visible: singleItemPost.user?.username != null,
+                    child: Text(
+                      singleItemPost.user?.username ?? "",
+                      style: const TextStyle(
+                          fontSize: 15,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 4.0),
@@ -87,8 +91,15 @@ class single_post extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Image.network(
-                      url), //imageViewSinglePost(imagesList: img_urls,)),
+                  child: CachedNetworkImage(
+                    imageUrl: url,
+                    placeholder: (context, url) =>
+                      const  Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                    fit: BoxFit.cover,
+
+                  ), //imageViewSinglePost(imagesList: img_urls,)),
                 )),
           const SizedBox(
             height: 10,

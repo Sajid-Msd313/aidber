@@ -51,7 +51,7 @@ class create_post_controller extends GetxController {
 
   List<String> get pickedImagesPath => _pickedImagesPath.value;
 
-  void validate() {
+  void validate({String? businessId}) {
 
     if (_post_categoryField.isEmpty) {
       show_snackBarError(
@@ -60,12 +60,12 @@ class create_post_controller extends GetxController {
       return;
     }
     if (formKey.currentState!.validate()) {
-      create_PostNow();
+      create_PostNow( businessId: businessId);
     }
   }
 
   //MAIN FUNCTION IS THIS>...
-  void create_PostNow() async {
+  void create_PostNow({String? businessId}) async {
     isLoading = true;
     Get.back();
     if (_pickedImagesPath.isNotEmpty) showuploadProgress();
@@ -74,6 +74,7 @@ class create_post_controller extends GetxController {
       content: Text("You will be notified when your post is live"),
     ));
     var detail = await create_post_services.create_post(
+        businessId: businessId,
         callback: _setUploadProgress,
         caption: captionField.text,
         latitude: latitude,

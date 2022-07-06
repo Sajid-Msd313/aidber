@@ -8,9 +8,10 @@ import 'package:get/get.dart';
 class make_profileImage_name extends StatelessWidget {
   final Function callBackRemoveAddress;
   final Function callBackRemoveLink;
+  final String? businessName;
 
   make_profileImage_name(
-      {required this.callBackRemoveAddress, required this.callBackRemoveLink});
+      {required this.callBackRemoveAddress, required this.callBackRemoveLink, this.businessName});
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +54,7 @@ class make_profileImage_name extends StatelessWidget {
                         TextSpan(
                           children: [
                             TextSpan(
-                                text: Get.find<storage_controller>()
+                                text: businessName != null?businessName : Get.find<storage_controller>()
                                                 .userModel
                                                 .result !=
                                             null &&

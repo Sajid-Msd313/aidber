@@ -13,21 +13,39 @@ class business_services {
   static Map<String, String> headersV2 = {'x-api-key': client.token.toString()};
 
   static Future createAccountBusiness({required Map reqBody}) async {
-    print(" UserBusinessModel POST Comment body ====> \n" + reqBody.toString());
+    print(" createAccountBusiness body ====> \n" + reqBody.toString());
     var response = await client.postData(api_urls.CREATE_BUSINESS, reqBody,
         headers: headersV2);
 
     try {
-      if (response.statusCode == 200 && response.body.isNotEmpty) {
-        print(response.body.toString() + " <<<<<< UserBusinessModel");
+      if (response.statusCode == 200 && response.body["data"] != null) {
+        print(response.body.toString() + " <<<<<< createAccountBusiness");
+        return BusinessItem.fromJson(response.body["data"]);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print(e);
+      print("error from api_urls.createAccountBusiness");
+      print(reqBody);
+    }
+  }
+
+
+  static Future fetchUserBusinessAccounts() async {
+    var response = await client.getData(api_urls.GET_BUSINESSES,
+        headers: headersV2);
+    try {
+      if (response.statusCode == 200 && response.body["data"] != null) {
+        print(response.body.toString() + " <<<<<< fetchUserBusinessAccounts");
         return UserBusinessModel.fromJson(response.body);
       } else {
         return null;
       }
     } catch (e) {
       print(e);
-      print("error from api_urls.COMMENT");
-      print(reqBody);
+      print("error from api_urls.fetchUserBusinessAccounts");
+
     }
   }
 }

@@ -169,9 +169,6 @@ class bodymenu extends StatelessWidget {
             primary: true,
             onPressed: () {
               Get.find<storage_controller>().clear_storage();
-              Get.offAll(() {
-                const Sign_In2();
-              });
             })
       ]),
     );

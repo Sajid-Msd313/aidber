@@ -1,9 +1,13 @@
+import 'package:aidber/models/business/user_business_model.dart';
 import 'package:aidber/screens/business_account/controllers/business_mainController.dart';
 import 'package:aidber/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../global_widgets/appbar.dart';
+import '../create_a_post/create_post_screen.dart';
+import 'controllers/create_business_controller.dart';
+import 'create_business_account_screen.dart';
 
 class show_business_accountScreen extends GetView<business_mainController> {
   const show_business_accountScreen({Key? key}) : super(key: key);
@@ -16,7 +20,13 @@ class show_business_accountScreen extends GetView<business_mainController> {
         actions: [
           IconButton(
             tooltip: "Create Business Account",
-            onPressed: () => {},
+            onPressed: () => {
+              Get.to(
+                () => const create_business_accountview(),
+                binding: BindingsBuilder(
+                    () => {Get.put(create_business_controller())}),
+              ),
+            },
             icon: const Icon(
               Icons.add,
               color: Colors.white,
@@ -24,15 +34,34 @@ class show_business_accountScreen extends GetView<business_mainController> {
           ),
         ],
       ),
-      body: ListView.builder(
-          itemCount: 10,
-          itemBuilder: (_, index) => const businessAccountItem()),
+      body: GetBuilder<business_mainController>(
+          init: Get.find<business_mainController>(),
+          builder: (controller) {
+            if (controller.isLoading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if (controller.userBusinessAccounts.isEmpty) {
+              return const Center(
+                child: Text("No Business Account Found"),
+              );
+            }
+            return ListView.builder(
+                itemCount: controller.userBusinessAccounts.length,
+                itemBuilder: (_, index) => businessAccountItem(
+                      account: controller.userBusinessAccounts[index],
+                    ));
+          }),
     );
   }
 }
 
 class businessAccountItem extends StatelessWidget {
-  const businessAccountItem({Key? key}) : super(key: key);
+  final BusinessItem account;
+
+  const businessAccountItem({Key? key, required this.account})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -47,12 +76,12 @@ class businessAccountItem extends StatelessWidget {
         ),
         child: Image.network(constans.DEFAULT_IMAGE),
       )),
-      title: const Text(
-        "Healthcare Lounge",
-        style: TextStyle(fontWeight: FontWeight.bold),
+      title: Text(
+        account.businessName ?? "Business Name",
+        style: const TextStyle(fontWeight: FontWeight.bold),
       ),
-      subtitle: const Text(
-        "76 Communitys | Category name",
+      subtitle: Text(
+        "76 Communitys | ${account.companySize}",
         style: TextStyle(fontSize: 12),
       ),
       trailing: IconButton(
@@ -62,7 +91,11 @@ class businessAccountItem extends StatelessWidget {
             Icons.more_vert,
             color: Colors.black,
           ),
-          onPressed: () {}),
+          onPressed: () {
+
+            Get.to(()=> create_post_screen(businessName: account.businessName,businessId: account.id?.toString(),), transition: Transition.cupertinoDialog,duration: 200.milliseconds);
+
+          }),
     );
   }
 }

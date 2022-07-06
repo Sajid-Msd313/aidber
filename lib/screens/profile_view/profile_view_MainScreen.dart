@@ -29,156 +29,148 @@ class profile_page_mainScreen extends GetView<profile_controller> {
                   collapseMode: CollapseMode.pin,
                   background: Container(
                     color: Theme.of(context).primaryColor,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          alignment: Alignment.topLeft,
-                          child: IconButton(
-                            onPressed: () => Get.back(),
-                            icon: const Icon(
-                              Icons.arrow_back_ios_new,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(20),
-                                // Image border
-                                child: SizedBox.fromSize(
-                                  size: const Size.fromRadius(80),
-                                  // Image radius
-                                  child: Image.asset('assets/sajidmsd.jpg',
-                                      fit: BoxFit.cover),
+                    child:  GetBuilder<profile_controller>(
+                        init: Get.find<profile_controller>(),
+                        builder: (controller) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              alignment: Alignment.topLeft,
+                              child: IconButton(
+                                onPressed: () => Get.back(),
+                                icon: const Icon(
+                                  Icons.arrow_back_ios_new,
+                                  color: Colors.white,
                                 ),
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 18),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    // Image border
+                                    child: SizedBox.fromSize(
+                                      size: const Size.fromRadius(80),
+                                      // Image radius
+                                      child: Image.asset('assets/sajidmsd.jpg',
+                                          fit: BoxFit.cover),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(horizontal: 18),
+                                    child:Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment:
                                       MainAxisAlignment.spaceAround,
-                                  children: [
-                                    make_column_follow(
-                                      crossAxisAlignment:
+                                      children: [
+                                        make_column_follow(
+                                          crossAxisAlignment:
                                           CrossAxisAlignment.start,
-                                      textColor: Colors.white,
-                                      subtitle:
+                                          textColor: Colors.white,
+                                          subtitle:controller.myProfileModel.data?.followers.toString() ?? "0",
+                                          heading: "Community",
+                                        ),
+                                        const SizedBox(
+                                          height: 15,
+                                        ),
+                                        Text(
                                           controller.myProfileModel.data == null
-                                              ? "0"
+                                              ? 'Name'
                                               : controller.myProfileModel.data!
-                                                  .followers
-                                                  .toString(),
-                                      heading: "Community",
-                                    ),
-                                    const SizedBox(
-                                      height: 15,
-                                    ),
-                                    Text(
-                                      controller.myProfileModel.data == null
-                                          ? 'Name'
-                                          : controller.myProfileModel.data!
-                                                  .fullName ??
+                                              .fullName ??
                                               '',
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w900,
-                                          wordSpacing: 2,
-                                          fontSize: 24),
-                                    ),
-                                    Text(
-                                      controller.myProfileModel.data == null
-                                          ? ''
-                                          : controller
-                                              .myProfileModel.data!.country
-                                              .toString(),
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.normal,
-                                          wordSpacing: 2,
-                                          fontSize: 18),
-                                    ),
-                                    const SizedBox(
-                                      height: 25,
-                                    ),
-                                    Visibility(
-                                      visible: controller.myProfileModel.data !=
-                                          null,
-                                      child: RichText(
-                                          text: TextSpan(children: [
-                                        const WidgetSpan(
-                                          child: Padding(
-                                            padding: EdgeInsets.only(right: 4),
-                                            child: Icon(
-                                              Icons.location_on,
+                                          style: const TextStyle(
                                               color: Colors.white,
-                                              size: 18,
-                                            ),
+                                              fontWeight: FontWeight.w900,
+                                              wordSpacing: 2,
+                                              fontSize: 24),
+                                        ),
+                                        Visibility(
+                                          visible: controller.myProfileModel.data?.country != null,
+                                          child: Text(
+                                            controller.myProfileModel.data?.country ?? '',
+                                            style: const TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.normal,
+                                                wordSpacing: 2,
+                                                fontSize: 18),
                                           ),
                                         ),
-                                        TextSpan(
-                                          text:
-                                              controller.myProfileModel.data ==
-                                                      null
-                                                  ? 'Location not specified'
-                                                  : controller.myProfileModel
-                                                      .data!.country
-                                                      .toString(),
+                                        const SizedBox(
+                                          height: 25,
                                         ),
-                                      ])),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Visibility(
-                          visible: controller.myProfileModel.data != null,
-                          child: Flexible(
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 15, left: 20, right: 20),
-                              child: AutoSizeText(
-                                "lOREM ipsum asdias dasd sad" * 3,
-                                maxLines: 4,
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    wordSpacing: 2,
-                                    fontSize: 24),
+                                        Visibility(
+                                          visible: controller.myProfileModel.data !=
+                                              null,
+                                          child: RichText(
+                                              text: TextSpan(children: [
+                                                const WidgetSpan(
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(right: 4),
+                                                    child: Icon(
+                                                      Icons.location_on,
+                                                      color: Colors.white,
+                                                      size: 18,
+                                                    ),
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text:
+                                                  controller.myProfileModel.data?.country ?? "Location not specified" ,
+                                                ),
+                                              ])),
+                                        )
+                                      ],
+                                    ) ,
+                                  ),
+                                ],
                               ),
                             ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              left: 20, right: 20, bottom: 0),
-                          child: TextButton(
-                            style: TextButton.styleFrom(
-                                padding: EdgeInsets.zero,
-                                minimumSize: const Size(50, 30),
-                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                alignment: Alignment.centerLeft),
-                            onPressed: () => Get.to(() => const EditProfile()),
-                            child: const Text("Edit profile",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w300,
-                                    color: Colors.white,
-                                    fontSize: 14)),
-                          ),
-                        )
-                      ],
+                            Visibility(
+                              visible: controller.myProfileModel.data != null,
+                              child: Flexible(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 15, left: 20, right: 20),
+                                  child: AutoSizeText(
+                                    controller.myProfileModel.data?.about?? '',
+                                    maxLines: 4,
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        wordSpacing: 2,
+                                        fontSize: 24),
+                                  ),
+                                ),
+                              ),
+                            ),
+                        const   Spacer(),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 20, right: 20, bottom: 0),
+                              child: TextButton(
+                                style: TextButton.styleFrom(
+                                    padding: EdgeInsets.zero,
+                                    minimumSize: const Size(50, 30),
+                                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                    alignment: Alignment.centerLeft),
+                                onPressed: () => Get.to(() => const EditProfile()),
+                                child: const Text("Edit profile",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w300,
+                                        color: Colors.white,
+                                        fontSize: 14)),
+                              ),
+                            )
+                          ],
+                        );
+                      }
                     ),
                   ),
                 ),
@@ -198,8 +190,8 @@ class profile_page_mainScreen extends GetView<profile_controller> {
                     child: Text("No Posts"),
                   );
                 }
-                return Text(
-                    "Need Api Changes, below uncomment if ok ${controller.postList.length}");
+                // return Text(
+                //     "Need Api Changes, below uncomment if ok ${controller.postList.length}");
                 return ListView.builder(
                   primary: true,
                   //   physics: const NeverScrollableScrollPhysics(),
@@ -208,12 +200,12 @@ class profile_page_mainScreen extends GetView<profile_controller> {
                   shrinkWrap: true,
                   cacheExtent: 50,
                   scrollDirection: Axis.vertical,
-                  itemCount: controller.myProfileModel.data?.posts?.length,
+                  itemCount:  controller.postList.length,
                   itemBuilder: (context, int index) {
                     //  print(controller.getAllPost.data![index].postUrl);
                     return single_post(
                         singleItemPost:
-                            controller.myProfileModel.data!.posts![index]);
+                           controller.postList[index]);
                   },
                 );
               }),

@@ -21,13 +21,15 @@ class create_post_services {
       required String longitude,
       required List<String> image_file,
       required List<UserModel?> taggedUsers,
-      required String post_category}) async {
+      required String post_category,
+        String? businessId}) async {
     dio.Response response;
     var client = dio.Dio();
 
     //  print(response.data.toString());
 
     var formData = dio.FormData.fromMap({
+      'business_id' : businessId,
       'caption': caption,
       'latitude': latitude.isEmpty ? "000" : latitude,
       'longitude': longitude.isEmpty ? "000" : longitude,

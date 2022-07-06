@@ -10,7 +10,10 @@ import '../../utils/styles.dart';
 import 'widgets/make_category_selection_chips.dart';
 
 class create_post_screen extends GetView<create_post_controller> {
-  const create_post_screen({Key? key}) : super(key: key);
+  //for business post...
+  final String? businessId;
+  final String? businessName;
+  const create_post_screen({Key? key, this.businessId, this.businessName}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +37,7 @@ class create_post_screen extends GetView<create_post_controller> {
                   height: 20,
                 ),
                  make_profileImage_name(
+                   businessName: businessName??null,
                    callBackRemoveLink: controller.clearLink,
                    callBackRemoveAddress: controller.clearAddress,),
                 const SizedBox(
@@ -123,7 +127,7 @@ class create_post_screen extends GetView<create_post_controller> {
                   btnText: "Post",
                   primary: true,
                   onPressed: () {
-                    controller.validate();
+                    controller.validate(businessId: businessId);
                   },
                   showShadow: false,
                 ))
