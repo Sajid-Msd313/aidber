@@ -39,7 +39,7 @@ class _Sign_In2State extends State<Sign_In2> {
             print("width: " + constraints.maxWidth.toString());
             final width = constraints.biggest.width;
             return SingleChildScrollView(
-              child: Container(
+              child: SizedBox(
                height: constraints.maxHeight,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

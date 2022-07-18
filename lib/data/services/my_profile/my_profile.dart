@@ -1,3 +1,5 @@
+
+import 'package:aidber/controllers/storage_controller/storage_controller.dart';
 import 'package:aidber/utils/api_urls.dart';
 import 'package:aidber/utils/constants.dart';
 import 'package:flutter/services.dart';
@@ -11,11 +13,11 @@ class myProfile_services {
 
   static ApiClient client = Get.find<ApiClient>();
   static Map<String, String> headers = {
-    'x-api-key': client.token.toString(),
+    'x-api-key':Get.find<storage_controller>().box.read("token").toString(),
     'Content-Type': 'application/json'
   };
   static Map<String, String> headersV2 = {
-    'x-api-key': client.token.toString()
+    'x-api-key': Get.find<storage_controller>().box.read("token").toString(),
   };
 
 

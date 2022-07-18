@@ -19,16 +19,17 @@ class post_services {
   // 'x-api-key': '${Get.find<storage_controller>().box.read("token")}'
   // }
   static ApiClient client = Get.find<ApiClient>();
-  static Map<String, String> headers = {
-    'x-api-key': client.token.toString(),
-    'Content-Type': 'application/json'
-  };
-  static Map<String, String> headersV2= {
-  'x-api-key': client.token.toString()
-  };
+
 
 
   static Future fetch_all_post_services({required ApiClient client}) async {
+     Map<String, String> headers = {
+      'x-api-key': Get.find<storage_controller>().box.read("token"),
+      'Content-Type': 'application/json'
+    };
+      Map<String, String> headersV2= {
+       'x-api-key':Get.find<storage_controller>().box.read("token")
+     };
     String url = api_urls.GET_ALL_POST;
     print("**hitting $url");
     try {
@@ -56,6 +57,13 @@ class post_services {
       required String post_id,
       required String comment,
       required String reply_to}) async {
+    Map<String, String> headers = {
+      'x-api-key': Get.find<storage_controller>().box.read("token"),
+      'Content-Type': 'application/json'
+    };
+    Map<String, String> headersV2= {
+      'x-api-key':Get.find<storage_controller>().box.read("token")
+    };
     Map<String, String> body = {
       'comment': comment,
       'post_id': post_id,
@@ -83,6 +91,13 @@ class post_services {
       {required ApiClient client,
       required String post_id,
       required String type}) async {
+    Map<String, String> headers = {
+      'x-api-key': Get.find<storage_controller>().box.read("token"),
+      'Content-Type': 'application/json'
+    };
+    Map<String, String> headersV2= {
+      'x-api-key':Get.find<storage_controller>().box.read("token")
+    };
     Map<String, String> body = {
       'type': type,
       'post_id': post_id,
@@ -133,6 +148,13 @@ class post_services {
   static Future<bool> requestToFollow({
     required String post_id,
   }) async {
+    Map<String, String> headers = {
+      'x-api-key': Get.find<storage_controller>().box.read("token"),
+      'Content-Type': 'application/json'
+    };
+    Map<String, String> headersV2= {
+      'x-api-key':Get.find<storage_controller>().box.read("token")
+    };
     var response = await client.postData(
         api_urls.REQUEST_TO_FOLLOW + "/$post_id", null, headers: headers);
 
@@ -151,6 +173,13 @@ class post_services {
   static Future<bool> savePost({
     required String post_id,
   }) async {
+    Map<String, String> headers = {
+      'x-api-key': Get.find<storage_controller>().box.read("token"),
+      'Content-Type': 'application/json'
+    };
+    Map<String, String> headersV2= {
+      'x-api-key':Get.find<storage_controller>().box.read("token")
+    };
     var response = await client.getData(
         api_urls.SAVE_POST + "/$post_id", headers: headers);
 
@@ -169,6 +198,13 @@ class post_services {
   static Future<bool> sharePost({
     required String post_id,
   }) async {
+    Map<String, String> headers = {
+      'x-api-key': Get.find<storage_controller>().box.read("token"),
+      'Content-Type': 'application/json'
+    };
+    Map<String, String> headersV2= {
+      'x-api-key':Get.find<storage_controller>().box.read("token")
+    };
     var response = await client.getData(
         api_urls.SAVE_POST + "/$post_id", headers: headers);
 

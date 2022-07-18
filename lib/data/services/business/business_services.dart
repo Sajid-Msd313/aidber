@@ -1,18 +1,20 @@
 import 'package:aidber/utils/api_urls.dart';
 import 'package:get/get.dart';
 
+import '../../../controllers/storage_controller/storage_controller.dart';
 import '../../../models/business/user_business_model.dart';
 import '../../api.dart';
 
 class business_services {
   static ApiClient client = Get.find<ApiClient>();
-  static Map<String, String> headers = {
-    'x-api-key': client.token.toString(),
-    'Content-Type': 'application/json'
-  };
-  static Map<String, String> headersV2 = {'x-api-key': client.token.toString()};
+
 
   static Future createAccountBusiness({required Map reqBody}) async {
+     Map<String, String> headers = {
+      'x-api-key': Get.find<storage_controller>().box.read("token"),
+      'Content-Type': 'application/json'
+    };
+     Map<String, String> headersV2 = {'x-api-key': Get.find<storage_controller>().box.read("token")};
     print(" createAccountBusiness body ====> \n" + reqBody.toString());
     var response = await client.postData(api_urls.CREATE_BUSINESS, reqBody,
         headers: headersV2);
@@ -33,6 +35,11 @@ class business_services {
 
 
   static Future fetchUserBusinessAccounts() async {
+    Map<String, String> headers = {
+      'x-api-key': Get.find<storage_controller>().box.read("token"),
+      'Content-Type': 'application/json'
+    };
+    Map<String, String> headersV2 = {'x-api-key': Get.find<storage_controller>().box.read("token")};
     var response = await client.getData(api_urls.GET_BUSINESSES,
         headers: headersV2);
     try {

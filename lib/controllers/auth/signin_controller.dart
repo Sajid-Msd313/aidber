@@ -8,6 +8,8 @@ import 'package:aidber/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
+import '../../utils/get_di.dart';
+
 class signin_controller extends GetxController {
   ApiClient apiClient;
   signin_controller({required this.apiClient});
@@ -41,8 +43,13 @@ class signin_controller extends GetxController {
         print(detail);
         if (detail is LoginModel) {
 
-         await Get.find<storage_controller>().storeLoginModel(detail);
-
+          try{
+             await Get.find<storage_controller>().storeLoginModel(detail);
+             Get.find<ApiClient>().updateHeader(detail.result?.token??"");
+          }catch(e){
+            print(e);
+          }
+          await Future.delayed(1.seconds);
           show_snackBarSuccess(title: "Logined Successfully", description: detail.msg??"");
           Get.offAll(()=>  root_page());
          // Get.offAll(HomeScreenView());

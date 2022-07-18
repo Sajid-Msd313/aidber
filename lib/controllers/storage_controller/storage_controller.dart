@@ -3,7 +3,9 @@ import 'package:aidber/screens/auth/login/login_view.dart';
 import 'package:aidber/utils/constants.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:aidber/utils/get_di.dart' as di;
 
+import '../../utils/get_di.dart';
 class storage_controller extends GetxController implements GetxService {
   LoginModel userModel = LoginModel();
   final box = GetStorage(constans.STORAGE_NAME);
@@ -45,7 +47,10 @@ class storage_controller extends GetxController implements GetxService {
 
   Future<void> clear_storage() async {
     await box.erase();
-    box.remove("token");
+    await box.remove("token");
+    userModel = LoginModel();
     Get.offAll(const Sign_In2());
+
+
   }
 }

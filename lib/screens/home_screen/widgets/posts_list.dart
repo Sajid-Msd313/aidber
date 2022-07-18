@@ -1,3 +1,4 @@
+import 'package:aidber/global_widgets/custom_button.dart';
 import 'package:aidber/global_widgets/single_post.dart';
 import 'package:aidber/screens/home_screen/controller/all_post_controller.dart';
 import 'package:aidber/utils/api_urls.dart';
@@ -25,8 +26,14 @@ class _PostsListState extends State<PostsList> {
       }
       if (controller.getAllPost.data == null ||
           controller.getAllPost.data!.data == null ) {
-        return const Center(
-          child:  Text("No posts available"),
+        return  Container(
+          height: Get.height,
+          child: Center(
+            child:  Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 60),
+              child: CustomButton(btnText: "Refresh", primary: true, onPressed: ()=>controller.fetch_allPosts(isInitial: true)),
+            ),
+          ),
         );
       }
 

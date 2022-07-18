@@ -11,7 +11,7 @@ import 'package:image_picker/image_picker.dart';
 class ApiClient extends GetxService {
   final String appBaseUrl;
   final storage_controller storageController;
-  static final String noInternetMessage =
+  static const String noInternetMessage =
       'Connection to API server failed due to internet connection';
   final int timeoutInSeconds = 30;
 
@@ -70,7 +70,10 @@ class ApiClient extends GetxService {
         print('====> API Calla: $uri\nToken: $token');
         print('====> API Body:: $body');
         print("headers::: ${headers ?? _mainHeaders}");
+        print("header 1 ${json.encode(headers)}");
+        print("header 2 ${json.encode(_mainHeaders)}");
       }
+
       Http.Response _response = await Http.post(
         Uri.parse(uri),
         body: body,
@@ -82,10 +85,11 @@ class ApiClient extends GetxService {
         print(
             '====> API Responsea: [${response.statusCode}] $uri \n${response.body.toString()}');
       }
+
       return response;
     } catch (e) {
       print("catched from apiclient" + e.toString());
-      return Response(statusCode: 1, statusText: noInternetMessage);
+      return const Response(statusCode: 1, statusText: noInternetMessage);
     }
   }
 

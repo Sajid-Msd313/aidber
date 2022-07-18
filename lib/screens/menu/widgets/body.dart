@@ -10,6 +10,8 @@ import 'package:aidber/screens/events/events_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../utils/get_di.dart';
+
 class bodymenu extends StatelessWidget {
   const bodymenu({Key? key}) : super(key: key);
 
@@ -156,8 +158,7 @@ class bodymenu extends StatelessWidget {
             Get.to(
               () => const show_business_accountScreen(),
               // binding: BindingsBuilder(()=>Get.put( business_mainController())),
-              binding:
-                  BindingsBuilder(() => {Get.put(business_mainController())}),
+              binding: BindingsBuilder(() => {Get.put(business_mainController())}),
             );
           },
         ),
