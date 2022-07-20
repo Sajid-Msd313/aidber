@@ -14,6 +14,8 @@ import '../data/api.dart';
 import '../screens/business_account/controllers/create_business_controller.dart';
 import '../screens/comment_screen/controllers/comment_controller.dart';
 import '../screens/create_a_post/controller/create_post_controller.dart';
+import '../screens/events/controllers/create_new_event_controller.dart';
+import '../screens/events/controllers/event_controller.dart';
 
 Future<void> init()async{
   await Get.put(storage_controller(), permanent: true).initStorage();
@@ -23,6 +25,8 @@ Future<void> init()async{
   Get.lazyPut(() => signup_controller(apiClient: Get.find<ApiClient>()));
   Get.lazyPut(() => all_post_controller(apiClient: Get.find<ApiClient>()));
   Get.lazyPut(() => create_post_controller(apiClient: Get.find<ApiClient>()),fenix: true);
+  Get.lazyPut(() => CreateNewEventController());
+  Get.lazyPut(() => EventController());
   // Get.lazyPut(() =>  create_business_controller());
   // Get.lazyPut(() =>  business_mainController());
   // Get.lazyPut(() => comment_controller(apiClient: Get.find<ApiClient>()));

@@ -1,7 +1,9 @@
 import 'package:aidber/global_widgets/appbar.dart';
-import 'package:aidber/screens/event_detail_screen/widgets/body.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+
+import 'package:aidber/screens/events/event_detail_screen/widgets/body.dart';
 
 class EventDetailView extends StatelessWidget {
   const EventDetailView({Key? key}) : super(key: key);

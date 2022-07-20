@@ -28,12 +28,16 @@ class root_page_controller extends GetxController {
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.home),
         title: ("Home"),
+        iconSize: 21,
+        textStyle: TextStyle(fontSize: 11),
         activeColorPrimary: Get.theme.primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.person_2),
         title: ("Connect"),
+        iconSize: 21,
+        textStyle: TextStyle(fontSize: 11),
         activeColorPrimary: Get.theme.primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
@@ -42,6 +46,7 @@ class root_page_controller extends GetxController {
           CupertinoIcons.add_circled_solid,
         ),
 
+        textStyle: TextStyle(fontSize: 11),
         iconSize: 35,
         onPressed: (_) {
           Get.to(()=>const create_post_screen(), transition: Transition.cupertinoDialog,duration: 200.milliseconds);
@@ -53,12 +58,16 @@ class root_page_controller extends GetxController {
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.whatshot_outlined),
         title: ("Hot Topics"),
+        iconSize: 21,
+        textStyle: TextStyle(fontSize: 11),
         activeColorPrimary: Get.theme.primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.rectangle_grid_2x2),
         title: ("Menu"),
+        iconSize: 21,
+        textStyle: TextStyle(fontSize: 11),
         activeColorPrimary: Get.theme.primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),

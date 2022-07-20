@@ -1,3 +1,4 @@
+import 'package:aidber/global_widgets/custom_dropDown.dart';
 import 'package:aidber/models/business/user_business_model.dart';
 import 'package:aidber/screens/business_account/controllers/business_mainController.dart';
 import 'package:aidber/utils/constants.dart';
@@ -23,8 +24,7 @@ class show_business_accountScreen extends GetView<business_mainController> {
             onPressed: () => {
               Get.to(
                 () => const create_business_accountview(),
-                binding: BindingsBuilder(
-                    () => {Get.put(create_business_controller())}),
+                binding: BindingsBuilder(() => {Get.put(create_business_controller())}),
               ),
             },
             icon: const Icon(
@@ -60,13 +60,14 @@ class show_business_accountScreen extends GetView<business_mainController> {
 class businessAccountItem extends StatelessWidget {
   final BusinessItem account;
 
-  const businessAccountItem({Key? key, required this.account})
-      : super(key: key);
+  const businessAccountItem({Key? key, required this.account}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () => {},
+      onTap: () => {
+        debugPrint(account.toJson().toString())
+      },
       leading: ClipRRect(
           child: Container(
         height: 50,
@@ -81,10 +82,25 @@ class businessAccountItem extends StatelessWidget {
         style: const TextStyle(fontWeight: FontWeight.bold),
       ),
       subtitle: Text(
-        "76 Communitys | ${account.companySize}",
-        style: TextStyle(fontSize: 12),
+        "76 Community | ${account.companySize}",
+        style: const TextStyle(fontSize: 12),
       ),
-      trailing: IconButton(
+      trailing: CustomDropDownPopup(
+
+        dropDownList: const ["Create A Post"],
+        onSelected: (int) {
+          if (int == 0) {
+            Get.to(
+                () => create_post_screen(
+                      businessName: account.businessName,
+                      businessId: account.id?.toString(),
+                    ),
+                transition: Transition.cupertinoDialog,
+                duration: 200.milliseconds);
+          }
+        },
+      ),
+      /* IconButton(
           tooltip: "More",
           padding: EdgeInsets.zero,
           icon: const Icon(
@@ -92,10 +108,10 @@ class businessAccountItem extends StatelessWidget {
             color: Colors.black,
           ),
           onPressed: () {
-
+            CustomDropDownPopup()
             Get.to(()=> create_post_screen(businessName: account.businessName,businessId: account.id?.toString(),), transition: Transition.cupertinoDialog,duration: 200.milliseconds);
 
-          }),
+          }),*/
     );
   }
 }
