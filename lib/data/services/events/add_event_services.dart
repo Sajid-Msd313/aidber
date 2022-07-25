@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:aidber/controllers/storage_controller/storage_controller.dart';
+import 'package:aidber/models/event/event_model.dart';
 import 'package:aidber/utils/api_urls.dart';
 import 'package:aidber/utils/utils.dart';
 import 'package:get/get.dart';
@@ -10,27 +11,55 @@ import '../../api.dart';
 
 class EventServices {
   static ApiClient client = Get.find<ApiClient>();
+///Get All Event..........
+  static Future getAllEvents() async {
+    Map<String, String> headersV2 = {'x-api-key': Get.find<storage_controller>().box.read("token")};
+    var response = await client.getData(api_urls.GET_ALL_EVENTS, headers: headersV2);
+    try {
+      if (response.statusCode == 200 && response.body["data"] != null) {
+        return AllEventsModel.fromJson(response.body);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print(e);
+      print("error from api_urls.getAllEvents");
+    }
+  }
 
+  static Future getAllEventsById({required String id}) async {
+    Map<String, String> headersV2 = {'x-api-key': Get.find<storage_controller>().box.read("token")};
+    var response = await client.getData(api_urls.GET_ALL_EVENTS + "/$id", headers: headersV2);
+    try {
+      if (response.statusCode == 200 && response.body["data"] != null) {
+        return AllEventsModel.fromJson(response.body);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print(e);
+      print("error from api_urls.getAllEvents");
+    }
+  }
 
-  static Future add_event(
-      {required String title,
-      required String location,
-      required String organised_by,
-      required String what_to_expect,
-
-      required String latitude,
-      required String longitude,
-      required String description,
-      required String imagePath,
-      required String date,
-      required String time,
-      }) async {
+  static Future add_event({
+    required String title,
+    required String location,
+    required String organised_by,
+    required String what_to_expect,
+    required String latitude,
+    required String longitude,
+    required String description,
+    required String imagePath,
+    required String date,
+    required String time,
+  }) async {
     Map<String, String> body = {
       'title': title,
       'location': location,
       "organised_by": organised_by,
-      'latitude': latitude.isEmpty ? "000" : latitude,
-      'longitude': longitude.isEmpty ? "000" : longitude,
+      'lat': latitude.isEmpty ? "000" : latitude,
+      'lng': longitude.isEmpty ? "000" : longitude,
       'description': description,
       'date': date,
       'time': time,
@@ -59,7 +88,13 @@ class EventServices {
     var responseBody = await response.stream.bytesToString();
     if (responseBody.isNotEmpty) {
       print(responseBody);
-      return jsonDecode(responseBody);
+      Map<String,dynamic> body = jsonDecode(responseBody);
+      if(body["status"] == true){
+        return Event.fromJson(body);
+      }else{
+       return body;
+
+      }
     } else {
       show_snackBarError(title: "Internet Connection", description: "Please chceck your internet conenction");
       return null;

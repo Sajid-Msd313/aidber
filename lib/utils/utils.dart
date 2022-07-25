@@ -18,6 +18,10 @@ String formate_Date1(String datetime) {
   return formattedDate.toString();
 }
 
+String convertToHISFormate(DateTime? date){
+  return "${date?.year.toString().padLeft(4, '0')}-${date?.month.toString().padLeft(2, '0')}-${date?.day.toString().padLeft(2, '0')}";
+}
+
 Future<PlacesDetailsResponse?> displayPrediction(
   Prediction? p,
 ) async {

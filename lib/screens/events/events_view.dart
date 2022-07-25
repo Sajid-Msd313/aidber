@@ -1,10 +1,11 @@
-import 'package:aidber/global_widgets/appbar.dart';
 import 'package:aidber/screens/events/widgets/my_events_list.dart';
 import 'package:aidber/utils/dimensions.dart';
 import 'package:aidber/utils/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
+import '../../global_widgets/colors.dart';
 import 'create_new_event/create_new_event_view.dart';
 
 class EventsScreen extends StatelessWidget {
@@ -13,62 +14,71 @@ class EventsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar1,
+      appBar: AppBar(
+        backgroundColor: PRIMARY_COLOR,
+        elevation: 0,
+        title: const Text(
+          'Events',
+          style: TextStyle(color: Colors.white, fontSize: 20),
+          textAlign: TextAlign.center,
+        ),
+        actions: [
+          Container(
+            padding: const EdgeInsets.only(right: 10),
+              alignment: Alignment.center,
+              child:  Image.asset(
+
+                "assets/search.png",
+                color: Colors.white,
+                scale: 2.5,
+              )),
+
+          InkWell(
+              onTap: () {
+                Get.to(() => const CreateNewEvent(), transition: Transition.downToUp);
+              },
+              child: Container(
+                  padding: const EdgeInsets.only(right: 10),
+                  alignment: Alignment.center,
+                  child: const FaIcon(FontAwesomeIcons.circlePlus, color: Colors.white)),),
+        ],
+      ),
       body: SafeArea(
           child: SingleChildScrollView(
-
-            child:  Column(
+        child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children:  [
-                      InkWell(
-                          onTap: (){
-                            Get.back();
-                          },
-                          child: const Icon(Icons.arrow_back_ios,)),
-                      Text('Events',style: kstyle1.copyWith(fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE,fontWeight: FontWeight.w800),),
-                    ],
-                  ),
-                  Row(
-                    children:  [
-                      Image.asset("assets/search.png", color: primaryColor,scale: 2.5,),
-                      InkWell(
-                          onTap: (){
-                            Get.to(()=> const CreateNewEvent(), transition: Transition.downToUp);
-                          },
-                          child: const Icon(Icons.add_circle,size: 32,color: primaryColor,)),
-                    ],
-                  )
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Container(
-                margin: const EdgeInsets.symmetric(horizontal:Dimensions.PADDING_SIZE_LARGE,vertical: Dimensions.PADDING_SIZE_SMALL),
-                alignment: Alignment.centerLeft, child: Text("My Events",style:kstyle1.copyWith(fontSize: 17),)),
-            const MyEventsList(),
-            Container(
-                margin: const EdgeInsets.symmetric(horizontal:Dimensions.PADDING_SIZE_LARGE,vertical: Dimensions.PADDING_SIZE_SMALL),
 
+            const SizedBox(
+              height: 10,
+            ),
+            Container(
+                margin: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_LARGE, vertical: Dimensions.PADDING_SIZE_SMALL),
                 alignment: Alignment.centerLeft,
-                child: Text("Coming this week",style:kstyle1.copyWith(fontSize: 17),)),
+                child: Text(
+                  "My Events",
+                  style: kstyle1.copyWith(fontSize: 17),
+                )),
+            const MyEventsList(),
+            Container(
+                margin: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_LARGE, vertical: Dimensions.PADDING_SIZE_SMALL),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Coming this week",
+                  style: kstyle1.copyWith(fontSize: 17),
+                )),
             const MyEventsList(),
             const SizedBox(
               height: 10,
             ),
             Container(
-                margin: const EdgeInsets.symmetric(horizontal:Dimensions.PADDING_SIZE_LARGE,vertical: Dimensions.PADDING_SIZE_SMALL),
+                margin: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_LARGE, vertical: Dimensions.PADDING_SIZE_SMALL),
                 alignment: Alignment.centerLeft,
-                child: Text("Top picks for you",style:kstyle1.copyWith(fontSize: 17),)),
-            MyEventsList()
+                child: Text(
+                  "Top picks for you",
+                  style: kstyle1.copyWith(fontSize: 17),
+                )),
+            const MyEventsList()
           ],
         ),
       )),

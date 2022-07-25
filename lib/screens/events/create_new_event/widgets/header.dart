@@ -4,9 +4,6 @@ import 'package:aidber/screens/events/controllers/create_new_event_controller.da
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../utils/dimensions.dart';
-import '../../../../utils/styles.dart';
-
 class headerCreateEvent extends GetView<CreateNewEventController> {
   const headerCreateEvent({Key? key}) : super(key: key);
 
@@ -14,7 +11,7 @@ class headerCreateEvent extends GetView<CreateNewEventController> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
+        /* Padding(
           padding: const EdgeInsets.all(10.0),
           child: Row(
             children: [
@@ -31,16 +28,15 @@ class headerCreateEvent extends GetView<CreateNewEventController> {
               ),
             ],
           ),
-        ),
+        ),*/
         GetBuilder<CreateNewEventController>(builder: (controller) {
           return Container(
-              height: 200,
               color: Colors.black12,
               child: Center(
                 child: controller.selectedImageFile == null
                     ? InkWell(
-                  onTap: ()=>controller.pick_image_gallery(),
-                      child: Column(
+                        onTap: () => controller.pick_image_gallery(),
+                        child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [
                             Icon(
@@ -53,9 +49,10 @@ class headerCreateEvent extends GetView<CreateNewEventController> {
                             Text("Upload event cover")
                           ],
                         ),
-                    )
+                      )
                     : Image.file(
                         File(controller.selectedImageFile!.path),
+                        fit: BoxFit.contain,
                       ),
               ));
         })

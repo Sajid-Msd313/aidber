@@ -34,7 +34,7 @@ class EventDetailView extends StatelessWidget {
                         child: const Icon(Icons.arrow_back)),)
               ],
             ),
-            EventDetailBody()
+            const EventDetailBody()
           ],
         ),
       )),
