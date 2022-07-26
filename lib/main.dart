@@ -18,18 +18,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Flutter Demo',
-      defaultTransition: Transition.cupertino,
+      title: 'Found Heal',
+      defaultTransition: Transition.fadeIn,
       theme: ThemeData(
         primarySwatch: Colors.indigo,
         accentColor: Colors.blueAccent,
         primaryColor: const Color(0xFF282d6b),
       ),
-      smartManagement: SmartManagement.full,
       // home:  Sign_In2(),
-      home: Get.find<storage_controller>().restoreLoginModel() == null
-          ? const Sign_In2()
-          : root_page(), // home: Network_Screen(),
+      home: Get.find<storage_controller>().restoreLoginModel() == null ? const Sign_In2() : const root_page(),
     );
   }
 }

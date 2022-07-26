@@ -10,8 +10,8 @@ class make_profileImage_name extends StatelessWidget {
   final Function callBackRemoveLink;
   final String? businessName;
 
-  make_profileImage_name(
-      {required this.callBackRemoveAddress, required this.callBackRemoveLink, this.businessName});
+  const make_profileImage_name({Key?key,required this.callBackRemoveAddress, required this.callBackRemoveLink, this.businessName}) :
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,20 +25,13 @@ class make_profileImage_name extends StatelessWidget {
               child: Container(
             height: 55,
             clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Image.network(
-                Get.find<storage_controller>().userModel.result != null &&
-                        Get.find<storage_controller>()
-                                .userModel
-                                .result!
-                                .userImage !=
-                            null
-                    ? Get.find<storage_controller>().userModel.result!.userImage
-                    : constans.DEFAULT_IMAGE),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+            child: Image.network(Get.find<storage_controller>().userModel.result != null &&
+                    Get.find<storage_controller>().userModel.result!.userImage != null
+                ? Get.find<storage_controller>().userModel.result!.userImage
+                : constans.DEFAULT_IMAGE),
           )),
-          SizedBox(
+          const SizedBox(
             width: 5,
           ),
           Flexible(
@@ -54,44 +47,28 @@ class make_profileImage_name extends StatelessWidget {
                         TextSpan(
                           children: [
                             TextSpan(
-                                text: businessName != null?businessName : Get.find<storage_controller>()
-                                                .userModel
-                                                .result !=
-                                            null &&
-                                        Get.find<storage_controller>()
-                                                .userModel
-                                                .result!
-                                                .userName !=
-                                            ""
-                                    ? Get.find<storage_controller>()
-                                        .userModel
-                                        .result!
-                                        .userName
-                                        ?.toTitleCase()
-                                    : "User Name",
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold)),
-                            if (controller.selectedPeopleNames.isNotEmpty)
-                              const TextSpan(text: ' is with '),
+                                text: businessName != null
+                                    ? businessName
+                                    : Get.find<storage_controller>().userModel.result != null &&
+                                            Get.find<storage_controller>().userModel.result!.userName != ""
+                                        ? Get.find<storage_controller>().userModel.result!.userName?.toTitleCase()
+                                        : "User Name",
+                                style: const TextStyle(fontWeight: FontWeight.bold)),
+                            if (controller.selectedPeopleNames.isNotEmpty) const TextSpan(text: ' is with '),
                             if (controller.selectedPeople.isNotEmpty)
                               TextSpan(
                                   text: controller.selectedPeople.length == 1
                                       ? controller.selectedPeople.first?.name
                                       : controller.selectedPeople.join(", "),
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold)),
+                                  style: const TextStyle(fontWeight: FontWeight.bold)),
                           ],
                         ),
                         softWrap: true,
                       ),
-                      controller.address == ""
-                          ? Container()
-                          : textIcon(
-                              controller.address, callBackRemoveAddress),
+                      controller.address == "" ? const SizedBox.shrink() : textIcon(controller.address, callBackRemoveAddress),
                       controller.link == ""
-                          ? Container()
-                          : textIcon(controller.link, callBackRemoveLink,
-                              icon: Icons.link),
+                          ? const SizedBox.shrink()
+                          : textIcon(controller.link, callBackRemoveLink, icon: Icons.link),
                     ],
                   );
                 }),
@@ -101,35 +78,27 @@ class make_profileImage_name extends StatelessWidget {
     );
   }
 
-  Widget textIcon(String text, callBack, {icon: Icons.location_on}){
-    return Text.rich(
-      TextSpan(
-        children: [
-          WidgetSpan(
-              alignment: PlaceholderAlignment.middle,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 4.0),
-                child: Icon(icon),
-              )),
-          TextSpan(text: text *8),
-          WidgetSpan(
-              alignment: PlaceholderAlignment.middle,
-              child: InkWell(
-                onTap: callBack,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                  child: Text("Remove",style: TextStyle(
-
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-
-                      color: Theme.of(Get.context!).primaryColor),),
-                ),
-              )),
-
-        ]
-      )
-    );
+  Widget textIcon(String text, callBack, {icon: Icons.location_on}) {
+    return Text.rich(TextSpan(children: [
+      WidgetSpan(
+          alignment: PlaceholderAlignment.middle,
+          child: Padding(
+            padding: const EdgeInsets.only(right: 4.0),
+            child: Icon(icon),
+          )),
+      TextSpan(text: text),
+      WidgetSpan(
+          alignment: PlaceholderAlignment.middle,
+          child: InkWell(
+            onTap: callBack,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: Text(
+                "Remove",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Theme.of(Get.context!).primaryColor),
+              ),
+            ),
+          )),
+    ]));
   }
-
 }

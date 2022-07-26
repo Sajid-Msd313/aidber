@@ -95,8 +95,8 @@ class businessAccountItem extends StatelessWidget {
                       businessName: account.businessName,
                       businessId: account.id?.toString(),
                     ),
-                transition: Transition.cupertinoDialog,
-                duration: 200.milliseconds);
+                transition: Transition.cupertinoDialog, curve: Curves.bounceIn, duration: 400.milliseconds);
+
           }
         },
       ),

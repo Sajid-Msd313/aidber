@@ -1,14 +1,20 @@
 import 'package:aidber/global_widgets/colors.dart';
 import 'package:aidber/global_widgets/custom_button.dart';
+import 'package:aidber/models/event/event_model.dart';
 import 'package:flutter/material.dart';
+import 'package:jiffy/jiffy.dart';
+
+import '../../../../utils/utils.dart';
 
 class EventDetailBody extends StatelessWidget {
-  const EventDetailBody({Key? key}) : super(key: key);
+  final Event eventModel;
+
+  const EventDetailBody({Key? key, required this.eventModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -19,18 +25,12 @@ class EventDetailBody extends StatelessWidget {
               Expanded(
                 child: Row(
                   children: [
-                    Expanded(
-                        child: CustomdetailButton(
-                            btnText: 'Invite Friends',
-                            primary: true,
-                            onPressed: () {})),
-                    SizedBox(
+                    Expanded(child: CustomdetailButton(btnText: 'Invite Friends', primary: true, onPressed: () {})),
+                    const SizedBox(
                       width: 10,
                     ),
-                    Expanded(
-                        child: CustomdetailButton(
-                            btnText: 'Going', primary: true, onPressed: () {})),
-                    SizedBox(
+                    Expanded(child: CustomdetailButton(btnText: 'Going', primary: true, onPressed: () {})),
+                    const SizedBox(
                       width: 10,
                     ),
                   ],
@@ -49,89 +49,93 @@ class EventDetailBody extends StatelessWidget {
               ),
             ],
           ),
-          Text(
-            "Women's Day Expo",
-            style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: PRIMARY_COLOR),
+          const SizedBox(
+            height: 10,
           ),
-          SizedBox(height: 7,),
+          Text(
+            eventModel.title ?? "",
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: PRIMARY_COLOR),
+          ),
+          const SizedBox(
+            height: 7,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "8 March,2022  |  6:00 PM",
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+                "${Jiffy(eventModel.date).format("dd MMM yyyy")}  |  ${hisFroamteToReadableTimeFormate(eventModel.time)}",
+                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
               ),
-              Text(
+              const Text(
                 "86 going",
                 style: TextStyle(fontSize: 14, color: Colors.black),
               ),
             ],
           ),
-          SizedBox(height: 5,),
+          const SizedBox(
+            height: 5,
+          ),
           Row(
             //mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Icon(Icons.location_on),
+              const Icon(Icons.location_on),
               Text(
-                "Lorem ipsum dolor",
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+                eventModel.location ?? "",
+                style: const TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.w400),
               ),
             ],
           ),
-          SizedBox(height: 7,),
+          const SizedBox(
+            height: 7,
+          ),
           RichText(
               text: TextSpan(
-                  text: "Organized by:",
-                  style: TextStyle(
+                  text: "Organized by: ",
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
                   children: [
                 TextSpan(
-                  text: "Lorem ipsum dolor",
-                  style: TextStyle(fontSize: 14, color: Colors.black),
+                  text: eventModel.organisedBy ?? "",
+                  style: const TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.w400),
                 )
               ])),
-          SizedBox(height: 10,),
+          const SizedBox(
+            height: 10,
+          ),
           RichText(
               text: TextSpan(
-                  text: "Discription:",
-                  style: TextStyle(
+                  text: "Description: ",
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
                   children: [
-                    TextSpan(
-                      text: "\nLorem ipsum dolor sadar seb is good and working realy hard lorem ipsum"*4,
-                      style: TextStyle(fontSize: 14, color: Colors.black),
-                    )
-                  ])),
-          SizedBox(height: 10,),
+                TextSpan(
+                  text:eventModel.description?? "",
+                  style: const TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.w400),
+                )
+              ])),
+          const SizedBox(
+            height: 10,
+          ),
           RichText(
               text: TextSpan(
-                  text: "What to expect:",
-                  style: TextStyle(
+                  text: "What to expect: ",
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
                   children: [
-                    TextSpan(
-                      text: "\nLorem ipsum dolor sLorem ipsum dolor sadar seb is good and working realy hard lorem ipsum"*4,
-                      style: TextStyle(fontSize: 14, color: Colors.black),
-                    )
-                  ])),
+                TextSpan(
+                  text: eventModel.whatToExpect??"",
+                  style: const TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.w400),
+                )
+              ])),
         ],
       ),
     );

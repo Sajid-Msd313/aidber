@@ -10,8 +10,7 @@ import '../screens/create_a_post/create_post_screen.dart';
 import '../screens/network/network_screen.dart';
 
 class root_page_controller extends GetxController {
-  PersistentTabController navBar_controller =
-      PersistentTabController(initialIndex: 0);
+  PersistentTabController navBar_controller = PersistentTabController(initialIndex: 0);
 
   List<Widget> buildScreens() {
     return [
@@ -29,7 +28,7 @@ class root_page_controller extends GetxController {
         icon: const Icon(CupertinoIcons.home),
         title: ("Home"),
         iconSize: 21,
-        textStyle: TextStyle(fontSize: 11),
+        textStyle: const TextStyle(fontSize: 11),
         activeColorPrimary: Get.theme.primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
@@ -37,7 +36,7 @@ class root_page_controller extends GetxController {
         icon: const Icon(CupertinoIcons.person_2),
         title: ("Connect"),
         iconSize: 21,
-        textStyle: TextStyle(fontSize: 11),
+        textStyle: const TextStyle(fontSize: 11),
         activeColorPrimary: Get.theme.primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
@@ -46,10 +45,11 @@ class root_page_controller extends GetxController {
           CupertinoIcons.add_circled_solid,
         ),
 
-        textStyle: TextStyle(fontSize: 11),
+        textStyle: const TextStyle(fontSize: 11),
         iconSize: 35,
         onPressed: (_) {
-          Get.to(()=>const create_post_screen(), transition: Transition.cupertinoDialog,duration: 200.milliseconds);
+          Get.to(() => const create_post_screen(),
+              transition: Transition.cupertinoDialog, curve: Curves.bounceIn, duration: 400.milliseconds);
         },
         //  title: ("Settings"),
         activeColorPrimary: Get.theme.primaryColor,
@@ -59,7 +59,7 @@ class root_page_controller extends GetxController {
         icon: const Icon(Icons.whatshot_outlined),
         title: ("Hot Topics"),
         iconSize: 21,
-        textStyle: TextStyle(fontSize: 11),
+        textStyle: const TextStyle(fontSize: 11),
         activeColorPrimary: Get.theme.primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
@@ -67,7 +67,7 @@ class root_page_controller extends GetxController {
         icon: const Icon(CupertinoIcons.rectangle_grid_2x2),
         title: ("Menu"),
         iconSize: 21,
-        textStyle: TextStyle(fontSize: 11),
+        textStyle: const TextStyle(fontSize: 11),
         activeColorPrimary: Get.theme.primaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),

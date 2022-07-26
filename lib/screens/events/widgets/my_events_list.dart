@@ -14,31 +14,28 @@ class MyEventsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Get.to(() => const EventDetailView());
-      },
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.3,
-        child: GetBuilder<EventController>(
-          init: EventController(),
-          builder: (controller){
-            if(controller.isLoading){
-              return const Center(child: CircularProgressIndicator(),);
-            }
-            if(controller.allEvents.isEmpty){
-              return const Center(child: Text('There are no events yet.'),);
-            }
-            return ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              shrinkWrap: true,
-              padding: const EdgeInsets.only(left: Dimensions.PADDING_SIZE_SMALL),
-              scrollDirection: Axis.horizontal,
-              itemCount: controller.allEvents.length,
-              itemBuilder: (BuildContext context, int index) =>SingleEventWidget(model:controller.allEvents[index] ,),
-            );
-          },
-        ),
+    return  SizedBox(
+      height: MediaQuery.of(context).size.height * 0.3,
+      child: GetBuilder<EventController>(
+        init: EventController(),
+        builder: (controller){
+          if(controller.isLoading){
+            return const Center(child: CircularProgressIndicator(),);
+          }
+          if(controller.allEvents.isEmpty){
+            return const Center(child: Text('There are no events yet.'),);
+          }
+          return ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            shrinkWrap: true,
+            padding: const EdgeInsets.only(left: Dimensions.PADDING_SIZE_SMALL),
+            scrollDirection: Axis.horizontal,
+            itemCount: controller.allEvents.length,
+            itemBuilder: (BuildContext context, int index) =>GestureDetector(
+                onTap: ()=>Get.to(() =>  EventDetailView(eventModel: controller.allEvents[index],)),
+                child: SingleEventWidget(model:controller.allEvents[index] ,)),
+          );
+        },
       ),
     );
   }

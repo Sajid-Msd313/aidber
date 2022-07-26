@@ -31,6 +31,9 @@ class headerCreateEvent extends GetView<CreateNewEventController> {
         ),*/
         GetBuilder<CreateNewEventController>(builder: (controller) {
           return Container(
+            height: 200
+              ,
+              width:  MediaQuery.of(context).size.width,
               color: Colors.black12,
               child: Center(
                 child: controller.selectedImageFile == null
@@ -52,7 +55,9 @@ class headerCreateEvent extends GetView<CreateNewEventController> {
                       )
                     : Image.file(
                         File(controller.selectedImageFile!.path),
-                        fit: BoxFit.contain,
+                        fit: BoxFit.cover,
+                  height: 200,
+                  width: MediaQuery.of(context).size.width,
                       ),
               ));
         })

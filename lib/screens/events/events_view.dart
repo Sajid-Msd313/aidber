@@ -24,9 +24,9 @@ class EventsScreen extends StatelessWidget {
         ),
         actions: [
           Container(
-            padding: const EdgeInsets.only(right: 10),
+              padding: const EdgeInsets.only(right: 10),
               alignment: Alignment.center,
-              child:  Image.asset(
+              child: Image.asset(
 
                 "assets/search.png",
                 color: Colors.white,
@@ -34,54 +34,60 @@ class EventsScreen extends StatelessWidget {
               )),
 
           InkWell(
-              onTap: () {
-                Get.to(() => const CreateNewEvent(), transition: Transition.downToUp);
-              },
-              child: Container(
-                  padding: const EdgeInsets.only(right: 10),
-                  alignment: Alignment.center,
-                  child: const FaIcon(FontAwesomeIcons.circlePlus, color: Colors.white)),),
+            onTap: () {
+              Get.to(() => const CreateNewEvent(), transition: Transition.cupertinoDialog,
+                  curve: Curves.ease,
+                  duration: 400.milliseconds
+              );
+            },
+            child: Container(
+                padding: const EdgeInsets.only(right: 10),
+                alignment: Alignment.center,
+                child: const FaIcon(FontAwesomeIcons.circlePlus, color: Colors.white)),),
         ],
       ),
       body: SafeArea(
           child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
 
-            const SizedBox(
-              height: 10,
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: Dimensions.PADDING_SIZE_LARGE, vertical: Dimensions.PADDING_SIZE_SMALL),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "My Events",
+                      style: kstyle1.copyWith(fontSize: 17),
+                    )),
+                const MyEventsList(),
+                Container(
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: Dimensions.PADDING_SIZE_LARGE, vertical: Dimensions.PADDING_SIZE_SMALL),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Coming this week",
+                      style: kstyle1.copyWith(fontSize: 17),
+                    )),
+                const MyEventsList(),
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: Dimensions.PADDING_SIZE_LARGE, vertical: Dimensions.PADDING_SIZE_SMALL),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Top picks for you",
+                      style: kstyle1.copyWith(fontSize: 17),
+                    )),
+                const MyEventsList()
+              ],
             ),
-            Container(
-                margin: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_LARGE, vertical: Dimensions.PADDING_SIZE_SMALL),
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "My Events",
-                  style: kstyle1.copyWith(fontSize: 17),
-                )),
-            const MyEventsList(),
-            Container(
-                margin: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_LARGE, vertical: Dimensions.PADDING_SIZE_SMALL),
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Coming this week",
-                  style: kstyle1.copyWith(fontSize: 17),
-                )),
-            const MyEventsList(),
-            const SizedBox(
-              height: 10,
-            ),
-            Container(
-                margin: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_LARGE, vertical: Dimensions.PADDING_SIZE_SMALL),
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Top picks for you",
-                  style: kstyle1.copyWith(fontSize: 17),
-                )),
-            const MyEventsList()
-          ],
-        ),
-      )),
+          )),
     );
   }
 }

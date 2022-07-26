@@ -90,7 +90,7 @@ class EventServices {
       print(responseBody);
       Map<String,dynamic> body = jsonDecode(responseBody);
       if(body["status"] == true){
-        return Event.fromJson(body);
+        return Event.fromJson(body["data"]);
       }else{
        return body;
 

@@ -6,13 +6,14 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import '../../utils/get_di.dart';
 
 class root_page extends StatelessWidget {
+  const root_page({Key? key}) : super(key: key);
   //const MyApp({Key key}) : super(key: key);
 
-  final a = Get.find<root_page_controller>();
+
 
   @override
   Widget build(BuildContext context) {
-
+    final a = Get.find<root_page_controller>();
     init();
     return PersistentTabView(
       context,

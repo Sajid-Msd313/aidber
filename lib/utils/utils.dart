@@ -6,6 +6,7 @@ import 'package:get/get_utils/src/extensions/num_extensions.dart';
 import 'package:google_api_headers/google_api_headers.dart';
 import 'package:google_maps_webservice/src/places.dart';
 import 'package:intl/src/intl/date_format.dart';
+import 'package:jiffy/jiffy.dart';
 
 String formate_Date1(String datetime) {
   if (datetime.toString() == "" || datetime.toString() == "null") {
@@ -18,8 +19,21 @@ String formate_Date1(String datetime) {
   return formattedDate.toString();
 }
 
-String convertToHISFormate(DateTime? date){
+String convertToHISFormate(DateTime? date) {
   return "${date?.year.toString().padLeft(4, '0')}-${date?.month.toString().padLeft(2, '0')}-${date?.day.toString().padLeft(2, '0')}";
+}
+
+String convertToHISFormateTime(TimeOfDay? date) {
+  return "${date?.hour.toString().padLeft(2, '0')}-${date?.minute.toString().padLeft(2, '0')}-${"0".padLeft(2, '0')}";
+}
+
+String hisFroamteToReadableTimeFormate(String? time) {
+  List<String> timeList = time?.split("-") ?? [];
+  if (timeList.isEmpty) return "";
+  return Jiffy({
+    "hour": int.parse(timeList[0]),
+    "minute": int.parse(timeList[1]),
+  }).format("h:mm a");
 }
 
 Future<PlacesDetailsResponse?> displayPrediction(
@@ -30,8 +44,7 @@ Future<PlacesDetailsResponse?> displayPrediction(
       apiKey: constans.GOOGLE_API_KEY,
       apiHeaders: await const GoogleApiHeaders().getHeaders(),
     );
-    PlacesDetailsResponse detail =
-        await _places.getDetailsByPlaceId(p.placeId!);
+    PlacesDetailsResponse detail = await _places.getDetailsByPlaceId(p.placeId!);
     return detail;
   }
 }
@@ -54,13 +67,17 @@ show_snackBarSuccess({required String title, required String description}) {
     snackPosition: SnackPosition.BOTTOM,
   );
 }
-void showSnackBarInformation({ required String description}) {
+
+void showSnackBarInformation({required String description}) {
   Get.showSnackbar(GetSnackBar(
     backgroundColor: Colors.green,
     message: description,
     mainButton: TextButton(
       onPressed: () => Get.closeCurrentSnackbar(),
-      child: const Text('close',style: TextStyle(color: Colors.white),),
+      child: const Text(
+        'close',
+        style: TextStyle(color: Colors.white),
+      ),
     ),
     onTap: (_) => Get.closeCurrentSnackbar(),
     duration: const Duration(seconds: 2),
@@ -72,6 +89,7 @@ void showSnackBarInformation({ required String description}) {
     dismissDirection: DismissDirection.horizontal,
   ));
 }
+
 show_snackBarError({required String title, required String description}) {
   Get.snackbar(
     title,
@@ -94,8 +112,7 @@ show_snackBarError({required String title, required String description}) {
 //platformexeption errors
 check_errormessage({required String e}) {
   if (e.toString().contains("Failed host lookup")) {
-    show_snackBarError(
-        title: "Error", description: "Please check your internet connection!");
+    show_snackBarError(title: "Error", description: "Please check your internet connection!");
   } else {
     show_snackBarError(title: "Error", description: e.toString());
   }

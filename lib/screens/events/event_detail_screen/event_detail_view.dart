@@ -1,4 +1,5 @@
 import 'package:aidber/global_widgets/appbar.dart';
+import 'package:aidber/models/event/event_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -6,7 +7,8 @@ import 'package:get/get.dart';
 import 'package:aidber/screens/events/event_detail_screen/widgets/body.dart';
 
 class EventDetailView extends StatelessWidget {
-  const EventDetailView({Key? key}) : super(key: key);
+  final Event eventModel;
+  const EventDetailView({Key? key, required this.eventModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class EventDetailView extends StatelessWidget {
                         child: const Icon(Icons.arrow_back)),)
               ],
             ),
-            const EventDetailBody()
+             EventDetailBody(eventModel: eventModel,)
           ],
         ),
       )),

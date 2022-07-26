@@ -211,9 +211,6 @@ class create_post_controller extends GetxController {
             content: Form(
               key: formKeyLink,
               child: TextFormField(
-                onChanged: (_) {
-                  link = _;
-                },
                 controller: linkController,
                 decoration: const InputDecoration(hintText: "Paste your link here"),
               ),
@@ -223,6 +220,7 @@ class create_post_controller extends GetxController {
                 color:  Theme.of(context).primaryColor,
                 child: const Text('OK',style: TextStyle(color: Colors.white),),
                 onPressed: () {
+                  print("link: ${linkController.text}");
                   link = linkController.text;
                   Get.back();
                 },
