@@ -26,8 +26,8 @@ class create_post_screen extends GetView<create_post_controller> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: PRIMARY_COLOR,
-        title:  Text(
-          businessId!=null?"Create A Business Post" :   "Create Post",
+        title: Text(
+          businessId != null ? "Create A Business Post" : "Create Post",
           style: kstyleAppBar,
         ),
         actions: [
@@ -49,14 +49,14 @@ class create_post_screen extends GetView<create_post_controller> {
                   child: Align(
                     alignment: Alignment.center,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 0,vertical: 1),
+                      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 1),
                       child: RichText(text: TextSpan(
                         text: "You're Posting as ",
                         style: const TextStyle(color: Colors.black, fontSize: 14),
                         children: [
                           TextSpan(
                             text: " $businessName",
-                            style: const TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.bold),
+                            style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),),
@@ -115,26 +115,33 @@ class create_post_screen extends GetView<create_post_controller> {
                     init: Get.find<create_post_controller>(),
                     builder: (controller) {
                       return Obx(
-                        () => controller.pickedImagesPath.isNotEmpty
+                            () =>
+                        controller.pickedImagesPath.isNotEmpty
                             ? Container(
-                                alignment: Alignment.center,
-                                height: MediaQuery.of(context).size.height * .3,
-                                child: ListView.builder(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                                    itemCount: controller.pickedImagesPath.length,
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.horizontal,
-                                    itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: image_view_widget(
-                                          imageFilePath: controller.pickedImagesPath[index],
-                                          height: MediaQuery.of(context).size.height * .3,
-                                          callBack: () => controller.clearImage(path: controller.pickedImagesPath[index]),
-                                        ),
-                                      );
-                                    }),
-                              )
+                          alignment: Alignment.center,
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .height * .3,
+                          child: ListView.builder(
+                              padding: const EdgeInsets.symmetric(horizontal: 8),
+                              itemCount: controller.pickedImagesPath.length,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: image_view_widget(
+                                    imageFilePath: controller.pickedImagesPath[index],
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * .3,
+                                    callBack: () => controller.clearImage(path: controller.pickedImagesPath[index]),
+                                  ),
+                                );
+                              }),
+                        )
                             : Container(),
                       );
                     }),
@@ -142,15 +149,15 @@ class create_post_screen extends GetView<create_post_controller> {
                   height: 8,
                 ),
                 SizedBox(
-                    // width: Get.width * .8,
+                  // width: Get.width * .8,
                     child: CustomButton(
-                  btnText: "Post",
-                  primary: true,
-                  onPressed: () {
-                    controller.validate(businessId: businessId);
-                  },
-                  showShadow: false,
-                ))
+                      btnText: "Post",
+                      primary: true,
+                      onPressed: () {
+                        controller.validate(businessId: businessId);
+                      },
+                      showShadow: false,
+                    ))
               ],
             ),
           ),

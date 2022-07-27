@@ -5,6 +5,7 @@ import 'package:aidber/utils/api_urls.dart';
 import 'package:aidber/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -20,24 +21,31 @@ class _PostsListState extends State<PostsList> {
   Widget build(BuildContext context) {
     return GetBuilder<all_post_controller>(builder: (controller) {
       if (controller.isLoading) {
-        return const Center(
-          child: CircularProgressIndicator(),
+        return SizedBox(
+          height: MediaQuery.of(context).size.height,
+          child: const Center(
+            child: CircularProgressIndicator(),
+          ),
         );
       }
       if (controller.getAllPost.data == null ||
           controller.getAllPost.data!.data == null ) {
-        return  Container(
+        return   SizedBox(
           height: Get.height,
           child: Center(
-            child:  Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 60),
-              child: CustomButton(btnText: "Refresh", primary: true, onPressed: ()=>controller.fetch_allPosts(isInitial: true)),
+            child:  CircleAvatar(
+              radius: 30,
+              child: IconButton(
+                onPressed: ()=>controller.fetch_allPosts(isInitial: true),
+                icon:const FaIcon(FontAwesomeIcons.refresh,color: Colors.white,
+                ),
+              ),
             ),
           ),
         );
       }
 
-      return Container(
+      return SizedBox(
         height: Get.height,
         // width: 300,
 
@@ -64,7 +72,7 @@ class _PostsListState extends State<PostsList> {
               } else {
                 body = const Text("No more Data");
               }
-              return Container(
+              return SizedBox(
                 height: 55.0,
                 child: Center(child: body),
               );

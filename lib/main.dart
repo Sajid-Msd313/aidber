@@ -21,6 +21,8 @@ class MyApp extends StatelessWidget {
       title: 'Found Heal',
       defaultTransition: Transition.fadeIn,
       theme: ThemeData(
+        fontFamily: 'Montserrat',
+        scaffoldBackgroundColor: Colors.white,
         primarySwatch: Colors.indigo,
         accentColor: Colors.blueAccent,
         primaryColor: const Color(0xFF282d6b),

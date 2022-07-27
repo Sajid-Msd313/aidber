@@ -2,7 +2,6 @@ import 'package:aidber/data/services/posts/post_services.dart';
 import 'package:aidber/models/posts/all_posts_model.dart';
 import 'package:aidber/models/posts/like_post_model.dart';
 import 'package:aidber/utils/utils.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -17,23 +16,31 @@ class all_post_controller extends GetxController with SinglePostApis {
   onInit() {
     super.onInit();
     fetch_allPosts();
+    refreshController = RefreshController(initialRefresh: false);
+  }
+
+  @override
+  onReady() {
+    refreshController.position?.addListener(() {
+      print(refreshController.position?.maxScrollExtent);
+      if (refreshController.position?.maxScrollExtent == refreshController.position?.pixels) {
+        print("FETTTTTTTTTTCH");
+        fetch_allPosts();
+      }
+    });
   }
 
   bool _isLoading = false;
   GetAllPost _getAllPost = GetAllPost();
 
   reactAPost({required String postId, required String reactionType}) async {
-    var detail = await post_services.like_post(
-        client: apiClient, post_id: postId, type: reactionType);
+    var detail = await post_services.like_post(client: apiClient, post_id: postId, type: reactionType);
     if (detail != null && detail is LikePostModel) {
-      show_snackBarSuccess(
-          title: "Post Reaction Updated",
-          description: detail.message.toString());
+      show_snackBarSuccess(title: "Post Reaction Updated", description: detail.message.toString());
       if (detail.message == "Post Unliked!") {
         _update_likePost(postId: int.parse(postId), reactionValue: -1);
       } else {
-        _update_likePost(
-            postId: int.parse(postId), reactionValue: int.parse(reactionType));
+        _update_likePost(postId: int.parse(postId), reactionValue: int.parse(reactionType));
       }
     }
   }
@@ -59,12 +66,12 @@ class all_post_controller extends GetxController with SinglePostApis {
   }
 
   //=====================================>> refresh things here
-  RefreshController refreshController =
-      RefreshController(initialRefresh: false);
+  late RefreshController refreshController;
 
   void onRefresh() async {
     await fetch_allPosts(isInitial: false);
     update();
+
     refreshController.refreshCompleted();
   }
 
@@ -91,21 +98,20 @@ class all_post_controller extends GetxController with SinglePostApis {
 abstract class SinglePostApis {
   Future<void> requestToFollow({required String postId}) async {
     bool isSuccess = await post_services.requestToFollow(post_id: postId);
-    if(isSuccess) {
-      showSnackBarInformation( description: "Request Sent");
+    if (isSuccess) {
+      showSnackBarInformation(description: "Request Sent");
     } else {
       show_snackBarError(title: "Unable To Process", description: "Your Request wasn't processed");
     }
   }
 
   Future<void> blockUser({required String userId}) async {
-  //TODO:" needs implementation
+    //TODO:" needs implementation
   }
 
   Future<void> savePost({required String postId}) async {
     bool isSuccess = await post_services.savePost(post_id: postId);
-    if(isSuccess) {
-
+    if (isSuccess) {
       showSnackBarInformation(description: "Post has been saved");
     } else {
       show_snackBarError(title: "Unable To Process", description: "Your Request wasn't processed");
@@ -113,9 +119,10 @@ abstract class SinglePostApis {
   }
 
   Future<void> hidePost({required String postId}) async {}
+
   Future<void> sharePost({required String postId}) async {
     bool isSuccess = await post_services.sharePost(post_id: postId);
-    if(isSuccess) {
+    if (isSuccess) {
       showSnackBarInformation(description: "Post has been shared!");
     } else {
       show_snackBarError(title: "Unable To Process", description: "Your Request wasn't processed");

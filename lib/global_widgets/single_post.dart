@@ -19,7 +19,7 @@ import '../utils/utils.dart';
 class single_post extends StatelessWidget {
   Posts singleItemPost;
 
-  single_post({required this.singleItemPost});
+  single_post({Key? key, required this.singleItemPost}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +77,10 @@ class single_post extends StatelessWidget {
           const SizedBox(
             height: 5,
           ),
-          readMore_textWidget(text: singleItemPost.caption ?? ""),
+          Padding(
+            padding:  EdgeInsets.symmetric(vertical:url == constans.DEFAULT_IMAGE?30 : 0),
+            child: readMore_textWidget(text: singleItemPost.caption ?? ""),
+          ),
           const SizedBox(
             height: 10,
           ),
