@@ -9,6 +9,7 @@ import 'package:aidber/screens/events/events_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../innovations/controller/InnovationMainController.dart';
 import '../../innovations/innovation_screen.dart';
 
 class bodymenu extends StatelessWidget {
@@ -91,7 +92,7 @@ class bodymenu extends StatelessWidget {
                     ],
                   )),
               InkWell(
-                onTap: () => Get.to(InnovationMainScreen()),
+                onTap: () => Get.to(const InnovationMainScreen(), binding: InnovationMainBinding()),
                 child: Container(
                     decoration: BoxDecoration(color: PRIMARY_COLOR, borderRadius: BorderRadius.circular(10)),
                     padding: const EdgeInsets.all(5),

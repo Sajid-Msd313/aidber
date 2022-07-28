@@ -12,15 +12,19 @@ class CustomAuthTextFormField extends StatelessWidget {
     this.suffixIcon,
     this.prefixIcon,
     this.maxlin = 0,
-    required this.labeltext,
+    this.validator,
+    this.labeltext,
+    this.readOnly = false,
     this.fillColor = Colors.white,
   }) : super(key: key);
   final int maxlin;
   final String hint;
-  final String labeltext;
+  final validator;
+  final String? labeltext;
   final TextEditingController? controller;
   final bool obscureText;
   final bool isEnable;
+  final bool readOnly;
   final TextInputAction textInputAction;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
@@ -31,18 +35,14 @@ class CustomAuthTextFormField extends StatelessWidget {
     return AbsorbPointer(
       absorbing: !isEnable,
       child: TextFormField(
-
-
+        readOnly: readOnly,
         controller: controller,
         obscureText: obscureText,
-        validator: (_) {
+        validator: validator?? (_) {
           if (_!.isEmpty && _.length < 3) return "Please fill properly";
         },
         textInputAction: textInputAction,
-        style: const TextStyle(
-          fontSize: 16,
-          color: Colors.black,
-        ),
+        style: const TextStyle(fontSize: 16, color: Colors.black),
         decoration: InputDecoration(
           labelText: labeltext,
           prefixIcon: prefixIcon,
@@ -66,13 +66,13 @@ class CustomMaxTextFormField extends StatelessWidget {
     this.textInputAction = TextInputAction.done,
     this.suffixIcon,
     this.prefixIcon,
-    required this.labeltext,
+    this.labeltext,
     this.fillColor = Colors.white,
   }) : super(key: key);
   final String hint;
   final TextEditingController? controller;
   final bool obscureText;
-  final String labeltext;
+  final String? labeltext;
   final TextInputAction textInputAction;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
@@ -99,7 +99,7 @@ class CustomMaxTextFormField extends StatelessWidget {
         suffixIcon: suffixIcon,
         fillColor: fillColor,
         // filled: true,
-        border: UnderlineInputBorder(),
+        border: const UnderlineInputBorder(),
       ),
     );
   }

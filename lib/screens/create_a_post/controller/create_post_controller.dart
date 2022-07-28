@@ -48,19 +48,15 @@ class create_post_controller extends GetxController {
   String longitude = "";
   String _address = "";
 
-
   List<String> get pickedImagesPath => _pickedImagesPath.value;
 
   void validate({String? businessId}) {
-
     if (_post_categoryField.isEmpty) {
-      show_snackBarError(
-          title: 'Select Category',
-          description: "Please select category first");
+      show_snackBarError(title: 'Select Category', description: "Please select category first");
       return;
     }
     if (formKey.currentState!.validate()) {
-      create_PostNow( businessId: businessId);
+      create_PostNow(businessId: businessId);
     }
   }
 
@@ -104,19 +100,13 @@ class create_post_controller extends GetxController {
     }
   }
 
-
   //Tag People work
   List<UserModel?> selectedPeople = [];
   List<String> selectedPeopleNames = [];
   List<MultiSelectItem<UserModel?>> dummyUsertagPeople = [
-    MultiSelectItem(
-        UserModel(id: "1", createdAt: DateTime.now(), name: "bahadur"),
-        "Bahaudr"),
-    MultiSelectItem(
-        UserModel(id: "2", createdAt: DateTime.now(), name: "Rndom"), "Rndom"),
-    MultiSelectItem(
-        UserModel(id: "5", createdAt: DateTime.now(), name: "Somone"),
-        "Somone"),
+    MultiSelectItem(UserModel(id: "1", createdAt: DateTime.now(), name: "bahadur"), "Bahaudr"),
+    MultiSelectItem(UserModel(id: "2", createdAt: DateTime.now(), name: "Rndom"), "Rndom"),
+    MultiSelectItem(UserModel(id: "5", createdAt: DateTime.now(), name: "Somone"), "Somone"),
   ];
 
   void showtagPeopleDialog(BuildContext context) async {
@@ -148,13 +138,13 @@ class create_post_controller extends GetxController {
       },
     );
   }
+
 //Tag People work ends here...
   void open_search_map(context) {
     PlacesAutocomplete.show(
       context: context,
       onError: (_) {
-        show_snackBarError(
-            title: "Error", description: _.errorMessage.toString());
+        show_snackBarError(title: "Error", description: _.errorMessage.toString());
       },
       strictbounds: false,
       sessionToken: Uuid().generateV4(),
@@ -169,38 +159,31 @@ class create_post_controller extends GetxController {
     });
   }
 
-
-
   //progress downloading works
   double _progressValue = 0;
   int _progressPercentValue = 0;
+
   showuploadProgress() {
     Get.defaultDialog(
         title: "Upload Progress",
         backgroundColor: Colors.white,
         titleStyle: const TextStyle(color: Colors.black),
-        content: GetBuilder<create_post_controller>(
-            builder: (controlelr) =>
-                Text(controlelr._progressPercentValue.toString() + "%")),
+        content: GetBuilder<create_post_controller>(builder: (controlelr) => Text(controlelr._progressPercentValue.toString() + "%")),
         radius: 30);
   }
+
   void _setUploadProgress(int sentBytes, int totalBytes) {
-    double __progressValue =
-    Util.remap(sentBytes.toDouble(), 0, totalBytes.toDouble(), 0, 1);
+    double __progressValue = Util.remap(sentBytes.toDouble(), 0, totalBytes.toDouble(), 0, 1);
 
     __progressValue = double.parse(__progressValue.toStringAsFixed(2));
 
     if (__progressValue != _progressValue) _progressValue = __progressValue;
     _progressPercentValue = (_progressValue * 100.0).toInt();
     if (_progressPercentValue == 100) {
-      Future.delayed(800.milliseconds)
-          .then((value) => {if (Get.isDialogOpen ?? false) Get.back()});
+      Future.delayed(800.milliseconds).then((value) => {if (Get.isDialogOpen ?? false) Get.back()});
     }
     update();
   }
-
-
-
 
   Future<void> displayLinkinputDialog(BuildContext context) async {
     return showDialog(
@@ -217,8 +200,11 @@ class create_post_controller extends GetxController {
             ),
             actions: <Widget>[
               FlatButton(
-                color:  Theme.of(context).primaryColor,
-                child: const Text('OK',style: TextStyle(color: Colors.white),),
+                color: Theme.of(context).primaryColor,
+                child: const Text(
+                  'OK',
+                  style: TextStyle(color: Colors.white),
+                ),
                 onPressed: () {
                   print("link: ${linkController.text}");
                   link = linkController.text;
@@ -240,13 +226,13 @@ class create_post_controller extends GetxController {
       print(image.length);
     }
   }
+
   void open_imageImagePicker(context) {
-    Get.defaultDialog(
-        content: const select_gallery_camera_widget(), title: "Select Image");
+    Get.defaultDialog(content: const SelectGalleryCamera_CreatePostWidget(), title: "Select Image");
   }
+
   void pick_image_camera() async {
-    final XFile? image =
-    await pickerSource.pickImage(source: ImageSource.gallery);
+    final XFile? image = await pickerSource.pickImage(source: ImageSource.gallery);
     if (image != null) {
       if (!pickedImagesPath.contains(image.path)) {
         pickedImagesPath.add(image.path);
@@ -257,8 +243,6 @@ class create_post_controller extends GetxController {
     }
   }
 
-
-
   _Show_errorMessage(String value) {
     if (_debounce != null && _debounce!.isActive) _debounce!.cancel();
     _debounce = Timer(const Duration(milliseconds: 800), () {
@@ -266,14 +250,15 @@ class create_post_controller extends GetxController {
     });
   }
 
-
   void clearImage({required String path}) {
     _pickedImagesPath.value.removeWhere((element) => element == path);
     update();
   }
+
   void clearLink() {
     link = "";
   }
+
   clearAddress() {
     longitude = "";
     longitude = "";
@@ -324,16 +309,10 @@ class create_post_controller extends GetxController {
 
 class Util {
   static double remap(
-      double value,
-      double originalMinValue,
-      double originalMaxValue,
-      double translatedMinValue,
-      double translatedMaxValue) {
+      double value, double originalMinValue, double originalMaxValue, double translatedMinValue, double translatedMaxValue) {
     if (originalMaxValue - originalMinValue == 0) return 0;
 
-    return (value - originalMinValue) /
-            (originalMaxValue - originalMinValue) *
-            (translatedMaxValue - translatedMinValue) +
+    return (value - originalMinValue) / (originalMaxValue - originalMinValue) * (translatedMaxValue - translatedMinValue) +
         translatedMinValue;
   }
 }

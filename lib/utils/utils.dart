@@ -93,6 +93,7 @@ void showSnackBarInformation({required String description}) {
 show_snackBarError({required String title, required String description}) {
   Get.snackbar(
     title,
+
     description,
     colorText: Colors.white,
     borderRadius: 10,

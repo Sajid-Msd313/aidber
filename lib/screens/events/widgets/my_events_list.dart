@@ -32,7 +32,7 @@ class MyEventsList extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemCount: controller.allEvents.length,
             itemBuilder: (BuildContext context, int index) =>GestureDetector(
-                onTap: ()=>Get.to(() =>  EventDetailView(eventModel: controller.allEvents[index],)),
+                onTap: ()=>Get.to(() =>  EventDetailView(eventModel: controller.allEvents[index],),transition: Transition.topLevel),
                 child: SingleEventWidget(model:controller.allEvents[index] ,)),
           );
         },

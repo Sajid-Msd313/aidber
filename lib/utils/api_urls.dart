@@ -40,4 +40,10 @@ class api_urls {
 //===========BUSINESS URLS============//
   static const String CREATE_BUSINESS = "$BASE_URL/$API_URL/create-business";
   static const String GET_BUSINESSES = "$BASE_URL/$API_URL/get-businesses";
+//===========BUSINESS ENDS URLS============//
+
+//===========INNOVATIONS URLS============//
+  static const String CREATE_INNOVATION = "$BASE_URL/$API_URL/create-innovation";
+  static const String GET_INNOVATIONS = "$BASE_URL/$API_URL/get-innovations";
+
 }

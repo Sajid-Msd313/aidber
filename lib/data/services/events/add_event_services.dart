@@ -9,6 +9,22 @@ import 'package:http/http.dart' as http;
 
 import '../../api.dart';
 
+abstract class EventServicesAbs {
+  Future getAllEvents();
+  Future getAllEventsById({required String id});
+  Future add_event({
+    required String title,
+    required String location,
+    required String organised_by,
+    required String what_to_expect,
+    required String latitude,
+    required String longitude,
+    required String description,
+    required String imagePath,
+    required String date,
+    required String time,
+  });
+}
 class EventServices {
   static ApiClient client = Get.find<ApiClient>();
 ///Get All Event..........

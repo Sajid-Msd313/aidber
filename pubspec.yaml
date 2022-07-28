@@ -57,6 +57,7 @@ dependencies:
   flutter_reaction_button: 2.0.0+2
   comment_tree: ^0.3.0
   jiffy:
+  file_picker:
 
 dev_dependencies:
   flutter_test:

@@ -3,14 +3,11 @@ import 'package:aidber/screens/create_a_post/controller/create_post_controller.d
 import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../utils/AppData.dart';
 class make_category_selection_chips extends GetView<create_post_controller> {
 
-  List<String> options = [
-    'News', 'Entertainment', 'Politics',
-    'Automotive', 'Sports', 'Education',
-    'Fashion', 'Travel', 'Food', 'Tech',
-    'Science',
-  ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +23,7 @@ class make_category_selection_chips extends GetView<create_post_controller> {
           controller.post_categoryField = val;
         },
         choiceItems: C2Choice.listFrom<String, String>(
-          source: options,
+          source: category,
           value: (i, v) => v,
           label: (i, v) => v,
         ),

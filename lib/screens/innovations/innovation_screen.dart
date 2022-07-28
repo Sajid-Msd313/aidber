@@ -1,10 +1,13 @@
 import 'package:aidber/screens/innovations/widgets/innovation_item.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 import '../../global_widgets/colors.dart';
+import 'add_innovation_screen.dart';
+import 'controller/AddInnovationController.dart';
+import 'controller/InnovationMainController.dart';
 
-class InnovationMainScreen extends StatelessWidget {
+class InnovationMainScreen extends GetView<InnovationMainController> {
   const InnovationMainScreen({Key? key}) : super(key: key);
 
   @override
@@ -16,7 +19,10 @@ class InnovationMainScreen extends StatelessWidget {
         title: const Text('Innovations', style: TextStyle(color: Colors.white, fontSize: 20), textAlign: TextAlign.center),
         actions: [
           IconButton(icon: Image.asset('assets/search.png', height: 30), onPressed: () {}),
-          IconButton(onPressed: () => {}, icon: const Icon(Icons.add, size: 30))
+          IconButton(
+              onPressed: () =>
+                  {Get.to(const AddInnovationScreen(), transition: Transition.rightToLeftWithFade, binding: AddInnovationBinding())},
+              icon: const Icon(Icons.add, size: 30))
         ],
       ),
       body: Padding(
@@ -28,14 +34,24 @@ class InnovationMainScreen extends StatelessWidget {
             const Text("Recent", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             Expanded(
                 child: Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: ListView.separated(
-                  padding: const EdgeInsets.only(top: 10),
-                  separatorBuilder: (_, __) => Divider(thickness: 2, color: Colors.grey.shade100),
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: 10,
-                  itemBuilder: (BuildContext context, index) => const InnovationItem()),
-            ))
+                    padding: const EdgeInsets.only(top: 10),
+                    child: GetBuilder<InnovationMainController>(
+                      builder: (controller) {
+                        if(controller.isLoading){
+                          return const Center(child: CircularProgressIndicator(),);
+                        }
+                        if(controller.innovationList.isEmpty){
+                          return const Center(child: Text("No Innovations yet\n\nAdd Innovation By Clicking +", textAlign:
+                          TextAlign.center,));
+                        }
+                        return  ListView.separated(
+                            padding: const EdgeInsets.only(top: 10),
+                            separatorBuilder: (_, __) => Divider(thickness: 2, color: Colors.grey.shade100),
+                            physics: const BouncingScrollPhysics(),
+                            itemCount: controller.innovationList.length,
+                            itemBuilder: (BuildContext context, index) =>  InnovationItem(model:  controller.innovationList[index],));
+                      }
+                    )))
           ],
         ),
       ),

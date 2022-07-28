@@ -1,11 +1,15 @@
+import 'package:aidber/global_widgets/cache_network_image.dart';
+import 'package:aidber/models/innovations/innovation_item_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../innovation_detail_screen.dart';
-import '../innovation_screen.dart';
+
 class InnovationItem extends StatelessWidget {
-  const InnovationItem({Key? key}) : super(key: key);
+  final InnovationItemModel model;
+
+  const InnovationItem({Key? key, required this.model}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,17 +26,21 @@ class InnovationItem extends StatelessWidget {
               icon: const FaIcon(FontAwesomeIcons.ellipsisVertical, color: Colors.grey, size: 15)),
         ),
         ListTile(
-          onTap: ()=>{
-            Get.to(InnovationDetailScreen(), transition: Transition.topLevel),
+          onTap: () => {
+            Get.to(const InnovationDetailScreen(), transition: Transition.topLevel),
           },
-          leading: Image.asset('assets/doctor_lounge.png', height: 100,),
+          leading: CacheNetworkImageWidget(
+            url: model.innovationImages?.first.content,
+          ),
           title: RichText(
-
-            text: const TextSpan(text: 'Lorem ipsum dolor sit amet, consectetuer adipiscing eliasdsad asd as ',
-                style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 16),
+            text:  TextSpan(
+                text:model.title,
+                style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
                 children: [
-                  TextSpan(text: " BreakThrough News", style: TextStyle(fontSize: 11.5, fontStyle: FontStyle.italic, color: Colors.grey,
-                      fontWeight: FontWeight.w400))
+                  TextSpan(
+                      text: " ${model.category}",
+                      style: const TextStyle(fontSize: 11.5, fontStyle: FontStyle.italic, color: Colors.grey, fontWeight: FontWeight
+                          .w400))
                 ]),
           ),
           subtitle: Column(
