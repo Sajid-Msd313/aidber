@@ -42,7 +42,7 @@ class InnovationItemTile extends StatelessWidget {
                   TextSpan(
                       text: " ${model.category}",
                       style:  TextStyle(fontSize: 11.5, fontStyle: FontStyle.italic, color: Colors.grey.shade600, fontWeight: FontWeight
-                          .w400))
+                          .w500))
                 ]),
           ),
           subtitle: Column(

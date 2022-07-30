@@ -1,5 +1,6 @@
 import 'package:aidber/data/services/innovations/innovation_services.dart';
 import 'package:aidber/models/innovations/innovation_item_model.dart';
+import 'package:easy_refresh/easy_refresh.dart';
 import 'package:get/get.dart';
 
 import '../../../models/innovations/innovation_response_model.dart';
@@ -13,20 +14,19 @@ class InnovationMainController extends GetxController {
 
   bool _isLoading = false;
   List<InnovationItemModel> innovationList = [];
+  bool _loadMore = true;
+  InnovationResponseModel responseModel = InnovationResponseModel();
 
-  int currentPage = 0;
-  String? nextPageUrl;
-
-  fetchInnovations({String? nextPageUrl}) async {
-    if (nextPageUrl == null) isLoading = true;
+  fetchInnovations({bool isInitial = true, bool isReset = false, String? nextPageUrl}) async {
+    if(_loadMore == false) return;
+    if (isInitial) isLoading = true;
     var detail = await CreateInnovationServices.getInnovations(nextPageUrl);
     isLoading = false;
     if (detail is InnovationResponseModel) {
-      print(detail.data!.data!.length.toString());
-      currentPage = detail.data?.currentPage ?? 0;
-      nextPageUrl = detail.data?.nextPageUrl;
-      innovationList = detail.data?.data ?? [];
-      print("assignmed");
+      responseModel = detail;
+
+      innovationList = responseModel.data?.data ?? [];
+
       update();
     }
   }
@@ -34,6 +34,27 @@ class InnovationMainController extends GetxController {
     innovationList.insert(0, model);
     update();
   }
+
+  //=====================================>> refresh things here
+  EasyRefreshController controller = EasyRefreshController(
+    controlFinishRefresh: true,
+    controlFinishLoad: true,
+  );
+
+  void onRefresh() async {
+    await fetchInnovations(isInitial: false, isReset: true);
+    controller.finishRefresh();
+    update();
+  }
+
+  void onLoading() async {
+    if (_loadMore == false || responseModel.data?.nextPageUrl == null) {
+      controller.finishLoad(IndicatorResult.noMore);
+    }
+    fetchInnovations(isInitial: false, nextPageUrl: responseModel.data?.nextPageUrl);
+  }
+
+
 
   bool get isLoading => _isLoading;
 

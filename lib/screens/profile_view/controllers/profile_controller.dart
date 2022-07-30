@@ -1,4 +1,5 @@
 import 'package:aidber/data/services/my_profile/my_profile.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../../models/my_profile/my_profile_model.dart';
@@ -9,6 +10,7 @@ class profile_controller extends GetxController {
   List<posts.Posts> postList = [];
   bool _isLoading = false;
 
+  final scrollController = ScrollController();
   @override
   onInit(){
     fetchMyProfile();

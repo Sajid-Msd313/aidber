@@ -7,13 +7,13 @@ class make_title_subtitle extends StatelessWidget {
   Widget build(BuildContext context) {
     final boldstyle = TextStyle(
         color: Get.theme.primaryColor,
-        fontWeight: FontWeight.w900,
+        fontWeight: FontWeight.w700,
         wordSpacing: 2,
         fontSize: 28);
     final lightstyle = TextStyle(
         color: Get.theme.primaryColor,
         fontSize: 12,
-        fontWeight: FontWeight.w400);
+        fontWeight: FontWeight.w500);
 
     return Container(
       //  width: Get.width*.5,

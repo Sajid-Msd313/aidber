@@ -101,7 +101,7 @@ Align selectedFileWidget(controller) {
                   children: [
                 TextSpan(
                     text: basename(controller.pickedFile!.path),
-                    style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w300)),
+                    style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w500)),
                 WidgetSpan(
                     alignment: PlaceholderAlignment.middle,
                     child: IconButton(

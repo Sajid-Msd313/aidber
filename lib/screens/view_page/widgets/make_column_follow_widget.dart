@@ -15,11 +15,11 @@ final CrossAxisAlignment? crossAxisAlignment;
   Widget build(BuildContext context) {
     final boldstyle = TextStyle(
         color: textColor ?? Get.theme.primaryColor ,
-        fontWeight: FontWeight.w900,
+        fontWeight: FontWeight.w700,
         wordSpacing: 2,
         fontSize: 28);
     final lightstyle = TextStyle(
-        color:textColor?? Get.theme.primaryColor, fontSize: 12, fontWeight: FontWeight.w400);
+        color:textColor?? Get.theme.primaryColor, fontSize: 12, fontWeight: FontWeight.w500);
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: crossAxisAlignment == null?  isUserName || textColor==null

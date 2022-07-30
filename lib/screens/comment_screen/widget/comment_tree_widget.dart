@@ -46,7 +46,7 @@ class comment_tree_widget extends GetView<comment_controller> {
                       .textTheme
                       .caption!
                       .copyWith(
-                      fontWeight: FontWeight.w300,
+                      fontWeight: FontWeight.w500,
                       color: Colors.black),
                 ),
               ],
@@ -123,7 +123,7 @@ class comment_tree_widget extends GetView<comment_controller> {
                       .textTheme
                       .caption
                       ?.copyWith(
-                      fontWeight: FontWeight.w300,
+                      fontWeight: FontWeight.w500,
                       color: Colors.black),
                 ),
               ],

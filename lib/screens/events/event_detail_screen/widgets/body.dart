@@ -81,7 +81,7 @@ class EventDetailBody extends StatelessWidget {
               const Icon(Icons.location_on),
               Text(
                 eventModel.location ?? "",
-                style: const TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.w400),
+                style: const TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.w500),
               ),
             ],
           ),
@@ -99,7 +99,7 @@ class EventDetailBody extends StatelessWidget {
                   children: [
                 TextSpan(
                   text: eventModel.organisedBy ?? "",
-                  style: const TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.w400),
+                  style: const TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.w500),
                 )
               ])),
           const SizedBox(
@@ -116,7 +116,7 @@ class EventDetailBody extends StatelessWidget {
                   children: [
                 TextSpan(
                   text:eventModel.description?? "",
-                  style: const TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.w400),
+                  style: const TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.w500),
                 )
               ])),
           const SizedBox(
@@ -133,7 +133,7 @@ class EventDetailBody extends StatelessWidget {
                   children: [
                 TextSpan(
                   text: eventModel.whatToExpect??"",
-                  style: const TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.w400),
+                  style: const TextStyle(fontSize: 14, color: Colors.black, fontWeight: FontWeight.w500),
                 )
               ])),
         ],

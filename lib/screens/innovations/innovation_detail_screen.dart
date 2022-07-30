@@ -35,7 +35,7 @@ class InnovationDetailScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 12),
-                  const Text("Added By: Lorem Bhai", style:  TextStyle(fontSize: 12, fontWeight: FontWeight.w400)),
+                  const Text("Added By: Lorem Bhai", style:  TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
                   const SizedBox(height: 6),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -50,7 +50,7 @@ class InnovationDetailScreen extends StatelessWidget {
                               TextSpan(
                                   text: " ${model.category}",
                                   style: const TextStyle(
-                                      fontSize: 11.5, fontStyle: FontStyle.italic, color: Colors.grey, fontWeight: FontWeight.w400))
+                                      fontSize: 11.5, fontStyle: FontStyle.italic, color: Colors.grey, fontWeight: FontWeight.w500))
                             ])),
                       ),
                       Row(
@@ -81,7 +81,7 @@ class InnovationDetailScreen extends StatelessWidget {
                         TextSpan(
                             text: "${model.description} asda asdasdas dasd asd asd asd asd asd asdas das dasd asd asdasd asdasd asd "
                                 "asda sd asd asd asdasd asdsdfdfgdfh fghfg hfghjdfg" *5,
-                            style: const TextStyle(fontSize: 14, color: Colors.grey, fontWeight: FontWeight.w400))
+                            style: const TextStyle(fontSize: 14, color: Colors.grey, fontWeight: FontWeight.w500))
                       ])),
                   const SizedBox(height: 24),
                 ],

@@ -40,7 +40,7 @@ class make_category_selection_chips extends GetView<create_post_controller> {
           showCheckmark: false,
           color: Colors.black,
           backgroundColor: Colors.grey.shade200,
-          labelStyle: const TextStyle(fontSize: 13,fontWeight: FontWeight.w400),
+          labelStyle: const TextStyle(fontSize: 13,fontWeight: FontWeight.w500),
           borderRadius: const BorderRadius.all(Radius.circular(10)),
         ),
         wrapped: true,

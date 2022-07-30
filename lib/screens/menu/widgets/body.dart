@@ -21,7 +21,7 @@ class bodymenu extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       child: Column(children: [
         RichText(
-            text: const TextSpan(text: "About:", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey), children: [
+            text: const TextSpan(text: "About: ", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey), children: [
           TextSpan(
               text:
                   "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat",
@@ -84,7 +84,7 @@ class bodymenu extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text("Find a Job's", style: TextStyle(fontSize: 18, color: Colors.white), textAlign: TextAlign.center),
+                      const Text("Fund Raiser", style: TextStyle(fontSize: 18, color: Colors.white), textAlign: TextAlign.center),
                       Image.asset(
                         "assets/career.png",
                         scale: 4,

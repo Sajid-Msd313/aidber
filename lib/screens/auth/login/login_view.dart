@@ -197,7 +197,7 @@ class _Sign_In2State extends State<Sign_In2> {
                                             child: Text(
                                               'Or Sign up using',
                                               style: TextStyle(
-                                                  fontWeight: FontWeight.w400),
+                                                  fontWeight: FontWeight.w500),
                                             ),
                                           ),
                                           Container(

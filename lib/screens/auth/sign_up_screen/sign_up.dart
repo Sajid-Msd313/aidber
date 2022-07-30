@@ -161,7 +161,7 @@ class SignUp extends StatelessWidget {
                           'By Continuing, I confirm that I have read and agree to the',
                           style: TextStyle(
                               fontSize: 13.2,
-                              fontWeight: FontWeight.w400,
+                              fontWeight: FontWeight.w500,
                               color: primaryColor),
                           textAlign: TextAlign.center,
                         ),
@@ -198,7 +198,7 @@ class SignUp extends StatelessWidget {
                                   vertical: 10, horizontal: 10),
                               child: Text(
                                 'Or Sign Up using',
-                                style: TextStyle(fontWeight: FontWeight.w400),
+                                style: TextStyle(fontWeight: FontWeight.w500),
                               ),
                             ),
                             Container(

@@ -19,20 +19,18 @@ class all_post_controller extends GetxController with SinglePostApis {
     fetch_allPosts();
   }
 
-
-
   bool _isLoading = false;
   GetAllPost _getAllPost = GetAllPost();
   List<Posts> allPostsList = [];
   bool _loadMore = true;
 
-
-  reset(){
+  reset() {
     isLoading = false;
     _loadMore = true;
     allPostsList = [];
     getAllPost = GetAllPost();
   }
+
   reactAPost({required String postId, required String reactionType}) async {
     var detail = await post_services.like_post(client: apiClient, post_id: postId, type: reactionType);
     if (detail != null && detail is LikePostModel) {
@@ -42,42 +40,43 @@ class all_post_controller extends GetxController with SinglePostApis {
         print("UNNL:OKED");
         _update_likePost(postId: int.parse(postId), reactionValue: -1, model: detail.data);
       } else {
-        _update_likePost(postId: int.parse(postId), reactionValue: int.parse(reactionType),model: detail.data);
+        _update_likePost(postId: int.parse(postId), reactionValue: int.parse(reactionType), model: detail.data);
       }
     }
   }
 
   _update_likePost({required int postId, required int reactionValue, required IsLiked? model}) {
-
     for (var element in allPostsList) {
       if (element.id == postId) {
         print(element.toJson());
-        if(model != null){
+        if (model != null) {
           element.isLiked = model;
         }
         print("findeddd ${element.isLiked?.likeType?.likeType}");
-         element.isLiked?.likeType?.id = reactionValue.toString();
+        element.isLiked?.likeType?.id = reactionValue.toString();
         update();
         break;
       }
     }
   }
 
-  hidePostLocally(String postId){
-    allPostsList.removeWhere((element) => element.id == postId);
-  // _getAllPost.data?.data?.removeWhere((element) => element.id.toString() == postId);
-   update();
-   hidePost(postId: postId);
+  hidePostLocally(String postId) {
+    allPostsList.removeWhere((element) => element.id.toString() == postId);
+    // _getAllPost.data?.data?.removeWhere((element) => element.id.toString() == postId);
+    update();
+    hidePost(postId: postId);
   }
-  Future fetch_allPosts({bool isInitial = true, String? loadMoreUrl}) async {
-   if(_loadMore == false) return;
+
+  Future fetch_allPosts({bool isInitial = true, String? loadMoreUrl, bool isReset = false}) async {
+    if (_loadMore == false) return;
     if (isInitial) isLoading = true;
-    var detail = await post_services.fetch_all_post_services(client: apiClient,loadMoreUrl: loadMoreUrl);
-   controller.finishLoad(IndicatorResult.success);
+    var detail = await post_services.fetch_all_post_services(client: apiClient, loadMoreUrl: loadMoreUrl);
+    if (isReset) reset();
+    controller.finishLoad(IndicatorResult.success);
     if (isInitial) isLoading = false;
     if (detail is GetAllPost) {
       getAllPost = detail;
-      if(getAllPost.data?.nextPageUrl == null){
+      if (getAllPost.data?.nextPageUrl == null) {
         _loadMore = true;
         controller.finishLoad(IndicatorResult.noMore);
       }
@@ -85,9 +84,7 @@ class all_post_controller extends GetxController with SinglePostApis {
         allPostsList.addIf(!allPostsList.contains(element), element);
       });
 
-
       update();
-
     }
   }
 
@@ -96,14 +93,15 @@ class all_post_controller extends GetxController with SinglePostApis {
     controlFinishRefresh: true,
     controlFinishLoad: true,
   );
+
   void onRefresh() async {
-    reset();
-    await fetch_allPosts(isInitial: false);
+    await fetch_allPosts(isInitial: false, isReset: true);
     controller.finishRefresh();
     update();
   }
+
   void onLoading() async {
-    if(_loadMore == false || getAllPost.data?.nextPageUrl == null){
+    if (_loadMore == false || getAllPost.data?.nextPageUrl == null) {
       controller.finishLoad(IndicatorResult.noMore);
     }
     fetch_allPosts(isInitial: false, loadMoreUrl: getAllPost.data?.nextPageUrl);
@@ -154,9 +152,7 @@ abstract class SinglePostApis {
     }
   }
 
-  Future<void> hidePost({required String postId}) async {
-
-  }
+  Future<void> hidePost({required String postId}) async {}
 
   Future<void> sharePost({required String postId}) async {
     bool isSuccess = await post_services.sharePost(post_id: postId);
@@ -169,8 +165,6 @@ abstract class SinglePostApis {
 
   Future<void> reportPost({required String postId}) async {}
 }
-
-
 
 extension IterableExtension<T> on Iterable<T> {
   Iterable<T> distinctBy(Object Function(T e) getCompareValue) {

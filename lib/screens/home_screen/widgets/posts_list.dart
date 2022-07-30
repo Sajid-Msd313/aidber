@@ -52,6 +52,14 @@ class _PostsListState extends State<PostsList> {
             controller: controller.controller,
             onRefresh: controller.onRefresh,
             onLoad: controller.onLoading,
+            header:const ClassicHeader(
+
+                processedDuration:  Duration(milliseconds: 100)
+            ),
+            footer: const ClassicFooter(
+
+              noMoreText: "No more Posts",
+            ),
             child: ListView.builder(
               primary: true,
               //   physics: const NeverScrollableScrollPhysics(),

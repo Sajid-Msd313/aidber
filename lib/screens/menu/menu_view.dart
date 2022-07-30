@@ -13,7 +13,7 @@ class MenuScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(backgroundColor: PRIMARY_COLOR,
-      leading: const Icon(Icons.arrow_back_ios_sharp,color: Colors.white,),
+
       title: const Text("Menu",style: TextStyle(fontSize: 22),),),
       body: SafeArea(child: SingleChildScrollView(
         child: Container(

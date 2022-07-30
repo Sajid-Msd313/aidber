@@ -31,7 +31,7 @@ class headerMenu extends StatelessWidget {
           ),
           title:  Text(username?? '',style: const TextStyle(fontWeight: FontWeight.bold),),
           subtitle: InkWell(
-              onTap: () => Get.to(() => profile_page_mainScreen(),
+              onTap: () => Get.to(() => const profile_page_mainScreen(),
                   binding:
                       BindingsBuilder(() => {Get.put(profile_controller())})),
               child: const Text("View Profile")),
