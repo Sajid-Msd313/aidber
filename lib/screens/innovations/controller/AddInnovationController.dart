@@ -12,6 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../../utils/utils.dart';
 import '../../create_a_post/controller/create_post_controller.dart';
 import '../../create_a_post/widgets/select_gallery_camera_widget.dart';
+import 'InnovationMainController.dart';
 
 class AddInnovationController extends GetxController {
   final TextEditingController titleC = TextEditingController();
@@ -78,6 +79,7 @@ class AddInnovationController extends GetxController {
 
     if (detail["message"] != null) {
       InnovationItemModel model =    InnovationItemModel.fromJson(detail["data"]);
+      Get.find<InnovationMainController>().insertLocally(model);
       showSnackBarToNotifyUser(message: detail["message"]);
       // show_snackBarSuccess(title: "Posted!", description: "Posted Successfully!");
     }

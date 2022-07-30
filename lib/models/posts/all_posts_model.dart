@@ -154,6 +154,17 @@ class Posts {
     "is_liked": isLiked == null ? null : isLiked?.toJson(),
     "is_saved": isSaved,
   };
+
+  @override
+  bool operator ==(other) {
+    return (other is Posts)
+        && other.id == id;
+  }
+
+  @override
+  // TODO: implement hashCode
+  int get hashCode => id??0;
+
 }
 
 class IsLiked {
@@ -329,5 +340,3 @@ class User {
     "is_active": isActive,
   };
 }
-
-

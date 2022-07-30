@@ -36,6 +36,13 @@ String hisFroamteToReadableTimeFormate(String? time) {
   }).format("h:mm a");
 }
 
+
+String dateFormateAgo(DateTime? time){
+  return Jiffy(
+    time
+  ).fromNow();
+}
+
 Future<PlacesDetailsResponse?> displayPrediction(
   Prediction? p,
 ) async {

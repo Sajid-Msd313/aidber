@@ -90,11 +90,11 @@ class _PostsListState extends State<PostsList> {
             shrinkWrap: true,
             cacheExtent: 50,
             scrollDirection: Axis.vertical,
-            itemCount: controller.getAllPost.data!.data?.length,
+            itemCount: controller.allPostsList.length,
             itemBuilder: (context, int index) {
             //  print(controller.getAllPost.data![index].postUrl);
               return single_post(
-                 singleItemPost: controller.getAllPost.data!.data![index]);
+                 singleItemPost: controller.allPostsList[index]);
             },
           ),
         ),

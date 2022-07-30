@@ -11,6 +11,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import '../../../models/local/SuccessOrErrorMessageModel.dart';
 import '../../../models/posts/comment_post_model.dart';
 import '../../../models/posts/like_post_model.dart';
 
@@ -20,16 +21,9 @@ class post_services {
   // }
   static ApiClient client = Get.find<ApiClient>();
 
-
-
   static Future fetch_all_post_services({required ApiClient client}) async {
-     Map<String, String> headers = {
-      'x-api-key': Get.find<storage_controller>().box.read("token"),
-      'Content-Type': 'application/json'
-    };
-      Map<String, String> headersV2= {
-       'x-api-key':Get.find<storage_controller>().box.read("token")
-     };
+    Map<String, String> headers = {'x-api-key': Get.find<storage_controller>().box.read("token"), 'Content-Type': 'application/json'};
+    Map<String, String> headersV2 = {'x-api-key': Get.find<storage_controller>().box.read("token")};
     String url = api_urls.GET_ALL_POST;
     print("**hitting $url");
     try {
@@ -39,31 +33,20 @@ class post_services {
       } else {
         return response;
       }
-
     } on PlatformException catch (e) {
       print("Null from $url");
       print(e);
       show_snackBarError(title: "Error", description: e.message.toString());
     } catch (e) {
       print("error from $url");
-      show_snackBarError(
-          title: "Error", description: constans.NO_INTERNET_CONNECTION);
+      show_snackBarError(title: "Error", description: constans.NO_INTERNET_CONNECTION);
       print("error from $url $e");
     }
   }
 
-  static Future postComment(
-      {
-      required String post_id,
-      required String comment,
-      required String reply_to}) async {
-    Map<String, String> headers = {
-      'x-api-key': Get.find<storage_controller>().box.read("token"),
-      'Content-Type': 'application/json'
-    };
-    Map<String, String> headersV2= {
-      'x-api-key':Get.find<storage_controller>().box.read("token")
-    };
+  static Future postComment({required String post_id, required String comment, required String reply_to}) async {
+    Map<String, String> headers = {'x-api-key': Get.find<storage_controller>().box.read("token"), 'Content-Type': 'application/json'};
+    Map<String, String> headersV2 = {'x-api-key': Get.find<storage_controller>().box.read("token")};
     Map<String, String> body = {
       'comment': comment,
       'post_id': post_id,
@@ -77,7 +60,6 @@ class post_services {
         print(response.body.toString() + " <<<<<<");
         return CommentPostModel.fromJson(response.body);
       } else {
-
         return null;
       }
     } catch (e) {
@@ -87,17 +69,9 @@ class post_services {
     }
   }
 
-  static Future like_post(
-      {required ApiClient client,
-      required String post_id,
-      required String type}) async {
-    Map<String, String> headers = {
-      'x-api-key': Get.find<storage_controller>().box.read("token"),
-      'Content-Type': 'application/json'
-    };
-    Map<String, String> headersV2= {
-      'x-api-key':Get.find<storage_controller>().box.read("token")
-    };
+  static Future like_post({required ApiClient client, required String post_id, required String type}) async {
+    Map<String, String> headers = {'x-api-key': Get.find<storage_controller>().box.read("token"), 'Content-Type': 'application/json'};
+    Map<String, String> headersV2 = {'x-api-key': Get.find<storage_controller>().box.read("token")};
     Map<String, String> body = {
       'type': type,
       'post_id': post_id,
@@ -122,11 +96,8 @@ class post_services {
   static Future getCommentsByPostId({required String post_id}) async {
     String url = api_urls.GET_POST_COMMENT + "/$post_id";
 
-
     try {
-      Response response = await client.getData(url, headers:  {
-      'x-api-key': '${Get.find<storage_controller>().box.read("token")}'
-      });
+      Response response = await client.getData(url, headers: {'x-api-key': '${Get.find<storage_controller>().box.read("token")}'});
       if (response.statusCode == 200) {
         var encodedResponse = jsonEncode(response.body);
         return singleCommentFromJson(encodedResponse);
@@ -134,7 +105,6 @@ class post_services {
         return response;
       }
     } on PlatformException catch (e) {
-
       debugPrint(e.message.toString());
       show_snackBarError(title: "Error", description: e.message.toString());
     } catch (e) {
@@ -144,69 +114,60 @@ class post_services {
     }
   }
 
-
-  static Future<bool> requestToFollow({
-    required String post_id,
-  }) async {
-    Map<String, String> headers = {
-      'x-api-key': Get.find<storage_controller>().box.read("token"),
-      'Content-Type': 'application/json'
-    };
-    Map<String, String> headersV2= {
-      'x-api-key':Get.find<storage_controller>().box.read("token")
-    };
-    var response = await client.postData(
-        api_urls.REQUEST_TO_FOLLOW + "/$post_id", null, headers: headers);
-
+  static Future<SuccessOrMessageModel?> requestToFollow({required String user_id, required bool isFollow}) async {
+    Map<String, String> headersV2 = {'x-api-key': Get.find<storage_controller>().box.read("token")};
+    var response = await client.postData(api_urls.REQUEST_TO_FOLLOW, {"user_id": user_id, "action": isFollow ? "follow" : "unfollow"},
+        headers: headersV2);
+    SuccessOrMessageModel resModel = SuccessOrMessageModel();
     try {
       if (response.statusCode == 200 && response.body.isNotEmpty) {
-        return true;
-      } else {
-        return false;
+        resModel.isError = !response.body["status"] as bool;
+        resModel.message = response.body["message"];
       }
+      return resModel;
     } catch (e) {
       print("error from api_urls.requestToFollow + $e");
-      return false;
-
+      resModel;
     }
   }
-  static Future<bool> savePost({
-    required String post_id,
-  }) async {
-    Map<String, String> headers = {
-      'x-api-key': Get.find<storage_controller>().box.read("token"),
-      'Content-Type': 'application/json'
-    };
-    Map<String, String> headersV2= {
-      'x-api-key':Get.find<storage_controller>().box.read("token")
-    };
-    var response = await client.getData(
-        api_urls.SAVE_POST + "/$post_id", headers: headers);
 
+  static Future<SuccessOrMessageModel> savePost({required String post_id}) async {
+    Map<String, String> headers = {'x-api-key': Get.find<storage_controller>().box.read("token"), 'Content-Type': 'application/json'};
+    Map<String, String> headersV2 = {'x-api-key': Get.find<storage_controller>().box.read("token")};
+    var response = await client.getData(api_urls.SAVE_POST + "/$post_id", headers: headers);
+    SuccessOrMessageModel resModel = SuccessOrMessageModel();
     try {
       if (response.statusCode == 200 && response.body.isNotEmpty) {
-        return true;
-      } else {
-        return false;
+        resModel.isError = response.body["status"];
+        resModel.message = response.body["message"];
       }
+      return resModel;
     } catch (e) {
       print("error from api_urls.requestToFollow + $e");
-      return false;
-
+      return resModel;
     }
   }
-  static Future<bool> sharePost({
-    required String post_id,
-  }) async {
-    Map<String, String> headers = {
-      'x-api-key': Get.find<storage_controller>().box.read("token"),
-      'Content-Type': 'application/json'
-    };
-    Map<String, String> headersV2= {
-      'x-api-key':Get.find<storage_controller>().box.read("token")
-    };
-    var response = await client.getData(
-        api_urls.SAVE_POST + "/$post_id", headers: headers);
+
+  static Future<SuccessOrMessageModel> blockUser({required String user_id}) async {
+    Map<String, String> headers = {'x-api-key': Get.find<storage_controller>().box.read("token"), 'Content-Type': 'application/json'};
+    var response = await client.getData(api_urls.BLOCK_USER + "/$user_id", headers: headers);
+    SuccessOrMessageModel resModel = SuccessOrMessageModel();
+    try {
+      if (response.statusCode == 200 && response.body.isNotEmpty) {
+        resModel.isError = !response.body["status"];
+        resModel.message = response.body["message"];
+      }
+      return resModel;
+    } catch (e) {
+      print("error from api_urls.requestToFollow + $e");
+      return resModel;
+    }
+  }
+
+  static Future<bool> sharePost({required String post_id}) async {
+    Map<String, String> headers = {'x-api-key': Get.find<storage_controller>().box.read("token"), 'Content-Type': 'application/json'};
+    Map<String, String> headersV2 = {'x-api-key': Get.find<storage_controller>().box.read("token")};
+    var response = await client.getData(api_urls.SAVE_POST + "/$post_id", headers: headers);
 
     try {
       if (response.statusCode == 200 && response.body.isNotEmpty) {
@@ -217,7 +178,6 @@ class post_services {
     } catch (e) {
       print("error from api_urls.requestToFollow + $e");
       return false;
-
     }
   }
 }

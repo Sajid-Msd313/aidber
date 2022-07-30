@@ -39,10 +39,10 @@ class report_dialog extends GetView<all_post_controller> {
               controller.savePost(postId: post.id.toString());
               break;
             case MenuItems.hide_post:
-              controller.hidePost(postId: post.id.toString());
+              controller.hidePostLocally(post.id.toString());
               break;
             case MenuItems.unfollow:
-              controller.requestToFollow(postId: post.id.toString());
+              controller.requestToFollow(userId: post.user!.id.toString(), isFollow: false);
               break;
             case MenuItems.block:
               controller.blockUser(userId: post.userId.toString());

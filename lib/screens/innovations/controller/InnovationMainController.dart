@@ -22,10 +22,17 @@ class InnovationMainController extends GetxController {
     var detail = await CreateInnovationServices.getInnovations(nextPageUrl);
     isLoading = false;
     if (detail is InnovationResponseModel) {
+      print(detail.data!.data!.length.toString());
       currentPage = detail.data?.currentPage ?? 0;
       nextPageUrl = detail.data?.nextPageUrl;
       innovationList = detail.data?.data ?? [];
+      print("assignmed");
+      update();
     }
+  }
+  insertLocally(InnovationItemModel model){
+    innovationList.insert(0, model);
+    update();
   }
 
   bool get isLoading => _isLoading;

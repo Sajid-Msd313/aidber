@@ -2,9 +2,6 @@
 //
 //     final innovationResponseModel = innovationResponseModelFromJson(jsonString);
 
-import 'dart:convert';
-
-
 class InnovationItemModel {
   InnovationItemModel({
     this.title,
@@ -26,10 +23,10 @@ class InnovationItemModel {
   final String? link;
   final String? description;
   final String? userId;
-  final String? status;
+  final dynamic status;
   final DateTime? updatedAt;
   final DateTime? createdAt;
-  final int? id;
+  final dynamic id;
   final List<InnovationContent>? innovationImages;
   final List<InnovationContent>? innovationVideos;
   final List<InnovationContent>? innovationFiles;
@@ -41,8 +38,8 @@ class InnovationItemModel {
         description: json["description"],
         userId: json["user_id"],
         status: json["status"],
-        updatedAt: DateTime.parse(json["updated_at"]),
-        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt:json["updated_at"] == null?null : DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"] == null? null: DateTime.parse(json["created_at"]),
         id: json["id"],
         innovationImages: json["innovation_images"] == null
             ? []

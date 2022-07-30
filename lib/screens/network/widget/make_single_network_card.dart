@@ -38,17 +38,19 @@ class make_single_network_card extends StatelessWidget {
           ),
           SizedBox(
             width: Get.width*.35,
-            child: FlatButton(
-              child: const Text(
-                'Request to follow',
-                style: TextStyle(fontSize: 14),
+            child: FittedBox(
+              child: FlatButton(
+                child: const Text(
+                  'Request to follow',
+                  style: TextStyle(fontSize: 14),
+                ),
+                color: const Color(0xFF282d6b),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                textColor: Colors.white,
+                onPressed: () {},
               ),
-              color: Color(0xFF282d6b),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              textColor: Colors.white,
-              onPressed: () {},
             ),
           ),
         ],

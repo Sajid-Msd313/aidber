@@ -24,6 +24,7 @@ class api_urls {
   static const String GET_POST_COMMENT = "$BASE_URL/$API_URL/get-post-comment";
   static const String SAVE_POST = "$BASE_URL/$API_URL/save-post";
   static const String SHARE_POST = "$BASE_URL/$API_URL/share-post";
+  static const String BLOCK_USER = "$BASE_URL/$API_URL/block-user";
 
   //===========POST ENDS HEREURLS============//
 

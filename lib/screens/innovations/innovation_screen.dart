@@ -49,7 +49,7 @@ class InnovationMainScreen extends GetView<InnovationMainController> {
                             separatorBuilder: (_, __) => Divider(thickness: 2, color: Colors.grey.shade100),
                             physics: const BouncingScrollPhysics(),
                             itemCount: controller.innovationList.length,
-                            itemBuilder: (BuildContext context, index) =>  InnovationItem(model:  controller.innovationList[index],));
+                            itemBuilder: (BuildContext context, index) =>  InnovationItemTile(model:  controller.innovationList[index],));
                       }
                     )))
           ],
