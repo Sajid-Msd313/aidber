@@ -3,8 +3,8 @@ import 'package:aidber/models/local/SuccessOrErrorMessageModel.dart';
 import 'package:aidber/models/posts/all_posts_model.dart';
 import 'package:aidber/models/posts/like_post_model.dart';
 import 'package:aidber/utils/utils.dart';
+import 'package:easy_refresh/easy_refresh.dart';
 import 'package:get/get.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../data/api.dart';
 
@@ -17,42 +17,46 @@ class all_post_controller extends GetxController with SinglePostApis {
   onInit() {
     super.onInit();
     fetch_allPosts();
-    refreshController = RefreshController(initialRefresh: false);
   }
 
-  @override
-  onReady() {
-    refreshController.position?.addListener(() {
-      print(refreshController.position?.maxScrollExtent);
-      if (refreshController.position?.maxScrollExtent == refreshController.position?.pixels) {
-        print("FETTTTTTTTTTCH");
-        fetch_allPosts();
-      }
-    });
-  }
+
 
   bool _isLoading = false;
   GetAllPost _getAllPost = GetAllPost();
   List<Posts> allPostsList = [];
+  bool _loadMore = true;
 
+
+  reset(){
+    isLoading = false;
+    _loadMore = true;
+    allPostsList = [];
+    getAllPost = GetAllPost();
+  }
   reactAPost({required String postId, required String reactionType}) async {
     var detail = await post_services.like_post(client: apiClient, post_id: postId, type: reactionType);
     if (detail != null && detail is LikePostModel) {
       show_snackBarSuccess(title: "Post Reaction Updated", description: detail.message.toString());
       if (detail.message == "Post Unliked!") {
-        _update_likePost(postId: int.parse(postId), reactionValue: -1);
+        detail.data?.likeType = null;
+        print("UNNL:OKED");
+        _update_likePost(postId: int.parse(postId), reactionValue: -1, model: detail.data);
       } else {
-        _update_likePost(postId: int.parse(postId), reactionValue: int.parse(reactionType));
+        _update_likePost(postId: int.parse(postId), reactionValue: int.parse(reactionType),model: detail.data);
       }
     }
   }
 
-  _update_likePost({required int postId, required int reactionValue}) {
+  _update_likePost({required int postId, required int reactionValue, required IsLiked? model}) {
 
     for (var element in allPostsList) {
       if (element.id == postId) {
-        print("findeddd ${element.isLiked!}");
-        element.isLiked?.likeType?.id = reactionValue.toString();
+        print(element.toJson());
+        if(model != null){
+          element.isLiked = model;
+        }
+        print("findeddd ${element.isLiked?.likeType?.likeType}");
+         element.isLiked?.likeType?.id = reactionValue.toString();
         update();
         break;
       }
@@ -65,32 +69,44 @@ class all_post_controller extends GetxController with SinglePostApis {
    update();
    hidePost(postId: postId);
   }
-  Future<void> fetch_allPosts({bool isInitial = true}) async {
+  Future fetch_allPosts({bool isInitial = true, String? loadMoreUrl}) async {
+   if(_loadMore == false) return;
     if (isInitial) isLoading = true;
-    var detail = await post_services.fetch_all_post_services(client: apiClient);
+    var detail = await post_services.fetch_all_post_services(client: apiClient,loadMoreUrl: loadMoreUrl);
+   controller.finishLoad(IndicatorResult.success);
     if (isInitial) isLoading = false;
     if (detail is GetAllPost) {
       getAllPost = detail;
+      if(getAllPost.data?.nextPageUrl == null){
+        _loadMore = true;
+        controller.finishLoad(IndicatorResult.noMore);
+      }
       getAllPost.data?.data?.forEach((element) {
         allPostsList.addIf(!allPostsList.contains(element), element);
       });
+
+
       update();
 
     }
   }
 
   //=====================================>> refresh things here
-  late RefreshController refreshController;
-
+  EasyRefreshController controller = EasyRefreshController(
+    controlFinishRefresh: true,
+    controlFinishLoad: true,
+  );
   void onRefresh() async {
+    reset();
     await fetch_allPosts(isInitial: false);
+    controller.finishRefresh();
     update();
-
-    refreshController.refreshCompleted();
   }
-
   void onLoading() async {
-    refreshController.loadComplete();
+    if(_loadMore == false || getAllPost.data?.nextPageUrl == null){
+      controller.finishLoad(IndicatorResult.noMore);
+    }
+    fetch_allPosts(isInitial: false, loadMoreUrl: getAllPost.data?.nextPageUrl);
   }
 
   //=======================================> GETTER SETTERS BELOW

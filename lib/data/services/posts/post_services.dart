@@ -21,10 +21,13 @@ class post_services {
   // }
   static ApiClient client = Get.find<ApiClient>();
 
-  static Future fetch_all_post_services({required ApiClient client}) async {
+  static Future fetch_all_post_services({required ApiClient client, String? loadMoreUrl}) async {
     Map<String, String> headers = {'x-api-key': Get.find<storage_controller>().box.read("token"), 'Content-Type': 'application/json'};
     Map<String, String> headersV2 = {'x-api-key': Get.find<storage_controller>().box.read("token")};
     String url = api_urls.GET_ALL_POST;
+    if(loadMoreUrl != null){
+      url = loadMoreUrl;
+    }
     print("**hitting $url");
     try {
       Response response = await client.postData(url, "", headers: headers);

@@ -14,17 +14,11 @@ class HomeScreenView extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppbar,
       body: SafeArea(
-        child: SingleChildScrollView(
-        //  physics: ScrollPhysics(),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-               Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: PostsList(),
-              )
-            ],
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: const[
+            Expanded(child: PostsList())
+          ],
         ),
       ),
     );
