@@ -145,11 +145,9 @@ abstract class SinglePostApis {
 
   Future<void> savePost({required String postId}) async {
     SuccessOrMessageModel isSuccess = await post_services.savePost(post_id: postId);
-    if (!isSuccess.isError) {
-      showSnackBarInformation(description: "Post has been saved");
-    } else {
-      show_snackBarError(title: "Unable To Process", description: "Your Request wasn't processed");
-    }
+    !isSuccess.isError
+        ? show_snackBarError(title: "Unable To Process", description: isSuccess.message)
+        : showSnackBarInformation(description: isSuccess.message);
   }
 
   Future<void> hidePost({required String postId}) async {}

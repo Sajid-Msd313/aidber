@@ -6,9 +6,11 @@ import 'package:aidber/screens/business_account/controllers/create_business_cont
 import 'package:aidber/screens/business_account/create_business_account_screen.dart';
 import 'package:aidber/screens/business_account/show_business_account_screen.dart';
 import 'package:aidber/screens/events/events_view.dart';
+import 'package:aidber/screens/fund_raiser/controllers/fund_raiser_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../fund_raiser/fund_raiser_mainscreen.dart';
 import '../../innovations/controller/InnovationMainController.dart';
 import '../../innovations/innovation_screen.dart';
 
@@ -77,20 +79,25 @@ class bodymenu extends StatelessWidget {
                       ],
                     )),
               ),
-              Container(
-                  decoration: BoxDecoration(color: PRIMARY_COLOR, borderRadius: BorderRadius.circular(10)),
-                  padding: const EdgeInsets.all(5),
-                  // margin: EdgeInsets.symmetric(vertical: 5,),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text("Fund Raiser", style: TextStyle(fontSize: 18, color: Colors.white), textAlign: TextAlign.center),
-                      Image.asset(
-                        "assets/career.png",
-                        scale: 4,
-                      )
-                    ],
-                  )),
+              InkWell(
+                onTap: (){
+                  Get.to(() => const FundRaiserMainScreen(),binding: FundRaiserBindings());
+                },
+                child: Container(
+                    decoration: BoxDecoration(color: PRIMARY_COLOR, borderRadius: BorderRadius.circular(10)),
+                    padding: const EdgeInsets.all(5),
+                    // margin: EdgeInsets.symmetric(vertical: 5,),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text("Fund Raiser", style: TextStyle(fontSize: 18, color: Colors.white), textAlign: TextAlign.center),
+                        Image.asset(
+                          "assets/career.png",
+                          scale: 4,
+                        )
+                      ],
+                    )),
+              ),
               InkWell(
                 onTap: () => Get.to(const InnovationMainScreen(), binding: InnovationMainBinding()),
                 child: Container(

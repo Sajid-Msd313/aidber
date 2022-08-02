@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:io';
 
 import 'package:aidber/data/services/innovations/innovation_services.dart';
@@ -61,24 +63,24 @@ class AddInnovationController extends GetxController {
     if (detail["errors"] != null) {
       print("controller");
       Map map = detail["errors"];
-      String error_message = "";
+      String errorMessage = "";
 
       map.forEach((key, value) {
         //print("for each: ${value.toString().replaceAll("[", "")}");
-        error_message = value.toString().replaceAll("[", "");
-        error_message = value.toString().replaceAll("]", "");
+        errorMessage = value.toString().replaceAll("[", "");
+        errorMessage = value.toString().replaceAll("]", "");
         // value = error_message;
       });
 
-      error_message = error_message.replaceAll("[", "");
-      error_message = error_message.replaceAll("]", "");
+      errorMessage = errorMessage.replaceAll("[", "");
+      errorMessage = errorMessage.replaceAll("]", "");
       _isLoading = false;
-      print(error_message);
-      show_snackBarError(title: "Error", description: error_message);
+      print(errorMessage);
+      show_snackBarError(title: "Error", description: errorMessage);
     }
 
     if (detail["message"] != null) {
-      InnovationItemModel model =    InnovationItemModel.fromJson(detail["data"]);
+      InnovationItemModel model = InnovationItemModel.fromJson(detail["data"]);
       Get.find<InnovationMainController>().insertLocally(model);
       showSnackBarToNotifyUser(message: detail["message"]);
       // show_snackBarSuccess(title: "Posted!", description: "Posted Successfully!");
@@ -145,7 +147,7 @@ class AddInnovationController extends GetxController {
           backgroundColor: Colors.white,
           titleStyle: const TextStyle(color: Colors.black),
           content:
-              GetBuilder<AddInnovationController>(builder: (controlelr) => Text(controlelr._progressPercentValue.toString() + "%")),
+              GetBuilder<AddInnovationController>(builder: (ctrl) => Text(ctrl._progressPercentValue.toString() + "%")),
           radius: 30);
     }
   }

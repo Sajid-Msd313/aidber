@@ -24,7 +24,7 @@ class CustomButton extends StatelessWidget {
       splashColor: Colors.white,
       onTap: onPressed,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         height: 49,
         width: double.infinity,
 
@@ -47,6 +47,7 @@ class CustomButton extends StatelessWidget {
             style: TextStyle(
                 color: primary ? Colors.white : PRIMARY_COLOR,
                 fontSize: 16.8,
+                fontFamily: "",
                 fontWeight: FontWeight.w700),
           ),
         ),
@@ -201,6 +202,74 @@ class CustomLogMenuButton extends StatelessWidget {
               fontSize: 16.8,
               fontWeight: FontWeight.w700),
           textAlign: TextAlign.justify,
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+class CustomButton4 extends StatelessWidget {
+  final String text;
+  final Color? color;
+  final Gradient? gradient;
+  final Color textColor;
+  final double fontSize;
+  final FontWeight fontWeight;
+  final EdgeInsets padding;
+  final double borderRadiusValue;
+  final double? width;
+  final double? height;
+  final bool selected;
+  final bool disableBorder;
+  final VoidCallback? onTap;
+  const CustomButton4({
+    required this.text,
+    this.onTap,
+    this.color: Colors.transparent,
+    this.gradient,
+    this.textColor: Colors.white,
+    this.fontSize: 14,
+    this.fontWeight: FontWeight.normal,
+    this.borderRadiusValue: 10,
+    this.width,
+    this.height,
+    this.selected: false,
+    this.padding: const EdgeInsets.only(left: 10, right: 10, top: 8, bottom: 8),
+    this.disableBorder: false,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: padding,
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          color: gradient == null
+              ? !selected
+              ? color
+              : Theme.of(context).primaryColor
+              : null,
+          gradient: gradient,
+          borderRadius: BorderRadius.circular(borderRadiusValue),
+          border: disableBorder ? null : Border.all(color: Colors.red),
+        ),
+        child: Center(
+          child: Text(
+            text,
+            style: TextStyle(
+              fontFamily: "Poppins",
+              color: !selected ? textColor : Colors.white,
+              fontSize: fontSize,
+              fontWeight: fontWeight,
+            ),
+          ),
         ),
       ),
     );
