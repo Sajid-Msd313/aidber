@@ -32,11 +32,12 @@ class InnovationItemTile extends StatelessWidget {
             Get.to( InnovationDetailScreen(model: model), transition: Transition.topLevel),
           },
           leading: CacheNetworkImageWidget(
+            shouldHaveCenterProgressIndicator: false,
             url:model.innovationImages?.isNotEmpty??false ?model.innovationImages?.first.content : "",
           ),
           title: RichText(
             text:  TextSpan(
-                text:"${model.title }asasd ",
+                text:"${model.title }",
                 style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
                 children: [
                   TextSpan(

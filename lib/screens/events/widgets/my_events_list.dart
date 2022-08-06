@@ -66,7 +66,8 @@ class SingleEventWidget extends StatelessWidget {
                   width: Get.width * 0.3,
                   height: Get.height * 0.3,
                   placeholder: (context, url) => const Center(child: CircularProgressIndicator(),),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  errorWidget: (context, url, error) =>  Image.network("https://cdn.pixabay"
+                      ".com/photo/2014/02/27/16/10/flowers-276014__340.jpg",fit: BoxFit.cover,),
                 ),
                 borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
               ),

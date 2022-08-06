@@ -58,6 +58,7 @@ dependencies:
   jiffy:
   file_picker:
   easy_refresh:
+  simple_progress_indicators:
 
 dev_dependencies:
   flutter_test:

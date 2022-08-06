@@ -3,16 +3,15 @@ import 'package:aidber/data/api.dart';
 import 'package:aidber/data/services/auth/signin_services.dart';
 import 'package:aidber/menu/navigation_bar/bottom_nav_bar_custom.dart';
 import 'package:aidber/models/auth/login_model.dart';
-import 'package:aidber/screens/home_screen/home_screen_view.dart';
 import 'package:aidber/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-import '../../utils/get_di.dart';
-
 class signin_controller extends GetxController {
   ApiClient apiClient;
+
   signin_controller({required this.apiClient});
+
   bool isLoading = false;
   String? errorMessage;
   TextEditingController emailTextEditingController = TextEditingController(text: "g.abbas275@yahoo.com");
@@ -33,39 +32,37 @@ class signin_controller extends GetxController {
   Future<void> _signInNow() async {
     toggleLoading(true);
     try {
-
       var detail = await signin_services.post_signin_api(
-          client: apiClient,
-          email: emailTextEditingController.text,
-          password: passwordTextEditingController.text);
+          client: apiClient, email: emailTextEditingController.text, password: passwordTextEditingController.text);
       toggleLoading(false);
       if (detail != null) {
-        print(detail);
         if (detail is LoginModel) {
-
-          try{
-             await Get.find<storage_controller>().storeLoginModel(detail);
-             Get.find<ApiClient>().updateHeader(detail.result?.token??"");
-          }catch(e){
+          try {
+            await Get.find<storage_controller>().storeLoginModel(detail);
+            Get.find<ApiClient>().updateHeader(detail.result?.token ?? "");
+          } catch (e) {
             print(e);
           }
           await Future.delayed(1.seconds);
-          show_snackBarSuccess(title: "Logined Successfully", description: detail.msg??"");
-          Get.offAll(()=>  root_page());
-         // Get.offAll(HomeScreenView());
-        } else if(detail is Response) {
+          show_snackBarSuccess(title: "Logined Successfully", description: detail.msg ?? "");
+          Get.offAll(() => root_page());
+          // Get.offAll(HomeScreenView());
+        } else if (detail is Response) {
           errorMessage = detail.statusText;
           show_snackBarError(title: "Error!", description: detail.statusText.toString());
-        }else{
-          return null;
         }
       } else {
-        show_snackBarError(
-            title: "Error!",
-            description: "Please check your internet connection");
+        show_snackBarError(title: "Error!", description: "Please check your internet connection");
       }
     } catch (e) {
       toggleLoading(false);
     }
+  }
+}
+
+class SignInBindings extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<signin_controller>(() => signin_controller(apiClient: Get.find<ApiClient>()));
   }
 }

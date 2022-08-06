@@ -9,25 +9,12 @@ import 'package:http/http.dart' as http;
 
 import '../../api.dart';
 
-abstract class EventServicesAbs {
-  Future getAllEvents();
-  Future getAllEventsById({required String id});
-  Future add_event({
-    required String title,
-    required String location,
-    required String organised_by,
-    required String what_to_expect,
-    required String latitude,
-    required String longitude,
-    required String description,
-    required String imagePath,
-    required String date,
-    required String time,
-  });
-}
-class EventServices {
+
+
+class EventServices  {
   static ApiClient client = Get.find<ApiClient>();
-///Get All Event..........
+
+  ///Get All Event..........
   static Future getAllEvents() async {
     Map<String, String> headersV2 = {'x-api-key': Get.find<storage_controller>().box.read("token")};
     var response = await client.getData(api_urls.GET_ALL_EVENTS, headers: headersV2);
@@ -104,12 +91,11 @@ class EventServices {
     var responseBody = await response.stream.bytesToString();
     if (responseBody.isNotEmpty) {
       print(responseBody);
-      Map<String,dynamic> body = jsonDecode(responseBody);
-      if(body["status"] == true){
+      Map<String, dynamic> body = jsonDecode(responseBody);
+      if (body["status"] == true) {
         return Event.fromJson(body["data"]);
-      }else{
-       return body;
-
+      } else {
+        return body;
       }
     } else {
       show_snackBarError(title: "Internet Connection", description: "Please chceck your internet conenction");

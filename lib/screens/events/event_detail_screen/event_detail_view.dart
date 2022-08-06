@@ -1,13 +1,12 @@
 import 'package:aidber/global_widgets/appbar.dart';
+import 'package:aidber/global_widgets/cache_network_image.dart';
 import 'package:aidber/models/event/event_model.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-
 import 'package:aidber/screens/events/event_detail_screen/widgets/body.dart';
+import 'package:flutter/material.dart';
 
 class EventDetailView extends StatelessWidget {
   final Event eventModel;
+
   const EventDetailView({Key? key, required this.eventModel}) : super(key: key);
 
   @override
@@ -20,23 +19,24 @@ class EventDetailView extends StatelessWidget {
           children: [
             Stack(
               children: [
-                Image.asset(
-                  'assets/crazy.jpg',
+                SizedBox(
                   height: MediaQuery.of(context).size.height * 0.3,
                   width: MediaQuery.of(context).size.width,
-                  fit: BoxFit.fill,
+                  child:const CacheNetworkImageWidget2(
+                    shouldUseBuilder: true,
+                    shouldHaveRadius:false,
+                    url: "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014__340.jpg",
+                    placeHolder:  CircularProgressIndicator(),
+                    errorWidget:  Icon(Icons.error),
+                    //shouldUseBuilder: true,
+                  ),
                 ),
-                Positioned(
-                    top: 10,
-                    left: 5,
-                    child: InkWell(
-                        onTap: (){
-                          Get.back();
-                        },
-                        child: const Icon(Icons.arrow_back)),)
               ],
             ),
-             EventDetailBody(eventModel: eventModel,)
+            const SizedBox(height: 10,),
+            EventDetailBody(
+              eventModel: eventModel,
+            )
           ],
         ),
       )),

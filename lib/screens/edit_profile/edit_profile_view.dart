@@ -14,10 +14,10 @@ class EditProfile extends StatelessWidget {
       appBar:CustomAppbar,
       body: SingleChildScrollView(
         child: Container(
-        margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+        margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
         child: Column(
         children: const [
-          headerEditProfile(),
+         // headerEditProfile(),
           bodyEditProfile()
         ],
         ),

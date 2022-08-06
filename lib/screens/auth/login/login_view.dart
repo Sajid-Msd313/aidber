@@ -8,6 +8,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../controllers/auth/signup_controller.dart';
 import '../../../utils/get_di.dart';
 import '../recover_password_screen/recover_password.dart';
 import '../sign_up_screen/sign_up.dart';
@@ -60,7 +61,7 @@ class _Sign_In2State extends State<Sign_In2> {
 
                             children: [
                               Container(
-                                margin: EdgeInsets.symmetric(
+                                margin: const EdgeInsets.symmetric(
                                     horizontal: 20, vertical: 40),
                                 //  margin: EdgeInsets.only(top: 40),
                                // decoration: boxdecoration,
@@ -90,7 +91,7 @@ class _Sign_In2State extends State<Sign_In2> {
                                           decoration: InputDecoration(
                                               filled: true,
                                               contentPadding:
-                                                  EdgeInsets.all(20),
+                                                  const EdgeInsets.all(20),
                                               fillColor: Colors.grey.shade300,
                                               focusColor: Colors.white,
                                               border: OutlineInputBorder(
@@ -134,9 +135,9 @@ class _Sign_In2State extends State<Sign_In2> {
                                         Align(
                                           alignment: Alignment.centerRight,
                                           child: FlatButton(
-                                            child: Text(
+                                            child: const Text(
                                               'Forgot Password?',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   color: Colors.grey),
                                             ),
                                             onPressed: () {
@@ -149,7 +150,9 @@ class _Sign_In2State extends State<Sign_In2> {
                                           height: 20,
                                         ),
                                         controller.isLoading
-                                            ? const circular_progressIndicator()
+                                            ? const circular_progressIndicator(
+
+                                        )
                                             : SizedBox(
                                                 width: Get.width * .9,
                                                 height: 45,
@@ -176,40 +179,38 @@ class _Sign_In2State extends State<Sign_In2> {
                                 children: [
                                   Align(
                                     alignment: Alignment.center,
-                                    child: Container(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            height: 1,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                .2,
-                                            color: Colors.black,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          height: 1,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              .2,
+                                          color: Colors.black,
+                                        ),
+                                        const Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 15, horizontal: 10),
+                                          child: Text(
+                                            'Or Sign up using',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500),
                                           ),
-                                          const Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 15, horizontal: 10),
-                                            child: Text(
-                                              'Or Sign up using',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w500),
-                                            ),
-                                          ),
-                                          Container(
-                                            height: 1,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                .2,
-                                            color: Colors.black,
-                                          ),
-                                        ],
-                                      ),
+                                        ),
+                                        Container(
+                                          height: 1,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              .2,
+                                          color: Colors.black,
+                                        ),
+                                      ],
                                     ),
                                   ),
                                   CircleAvatar(
@@ -225,8 +226,9 @@ class _Sign_In2State extends State<Sign_In2> {
                         }),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: RichText(text: TextSpan(text: "Don't have an account? ",style: TextStyle(color: Colors.black),children: [
-                        TextSpan(text: "Create an Account",recognizer: new TapGestureRecognizer()..onTap = () => Get.to(()=>SignUp()),style: TextStyle(color: primaryColor,fontWeight: FontWeight.bold))
+                      child: RichText(text: TextSpan(text: "Don't have an account? ",style: const TextStyle(color: Colors.black),children: [
+                        TextSpan(text: "Create an Account",recognizer:  TapGestureRecognizer()..onTap = () => Get.to(()=>const
+                        SignUp(), binding: SignUpBindings()),style: const TextStyle(color: primaryColor,fontWeight: FontWeight.bold))
                       ])),
                     )
                   ],

@@ -1,3 +1,4 @@
+import 'package:aidber/global_widgets/cache_network_image.dart';
 import 'package:aidber/global_widgets/read_more_text.dart';
 import 'package:aidber/global_widgets/report_dialog.dart';
 import 'package:aidber/models/posts/all_posts_model.dart';
@@ -94,7 +95,9 @@ class single_post extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: CachedNetworkImage(
+                  child:CacheNetworkImageWidget(
+                    url: url,
+                  ), /*CachedNetworkImage(
                     imageUrl: url,
                     placeholder: (context, url) =>
                       const  Center(child: CircularProgressIndicator()),
@@ -102,7 +105,7 @@ class single_post extends StatelessWidget {
                         const Icon(Icons.error),
                     fit: BoxFit.cover,
 
-                  ), //imageViewSinglePost(imagesList: img_urls,)),
+                  )*/ //imageViewSinglePost(imagesList: img_urls,)),
                 )),
           const SizedBox(
             height: 10,
@@ -157,7 +160,7 @@ class make_like_button extends StatefulWidget {
   Reaction<String> reactionWidget;
   String postId;
 
-  make_like_button({required this.reactionWidget, required this.postId});
+  make_like_button({Key? key, required this.reactionWidget, required this.postId}) : super(key: key);
 
   @override
   _make_like_buttonState createState() => _make_like_buttonState();

@@ -46,5 +46,11 @@ class api_urls {
 //===========INNOVATIONS URLS============//
   static const String CREATE_INNOVATION = "$BASE_URL/$API_URL/create-innovation";
   static const String GET_INNOVATIONS = "$BASE_URL/$API_URL/get-innovations";
+  //===========INNOVATIONS ENDS URLS============//
+
+  //===========FUNDRAISER URLS============//
+
+  static const String GET_FUND_RAISERS = "$BASE_URL/$API_URL/get-fund-raisers";
+  static const String CREATE_FUND_RAISER = "$BASE_URL/$API_URL/create-fund-raiser";
 
 }

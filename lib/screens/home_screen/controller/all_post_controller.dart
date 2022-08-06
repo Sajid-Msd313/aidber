@@ -34,7 +34,7 @@ class all_post_controller extends GetxController with SinglePostApis {
   reactAPost({required String postId, required String reactionType}) async {
     var detail = await post_services.like_post(client: apiClient, post_id: postId, type: reactionType);
     if (detail != null && detail is LikePostModel) {
-      show_snackBarSuccess(title: "Post Reaction Updated", description: detail.message.toString());
+      // show_snackBarSuccess(title: "Post Reaction Updated", description: detail.message.toString());
       if (detail.message == "Post Unliked!") {
         detail.data?.likeType = null;
         print("UNNL:OKED");

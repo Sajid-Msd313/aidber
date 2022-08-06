@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../models/innovations/innovation_item_model.dart';
+import '../../utils/error_image_builder.dart';
 
 class InnovationDetailScreen extends StatelessWidget {
   final InnovationItemModel model;
@@ -25,7 +26,9 @@ class InnovationDetailScreen extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * .3,
                   width: MediaQuery.of(context).size.width,
                   child: CacheNetworkImageWidget(
-                      url: model.innovationImages?.isNotEmpty ?? false ? model.innovationImages?.first.content : "")),
+                    errorWidget: const ErrorImageBuilder(),
+                    url: model.innovationImages?.isNotEmpty ?? false ? model.innovationImages?.first.content : "",
+                  )),
               const Positioned(top: 0, left: 0, child: BackButton()),
             ]),
             Padding(
@@ -35,7 +38,7 @@ class InnovationDetailScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 12),
-                  const Text("Added By: Lorem Bhai", style:  TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
+                  const Text("Added By: Lorem Bhai", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
                   const SizedBox(height: 6),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -79,8 +82,7 @@ class InnovationDetailScreen extends StatelessWidget {
                           style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
                           children: [
                         TextSpan(
-                            text: "${model.description} asda asdasdas dasd asd asd asd asd asd asdas das dasd asd asdasd asdasd asd "
-                                "asda sd asd asd asdasd asdsdfdfgdfh fghfg hfghjdfg" *5,
+                            text: "${model.description}",
                             style: const TextStyle(fontSize: 14, color: Colors.grey, fontWeight: FontWeight.w500))
                       ])),
                   const SizedBox(height: 24),

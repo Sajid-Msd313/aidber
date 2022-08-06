@@ -125,7 +125,7 @@ class CustomLogOutButton extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10),
+        padding:  EdgeInsets.symmetric(horizontal: 10),
         height: 49,
         width: double.infinity,
 

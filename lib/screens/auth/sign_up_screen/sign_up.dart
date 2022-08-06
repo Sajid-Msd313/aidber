@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SignUp extends StatelessWidget {
+  const SignUp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +35,7 @@ class SignUp extends StatelessWidget {
                         Icons.arrow_back_ios,
                         color: PRIMARY_COLOR,
                       )),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Text(
@@ -47,7 +49,7 @@ class SignUp extends StatelessWidget {
                     height: Get.height * .1,
                   ),
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal: 5),
+                    margin: const EdgeInsets.symmetric(horizontal: 5),
                     //decoration: boxdecoration,
 
                     child: Column(
@@ -61,16 +63,17 @@ class SignUp extends StatelessWidget {
                           controller: controller.username,
                           decoration: InputDecoration(
                               filled: true,
-                              contentPadding: EdgeInsets.all(5),
+                              hintText: 'Username',
+                              contentPadding: const EdgeInsets.all(25),
                               fillColor: Colors.grey.shade300,
                               border: input_border,
                               prefixIcon: const Icon(Icons.contact_mail),
-                              labelText: '| Username',
+                              //hintText: 'Username',
                               enabled: true),
                           enabled: true,
                         ),
                         const SizedBox(
-                          height: 5,
+                          height: 20,
                         ),
                         TextFormField(
                           validator: (val) {
@@ -81,18 +84,18 @@ class SignUp extends StatelessWidget {
                           controller: controller.full_name,
                           decoration: InputDecoration(
                               filled: true,
-                              contentPadding: EdgeInsets.all(5),
+                              contentPadding: const EdgeInsets.all(25),
                               fillColor: Colors.grey.shade300,
                               border: OutlineInputBorder(
                                   borderSide: BorderSide.none,
                                   borderRadius: BorderRadius.circular(13)),
                               prefixIcon: const Icon(Icons.email_outlined),
-                              labelText: '| Full Name',
+                              hintText: 'Full Name',
                               enabled: true),
                           enabled: true,
                         ),
                         const SizedBox(
-                          height: 5,
+                          height: 20,
                         ),
                         TextFormField(
                           validator: (_) {
@@ -103,18 +106,19 @@ class SignUp extends StatelessWidget {
                           controller: controller.email,
                           decoration: InputDecoration(
                               filled: true,
-                              contentPadding: EdgeInsets.all(5),
+                                                            contentPadding: const EdgeInsets.all(25),
+
                               fillColor: Colors.grey.shade300,
                               border: OutlineInputBorder(
                                   borderSide: BorderSide.none,
                                   borderRadius: BorderRadius.circular(13)),
                               prefixIcon: const Icon(Icons.email_outlined),
-                              labelText: '| Email',
+                              hintText: 'Email',
                               enabled: true),
                           enabled: true,
                         ),
                         const SizedBox(
-                          height: 5,
+                          height: 20,
                         ),
                         TextFormField(
                           validator: (_) {
@@ -128,13 +132,14 @@ class SignUp extends StatelessWidget {
                           controller: controller.password,
                           decoration: InputDecoration(
                               filled: true,
-                              contentPadding: EdgeInsets.all(5),
+                                                            contentPadding: const EdgeInsets.all(25),
+
                               fillColor: Colors.grey.shade300,
                               border: OutlineInputBorder(
                                   borderSide: BorderSide.none,
                                   borderRadius: BorderRadius.circular(13)),
                               prefixIcon: const Icon(Icons.lock),
-                              labelText: '| Password',
+                              hintText: 'Password',
                               enabled: true),
                           enabled: true,
                         ),

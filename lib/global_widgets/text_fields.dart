@@ -1,3 +1,4 @@
+import 'package:aidber/utils/styles.dart';
 import 'package:flutter/material.dart';
 
 //Custom Text Field
@@ -15,10 +16,12 @@ class CustomAuthTextFormField extends StatelessWidget {
     this.validator,
     this.labeltext,
     this.readOnly = false,
+    this.hintStyle,
     this.fillColor = Colors.white,
   }) : super(key: key);
   final int maxlin;
   final String hint;
+  final TextStyle? hintStyle;
   final validator;
   final String? labeltext;
   final TextEditingController? controller;
@@ -44,6 +47,7 @@ class CustomAuthTextFormField extends StatelessWidget {
         textInputAction: textInputAction,
         style: const TextStyle(fontSize: 16, color: Colors.black),
         decoration: InputDecoration(
+          hintStyle: hintStyle,
           labelText: labeltext,
           prefixIcon: prefixIcon,
           hintText: hint,

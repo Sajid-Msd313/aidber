@@ -1,11 +1,25 @@
 import 'package:aidber/global_widgets/appbar.dart';
 import 'package:aidber/global_widgets/cache_network_image.dart';
 import 'package:aidber/global_widgets/custom_button.dart';
+import 'package:aidber/screens/fund_raiser/controllers/add_fund_raiser_controller.dart';
+import 'package:aidber/screens/fund_raiser/controllers/fund_raiser_controller.dart';
+import 'package:aidber/screens/fund_raiser/widgets/fund_raiser_storycard_tile.dart';
+import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../global_widgets/colors.dart';
+import 'add_fund_raiser.dart';
+import 'fund_raise_detail_screen.dart';
 
-class FundRaiserMainScreen extends StatelessWidget {
+class CustomScrollPhysics extends ScrollPhysics{
+  @override
+  double applyPhysicsToUserOffset(ScrollMetrics position, double offset) {
+    print("applyPhysicsToUserOffset");
+    return offset > 0 ? 0 : offset;
+  }
+}
+class FundRaiserMainScreen extends GetView<FundRaiserController> {
   const FundRaiserMainScreen({Key? key}) : super(key: key);
 
   @override
@@ -13,8 +27,12 @@ class FundRaiserMainScreen extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Raise Funds',
+        actions: [
+          IconButton(onPressed: () => Get.to(const AddFundRaiserScreen(), binding: AddFundRaiserBindings()), icon: Icon(Icons.add))
+        ],
       ),
       body: ListView(
+        controller: controller.scrollController,
         physics: const BouncingScrollPhysics(),
         children: [
           const SizedBox(
@@ -42,13 +60,54 @@ class FundRaiserMainScreen extends StatelessWidget {
 
           Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-              child: ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 10,
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index) {
-                    return fundRaiserStoriesCard();
-                  }))
+              child: GetBuilder<FundRaiserController>(
+                  init: FundRaiserController(),
+                  builder: (controller) {
+                    if (controller.isLoading) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    if (controller.fundRaisersList.isEmpty) {
+                      return const Center(
+                          child: Text(
+                        "No stories yet",
+                        textAlign: TextAlign.center,
+                      ));
+                    }
+                    return EasyRefresh(
+                      simultaneously: true,
+                      controller: controller.controller,
+                      // onRefresh: controller.onRefresh,
+                      onLoad: controller.onLoading,
+                      header: const ClassicHeader(processedDuration: Duration(milliseconds: 100)),
+                      footer: const ClassicFooter(
+                        noMoreText: "No more stories",
+                      ),
+                      child: ListView.separated(
+                         physics:controller.isAtTop ?
+                         CustomScrollPhysics() :  controller.loadMore == false?const
+                          NeverScrollableScrollPhysics() : null,
+                        shrinkWrap: true,
+                        padding: const EdgeInsets.only(top: 10),
+                        separatorBuilder: (_, __) => Divider(thickness: 2, color: Colors.grey.shade100),
+                        itemCount: controller.fundRaisersList.length,
+                        itemBuilder: (BuildContext context, index) => FundRaiserStoryCardTile(
+                          model: controller.fundRaisersList[index],
+                        ),
+                      ),
+                    );
+                  })
+
+              // ListView.builder(
+              //   physics: const NeverScrollableScrollPhysics(),
+              //   itemCount: 10,
+              //   shrinkWrap: true,
+              //   itemBuilder: (BuildContext context, int index) {
+              //     return const FundRaiserStoryCardTile();
+              //   },
+              // ),
+              )
         ],
       ),
     );
@@ -92,7 +151,9 @@ class FundRaiserMainScreen extends StatelessWidget {
                       Text("Collected\n\$ 500000", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22, color: PRIMARY_COLOR)),
                       const SizedBox(height: 5),
                       OutlinedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.to(FundRaiserDetailScreen());
+                          },
                           child: Text("View Full Story", style: TextStyle(color: PRIMARY_COLOR, fontSize: 11)),
                           style: OutlinedButton.styleFrom(
                               backgroundColor: PRIMARY_COLOR.withOpacity(.1),
@@ -102,9 +163,7 @@ class FundRaiserMainScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Flexible(
-
-                  fit: FlexFit.tight, child: Image.asset("assets/mark.jpg", fit: BoxFit.cover)),
+              Flexible(fit: FlexFit.tight, child: Image.asset("assets/mark.jpg", fit: BoxFit.cover)),
             ],
           )),
     );
@@ -126,66 +185,5 @@ class FundRaiserMainScreen extends StatelessWidget {
                       child: CacheNetworkImageWidget(
                           shouldUseBuilder: true, url: "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014__340.jpg")));
             }));
-  }
-
-  ///Fundraiser Stories Card
-  fundRaiserStoriesCard() {
-    return IntrinsicHeight(
-      child: Card(
-          color: Colors.grey.shade200,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          // margin: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-          clipBehavior: Clip.antiAlias,
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Flexible(flex: 1, fit: FlexFit.tight, child: Image.asset("assets/mark.jpg", fit: BoxFit.cover)),
-              Flexible(
-                flex: 0,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text("Person name, country",
-                          textAlign: TextAlign.start,
-                          style: TextStyle(fontSize: 14, color: PRIMARY_COLOR, fontWeight: FontWeight.w600)),
-                      const Text("Tagline for raising funds",
-                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14, color: Colors.black)),
-                      const SizedBox(height: 5),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          SizedBox(
-                              width: 100,
-                              child: OutlinedButton(
-                                  onPressed: () {},
-                                  child: const Text("Contribute",
-                                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11)),
-                                  style: OutlinedButton.styleFrom(
-                                      backgroundColor: PRIMARY_COLOR,
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))))),
-                          SizedBox(
-                            width: 100,
-                            child: OutlinedButton(
-                                onPressed: () {},
-                                child: const Text("Share",
-                                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11)),
-                                style: OutlinedButton.styleFrom(
-                                    backgroundColor: PRIMARY_COLOR,
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)))),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          )),
-    );
   }
 }

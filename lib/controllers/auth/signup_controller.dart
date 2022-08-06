@@ -39,3 +39,10 @@ class signup_controller extends GetxController {
     }
   }
 }
+
+class SignUpBindings extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<signup_controller>(() => signup_controller(apiClient: Get.find<ApiClient>()));
+  }
+}

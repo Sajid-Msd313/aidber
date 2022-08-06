@@ -10,15 +10,15 @@ class headerEditProfile extends StatelessWidget {
     return  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         const Text('Edit Profile'),
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Image.asset('assets/search.png',scale:9,),
-            const SizedBox(width: 8,),
-            InkWell(
-                onTap: (){Get.to(const MenuScreen());},
-                child: Image.asset('assets/menu.png',scale: 4,))
-          ],
-        )
+        // Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //   children: [
+        //     Image.asset('assets/search.png',scale:9,),
+        //     const SizedBox(width: 8,),
+        //     InkWell(
+        //         onTap: (){Get.to(const MenuScreen());},
+        //         child: Image.asset('assets/menu.png',scale: 4,))
+        //   ],
+        // )
       ],
     );
   }

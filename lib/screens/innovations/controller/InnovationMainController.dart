@@ -17,6 +17,7 @@ class InnovationMainController extends GetxController {
   bool _loadMore = true;
   InnovationResponseModel responseModel = InnovationResponseModel();
 
+  ///TODO: Look for isReset because no addAll is being implemented here...
   fetchInnovations({bool isInitial = true, bool isReset = false, String? nextPageUrl}) async {
     if(_loadMore == false) return;
     if (isInitial) isLoading = true;
