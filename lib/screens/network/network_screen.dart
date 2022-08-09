@@ -16,7 +16,7 @@ class Network_Screen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Color(0xFF282d6b),
           title: Text(
-            'LOGO',
+            'Found Heal',
             style: TextStyle(color: Colors.white),
           ),
         ),

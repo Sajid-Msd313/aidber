@@ -1,4 +1,5 @@
 import 'package:aidber/screens/events/widgets/my_events_list.dart';
+import 'package:aidber/screens/events/widgets/upcomming_event_list.dart';
 import 'package:aidber/utils/dimensions.dart';
 import 'package:aidber/utils/styles.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../../global_widgets/colors.dart';
+import '../fund_raiser/search_event_screen.dart';
 import 'create_new_event/create_new_event_view.dart';
 
 class EventsScreen extends StatelessWidget {
@@ -23,15 +25,18 @@ class EventsScreen extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
         actions: [
-          Container(
-              padding: const EdgeInsets.only(right: 10),
-              alignment: Alignment.center,
-              child: Image.asset(
+          InkWell(
+            onTap: ()=>Get.to(SearchEventScreen()),
+            child: Container(
+                padding: const EdgeInsets.only(right: 10),
+                alignment: Alignment.center,
+                child: Image.asset(
 
-                "assets/search.png",
-                color: Colors.white,
-                scale: 2.5,
-              )),
+                  "assets/search.png",
+                  color: Colors.white,
+                  scale: 2.5,
+                )),
+          ),
 
           InkWell(
             onTap: () {
@@ -72,7 +77,7 @@ class EventsScreen extends StatelessWidget {
                       "Coming this week",
                       style: kstyle1.copyWith(fontSize: 17),
                     )),
-                const MyEventsList(),
+                const UpcommingEventList(),
                 const SizedBox(
                   height: 10,
                 ),

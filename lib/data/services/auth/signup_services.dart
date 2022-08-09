@@ -23,7 +23,7 @@ class signup_services {
       'password': password
     };
     print("POST body ====> \n" +body.toString());
-    Response response = await client.postData(api_urls.SIGN_UP, body);
+    Response response = await client.postData(ApiUrls.SIGN_UP, body);
     try {
 
       if (response.statusCode == 200 && response.body.isNotEmpty) {

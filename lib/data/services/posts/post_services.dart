@@ -24,7 +24,7 @@ class post_services {
   static Future fetch_all_post_services({required ApiClient client, String? loadMoreUrl}) async {
     Map<String, String> headers = {'x-api-key': Get.find<storage_controller>().box.read("token"), 'Content-Type': 'application/json'};
     Map<String, String> headersV2 = {'x-api-key': Get.find<storage_controller>().box.read("token")};
-    String url = api_urls.GET_ALL_POST;
+    String url = ApiUrls.GET_ALL_POST;
     if(loadMoreUrl != null){
       url = loadMoreUrl;
     }
@@ -56,7 +56,7 @@ class post_services {
       "reply_to": reply_to,
     };
     print("POST Comment body ====> \n" + body.toString());
-    var response = await client.postData(api_urls.COMMENT, body, headers: headersV2);
+    var response = await client.postData(ApiUrls.COMMENT, body, headers: headersV2);
 
     try {
       if (response.statusCode == 200 && response.body.isNotEmpty) {
@@ -80,7 +80,7 @@ class post_services {
       'post_id': post_id,
     };
     print("POST body ====> \n" + body.toString());
-    var response = await client.postData(api_urls.LIKE_POST, body, headers: headersV2);
+    var response = await client.postData(ApiUrls.LIKE_POST, body, headers: headersV2);
     print("=======> RESPONSE BODY FOR likePost");
 
     try {
@@ -97,7 +97,7 @@ class post_services {
   }
 
   static Future getCommentsByPostId({required String post_id}) async {
-    String url = api_urls.GET_POST_COMMENT + "/$post_id";
+    String url = ApiUrls.GET_POST_COMMENT + "/$post_id";
 
     try {
       Response response = await client.getData(url, headers: {'x-api-key': '${Get.find<storage_controller>().box.read("token")}'});
@@ -119,7 +119,7 @@ class post_services {
 
   static Future<SuccessOrMessageModel?> requestToFollow({required String user_id, required bool isFollow}) async {
     Map<String, String> headersV2 = {'x-api-key': Get.find<storage_controller>().box.read("token")};
-    var response = await client.postData(api_urls.REQUEST_TO_FOLLOW, {"user_id": user_id, "action": isFollow ? "follow" : "unfollow"},
+    var response = await client.postData(ApiUrls.REQUEST_TO_FOLLOW, {"user_id": user_id, "action": isFollow ? "follow" : "unfollow"},
         headers: headersV2);
     SuccessOrMessageModel resModel = SuccessOrMessageModel();
     try {
@@ -137,7 +137,7 @@ class post_services {
   static Future<SuccessOrMessageModel> savePost({required String post_id}) async {
     Map<String, String> headers = {'x-api-key': Get.find<storage_controller>().box.read("token"), 'Content-Type': 'application/json'};
     Map<String, String> headersV2 = {'x-api-key': Get.find<storage_controller>().box.read("token")};
-    var response = await client.getData(api_urls.SAVE_POST + "/$post_id", headers: headers);
+    var response = await client.getData(ApiUrls.SAVE_POST + "/$post_id", headers: headers);
     SuccessOrMessageModel resModel = SuccessOrMessageModel();
     try {
       if (response.statusCode == 200 && response.body.isNotEmpty) {
@@ -153,7 +153,7 @@ class post_services {
 
   static Future<SuccessOrMessageModel> blockUser({required String user_id}) async {
     Map<String, String> headers = {'x-api-key': Get.find<storage_controller>().box.read("token"), 'Content-Type': 'application/json'};
-    var response = await client.getData(api_urls.BLOCK_USER + "/$user_id", headers: headers);
+    var response = await client.getData(ApiUrls.BLOCK_USER + "/$user_id", headers: headers);
     SuccessOrMessageModel resModel = SuccessOrMessageModel();
     try {
       if (response.statusCode == 200 && response.body.isNotEmpty) {
@@ -170,7 +170,7 @@ class post_services {
   static Future<bool> sharePost({required String post_id}) async {
     Map<String, String> headers = {'x-api-key': Get.find<storage_controller>().box.read("token"), 'Content-Type': 'application/json'};
     Map<String, String> headersV2 = {'x-api-key': Get.find<storage_controller>().box.read("token")};
-    var response = await client.getData(api_urls.SAVE_POST + "/$post_id", headers: headers);
+    var response = await client.getData(ApiUrls.SAVE_POST + "/$post_id", headers: headers);
 
     try {
       if (response.statusCode == 200 && response.body.isNotEmpty) {

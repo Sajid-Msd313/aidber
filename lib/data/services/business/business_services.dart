@@ -16,7 +16,7 @@ class business_services {
     };
      Map<String, String> headersV2 = {'x-api-key': Get.find<storage_controller>().box.read("token")};
     print(" createAccountBusiness body ====> \n" + reqBody.toString());
-    var response = await client.postData(api_urls.CREATE_BUSINESS, reqBody,
+    var response = await client.postData(ApiUrls.CREATE_BUSINESS, reqBody,
         headers: headersV2);
 
     try {
@@ -40,7 +40,7 @@ class business_services {
       'Content-Type': 'application/json'
     };
     Map<String, String> headersV2 = {'x-api-key': Get.find<storage_controller>().box.read("token")};
-    var response = await client.getData(api_urls.GET_BUSINESSES,
+    var response = await client.getData(ApiUrls.GET_BUSINESSES,
         headers: headersV2);
     try {
       if (response.statusCode == 200 && response.body["data"] != null) {

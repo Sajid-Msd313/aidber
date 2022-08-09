@@ -5,7 +5,7 @@ AppBar CustomAppbar=AppBar(
   backgroundColor: PRIMARY_COLOR,
 
   title:  Text(
-    'LOGO',
+    'Found Heal',
     style: TextStyle(color: Colors.white, fontSize: 20),
     textAlign: TextAlign.center,
   ),

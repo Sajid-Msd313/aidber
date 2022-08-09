@@ -13,11 +13,11 @@ import '../../api.dart';
 typedef OnUploadProgressCallback = void Function(int sentBytes, int totalBytes);
 
 class CreateInnovationServices {
-  static String url_debug = api_urls.CREATE_INNOVATION;
+  static String url_debug = ApiUrls.CREATE_INNOVATION;
   static ApiClient client = Get.find<ApiClient>();
   static Future<InnovationResponseModel?> getInnovations(String? nextPageUrl) async {
     Map<String, String> headersV2 = {'x-api-key': Get.find<storage_controller>().box.read("token")};
-    var response = await client.getData(nextPageUrl??api_urls.GET_INNOVATIONS, headers: headersV2);
+    var response = await client.getData(nextPageUrl??ApiUrls.GET_INNOVATIONS, headers: headersV2);
     try {
       if (response.statusCode == 200 && response.body["data"] != null) {
         return InnovationResponseModel.fromJson(response.body);
@@ -54,7 +54,7 @@ class CreateInnovationServices {
     print("this is fields.... ${formData.fields.toString()}");
     try{
       response = await client.post(
-        api_urls.CREATE_INNOVATION,
+        ApiUrls.CREATE_INNOVATION,
         data: formData,
         options: dio.Options(
           method: 'POST',

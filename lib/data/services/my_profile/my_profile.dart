@@ -22,7 +22,7 @@ class myProfile_services {
 
 
   static Future fetch_myProfile_services() async {
-    String url = api_urls.USER_PROFILE;
+    String url = ApiUrls.USER_PROFILE;
     print("**hitting $url");
     try {
       Response response = await client.getData(url, headers: headers);
@@ -46,7 +46,7 @@ class myProfile_services {
   }
 
   static Future editMyProfile({required Map reqBody}) async {
-    String url = api_urls.UPDATE_PROFILE;
+    String url = ApiUrls.UPDATE_PROFILE;
     print("**hitting $url");
     try {
       Response response = await client.postData(url,reqBody, headers: headersV2);

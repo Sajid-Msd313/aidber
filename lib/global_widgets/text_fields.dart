@@ -10,12 +10,14 @@ class CustomAuthTextFormField extends StatelessWidget {
     this.controller,
     this.obscureText = false,
     this.textInputAction = TextInputAction.done,
+
     this.suffixIcon,
     this.prefixIcon,
     this.maxlin = 0,
     this.validator,
     this.labeltext,
     this.readOnly = false,
+    this.textInputType = TextInputType.text,
     this.hintStyle,
     this.fillColor = Colors.white,
   }) : super(key: key);
@@ -23,6 +25,7 @@ class CustomAuthTextFormField extends StatelessWidget {
   final String hint;
   final TextStyle? hintStyle;
   final validator;
+  final TextInputType textInputType;
   final String? labeltext;
   final TextEditingController? controller;
   final bool obscureText;
@@ -38,6 +41,7 @@ class CustomAuthTextFormField extends StatelessWidget {
     return AbsorbPointer(
       absorbing: !isEnable,
       child: TextFormField(
+        keyboardType: textInputType,
         readOnly: readOnly,
         controller: controller,
         obscureText: obscureText,

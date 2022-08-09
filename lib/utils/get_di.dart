@@ -19,7 +19,7 @@ import '../screens/events/controllers/event_controller.dart';
 
 Future<void> init()async{
   await Get.put(storage_controller(), permanent: true).initStorage();
-  Get.lazyPut(() => ApiClient(appBaseUrl: api_urls.BASE_URL, storageController: Get.find<storage_controller>()));
+  Get.lazyPut(() => ApiClient(appBaseUrl: ApiUrls.BASE_URL, storageController: Get.find<storage_controller>()));
   Get.lazyPut(() => root_page_controller());
   Get.lazyPut(() => signin_controller(apiClient: Get.find<ApiClient>()));
   Get.lazyPut(() => signup_controller(apiClient: Get.find<ApiClient>()));

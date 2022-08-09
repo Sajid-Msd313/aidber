@@ -9,31 +9,31 @@ import 'package:get/get.dart';
 
 import '../event_detail_screen/event_detail_view.dart';
 
-class MyEventsList extends StatelessWidget {
-  const MyEventsList({Key? key}) : super(key: key);
+class UpcommingEventList extends StatelessWidget {
+  const UpcommingEventList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return  SizedBox(
       height: MediaQuery.of(context).size.height * 0.3,
-      child: GetBuilder<EventController>(
-        init: EventController(),
+      child: GetBuilder<EventUpCommingController>(
+        init: EventUpCommingController(),
         builder: (controller){
           if(controller.isLoading){
             return const Center(child: CircularProgressIndicator(),);
           }
-          if(controller.myEventList.isEmpty){
-            return const Center(child: Text('There are no events yet.'),);
+          if(controller.upcommingEventList.isEmpty){
+            return const Center(child: Text('There are no upcoming event this week'),);
           }
           return ListView.builder(
             physics: const BouncingScrollPhysics(),
             shrinkWrap: true,
             padding: const EdgeInsets.only(left: Dimensions.PADDING_SIZE_SMALL),
             scrollDirection: Axis.horizontal,
-            itemCount: controller.myEventList.length,
+            itemCount: controller.upcommingEventList.length,
             itemBuilder: (BuildContext context, int index) =>GestureDetector(
-                onTap: ()=>Get.to(() =>  EventDetailView(eventModel: controller.myEventList[index],),transition: Transition.topLevel),
-                child: SingleEventWidget(model:controller.myEventList[index] ,)),
+                onTap: ()=>Get.to(() =>  EventDetailView(eventModel: controller.upcommingEventList[index],),transition: Transition.topLevel),
+                child: SingleEventWidget(model:controller.upcommingEventList[index] ,)),
           );
         },
       ),
@@ -44,7 +44,7 @@ class MyEventsList extends StatelessWidget {
 class SingleEventWidget extends StatelessWidget {
   final Event model;
 
- const SingleEventWidget({Key? key, required this.model}) : super(key: key);
+  const SingleEventWidget({Key? key, required this.model}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -105,8 +105,8 @@ class SingleEventWidget extends StatelessWidget {
                               text: model.location == null
                                   ? ""
                                   : model.location!.length > 20
-                                      ? model.location!.substring(0, 10) + '...'
-                                      : model.location!,
+                                  ? model.location!.substring(0, 10) + '...'
+                                  : model.location!,
                               style: const TextStyle(
                                   fontWeight: FontWeight.normal, color: Colors.black, overflow: TextOverflow.ellipsis, fontSize: 13))
                         ])),

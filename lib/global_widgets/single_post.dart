@@ -26,7 +26,7 @@ class single_post extends StatelessWidget {
   Widget build(BuildContext context) {
     final String url = singleItemPost.postUrl == null
         ? constans.DEFAULT_IMAGE
-        : api_urls.BASE_URL_POSTS + "/" + singleItemPost.postUrl.toString();
+        : ApiUrls.BASE_URL_POSTS + "/" + singleItemPost.postUrl.toString();
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -355,7 +355,7 @@ class _imageViewSinglePostState extends State<imageViewSinglePost> {
       items: widget.imagesList
           .map(
             (p) => Image.network(
-              api_urls.BASE_URL_POSTS + "/" + p,
+              ApiUrls.BASE_URL_POSTS + "/" + p,
               width: MediaQuery.of(context).size.width,
               fit: BoxFit.cover,
             ),

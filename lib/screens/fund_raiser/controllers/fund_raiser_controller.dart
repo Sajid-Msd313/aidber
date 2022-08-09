@@ -55,6 +55,7 @@ class FundRaiserController extends GetxController {
   }
 
   insertLocally(SingleFundModel model) {
+    print("added locally ");
     fundRaisersList.insert(0, model);
     update();
   }

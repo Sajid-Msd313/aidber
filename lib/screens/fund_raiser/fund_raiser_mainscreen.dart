@@ -12,13 +12,14 @@ import '../../global_widgets/colors.dart';
 import 'add_fund_raiser.dart';
 import 'fund_raise_detail_screen.dart';
 
-class CustomScrollPhysics extends ScrollPhysics{
+class CustomScrollPhysics extends ScrollPhysics {
   @override
   double applyPhysicsToUserOffset(ScrollMetrics position, double offset) {
     print("applyPhysicsToUserOffset");
     return offset > 0 ? 0 : offset;
   }
 }
+
 class FundRaiserMainScreen extends GetView<FundRaiserController> {
   const FundRaiserMainScreen({Key? key}) : super(key: key);
 
@@ -85,9 +86,11 @@ class FundRaiserMainScreen extends GetView<FundRaiserController> {
                         noMoreText: "No more stories",
                       ),
                       child: ListView.separated(
-                         physics:controller.isAtTop ?
-                         CustomScrollPhysics() :  controller.loadMore == false?const
-                          NeverScrollableScrollPhysics() : null,
+                        physics: controller.isAtTop
+                            ? CustomScrollPhysics()
+                            : controller.loadMore == false
+                                ? const NeverScrollableScrollPhysics()
+                                : null,
                         shrinkWrap: true,
                         padding: const EdgeInsets.only(top: 10),
                         separatorBuilder: (_, __) => Divider(thickness: 2, color: Colors.grey.shade100),
@@ -152,7 +155,9 @@ class FundRaiserMainScreen extends GetView<FundRaiserController> {
                       const SizedBox(height: 5),
                       OutlinedButton(
                           onPressed: () {
-                            Get.to(FundRaiserDetailScreen());
+                            Get.to(FundRaiserDetailScreen(
+                              id: "1",
+                            ));
                           },
                           child: Text("View Full Story", style: TextStyle(color: PRIMARY_COLOR, fontSize: 11)),
                           style: OutlinedButton.styleFrom(

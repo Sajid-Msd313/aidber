@@ -1,12 +1,20 @@
+import 'package:aidber/data/services/fund_raiser/fund_raiser_detail.dart';
+import 'package:aidber/global_widgets/cache_network_image.dart';
 import 'package:aidber/global_widgets/colors.dart';
 import 'package:aidber/global_widgets/custom_button.dart';
 import 'package:aidber/screens/fund_raiser/add_fund_raiser.dart';
+import 'package:aidber/screens/fund_raiser/controllers/fund_raiser_details_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:simple_progress_indicators/simple_progress_indicators.dart';
 
+import '../../global_widgets/my_widget_animator.dart';
+
 class FundRaiserDetailScreen extends StatelessWidget {
-  const FundRaiserDetailScreen({Key? key}) : super(key: key);
+  final String id;
+
+  FundRaiserDetailScreen({Key? key, required this.id}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,55 +24,85 @@ class FundRaiserDetailScreen extends StatelessWidget {
           elevation: 0,
           toolbarHeight: 0,
         ),
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.center, children: [
-            _ImageCard(context),
-            const SizedBox(height: 8),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Text("Lorem ipsum dolor sit amet, consectetur adilpisici",
-                  textAlign: TextAlign.left, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            ),
-            makeProgressBar(context),
-            TitleWithChild(
-                titleStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                title: "Description",
-                child: Text(
-                  "Lorem ipsum dolor sit am consectur asd" * 30,
-                  style: const TextStyle(fontSize: 13),
-                )),
-            _VideoWidget(context),
-            const SizedBox(height: 20),
-            Container(
-                alignment: Alignment.centerRight,
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-                child: CustomButton4(
-                    onTap: () {},
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    text: 'Contribute',
-                    fontSize: 16,
-                    width: MediaQuery.of(context).size.width * .5,
-                    color: Theme.of(context).primaryColor,
-                    disableBorder: true)),
-            const SizedBox(height: 20)
-          ]),
+        body: GetBuilder<FundRaiserDetailController>(
+          init: FundRaiserDetailController(id: id),
+          builder: (controller) {
+            return MyWidgetsAnimator(
+              emptyWidget: () => const Center(
+                child: Text("No data found"),
+              ),
+              apiCallStatus: controller.apiCallStatus,
+              loadingWidget: () => Center(
+                child: CircularProgressIndicator(
+                  color: PRIMARY_COLOR,
+                ),
+              ),
+              errorWidget: () => const Center(
+                child: Text('Something went wrong!'),
+              ),
+              successWidget: () => _fundRaiserDetailItem(context, controller.data),
+            );
+          },
         ));
+  }
+
+  _fundRaiserDetailItem(BuildContext context, FundRaiserDetailModel model) {
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
+        _ImageCard(context, model.data?.fundRaiserImages),
+        const SizedBox(height: 8),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Text(model.data?.title ?? "",
+              textAlign: TextAlign.left, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+        ),
+        makeProgressBar(context),
+        TitleWithChild(
+            titleStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            title: "Description",
+            child: Text(
+              model.data?.fundRaiserDesc ?? "No description",
+              style: const TextStyle(fontSize: 13),
+            )),
+        _VideoWidget(context, videos: model.data?.fundRaiserVideos),
+        const SizedBox(height: 20),
+        Container(
+            alignment: Alignment.centerRight,
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+            child: CustomButton4(
+                onTap: () {},
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                text: 'Contribute',
+                fontSize: 16,
+                width: MediaQuery.of(context).size.width * .5,
+                color: Theme.of(context).primaryColor,
+                disableBorder: true)),
+        const SizedBox(height: 20)
+      ]),
+    );
   }
 
   //VIDEO WIDGET
 
-  _VideoWidget(context) {
+  _VideoWidget(context, {List<FundRaiser>? videos}) {
+    if (videos == null || videos.isEmpty) {
+      return Container();
+    }
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20),
-
+      margin: const EdgeInsets.symmetric(horizontal: 20),
       height: 200,
       decoration: BoxDecoration(
         color: Colors.grey,
         borderRadius: BorderRadius.circular(10),
       ),
       width: MediaQuery.of(context).size.width,
-      child: const Icon(Icons.video_collection_outlined,color: Colors.white, size: 100),
+      child: IconButton(
+        onPressed: () {
+          print(videos.first.content);
+        },
+        icon: const Icon(Icons.video_collection_outlined, color: Colors.white, size: 100),
+      ),
     );
   }
 
@@ -141,17 +179,18 @@ class FundRaiserDetailScreen extends StatelessWidget {
         ));
   }
 
-  _ImageCard(context) {
+  _ImageCard(context, List<FundRaiser>? images) {
+    if (images == null || images.isEmpty) return Container();
     return Stack(
       children: [
-        _ImageView(context),
+        _ImageView(context, images.first.content ?? ""),
         _ImageFooter(context),
         const Positioned(left: 5, top: 5, child: BackButton(color: Colors.white))
       ],
     );
   }
 
-  _ImageView(context) {
+  _ImageView(context, String imgUrl) {
     return Container(
       padding: const EdgeInsets.all(10),
       clipBehavior: Clip.antiAlias,
@@ -162,9 +201,8 @@ class FundRaiserDetailScreen extends StatelessWidget {
       height: MediaQuery.of(context).size.height * .3,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20), // Image border
-        child: Image.asset(
-          "assets/mark.jpg",
-          fit: BoxFit.cover,
+        child: CacheNetworkImageWidget2(
+          url: imgUrl,
         ),
       ),
     );

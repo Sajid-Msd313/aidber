@@ -9,15 +9,28 @@ import 'package:http/http.dart' as http;
 
 import '../../api.dart';
 
-
-
-class EventServices  {
+class EventServices {
   static ApiClient client = Get.find<ApiClient>();
 
   ///Get All Event..........
   static Future getAllEvents() async {
     Map<String, String> headersV2 = {'x-api-key': Get.find<storage_controller>().box.read("token")};
-    var response = await client.getData(api_urls.GET_ALL_EVENTS, headers: headersV2);
+    var response = await client.getData(ApiUrls.GET_ALL_EVENTS, headers: headersV2);
+    try {
+      if (response.statusCode == 200 && response.body["data"] != null) {
+        return AllEventsModel.fromJson(response.body);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print(e);
+      print("error from api_urls.getAllEvents");
+    }
+  }
+
+  static Future getCommingThisWeekEvents() async {
+    Map<String, String> headersV2 = {'x-api-key': Get.find<storage_controller>().box.read("token")};
+    var response = await client.getData(ApiUrls.COMMING_THIS_WEEKEVENTS, headers: headersV2);
     try {
       if (response.statusCode == 200 && response.body["data"] != null) {
         return AllEventsModel.fromJson(response.body);
@@ -32,7 +45,7 @@ class EventServices  {
 
   static Future getAllEventsById({required String id}) async {
     Map<String, String> headersV2 = {'x-api-key': Get.find<storage_controller>().box.read("token")};
-    var response = await client.getData(api_urls.GET_ALL_EVENTS + "/$id", headers: headersV2);
+    var response = await client.getData(ApiUrls.GET_ALL_EVENTS + "/$id", headers: headersV2);
     try {
       if (response.statusCode == 200 && response.body["data"] != null) {
         return AllEventsModel.fromJson(response.body);
@@ -45,18 +58,32 @@ class EventServices  {
     }
   }
 
-  static Future add_event({
-    required String title,
-    required String location,
-    required String organised_by,
-    required String what_to_expect,
-    required String latitude,
-    required String longitude,
-    required String description,
-    required String imagePath,
-    required String date,
-    required String time,
-  }) async {
+  static Future searchEventByKeyword({required String keyword}) async {
+    var headers = {'x-api-key': Get.find<storage_controller>().userModel.result!.token.toString()};
+    var response = await client.postData(ApiUrls.SEARCH_EVENT, {"keyword": keyword}, headers: headers);
+    try {
+      if (response.statusCode == 200 && response.body["data"] != null) {
+        return AllEventsModel.fromJson(response.body);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print(e);
+      print("error from api_urls.getAllEvents");
+    }
+  }
+
+  static Future add_event(
+      {required String title,
+      required String location,
+      required String organised_by,
+      required String what_to_expect,
+      required String latitude,
+      required String longitude,
+      required String description,
+      required String imagePath,
+      required String date,
+      required String time}) async {
     Map<String, String> body = {
       'title': title,
       'location': location,
@@ -72,7 +99,7 @@ class EventServices  {
 
     http.MultipartRequest request = http.MultipartRequest(
       'POST',
-      Uri.parse(api_urls.ADD_EVENT),
+      Uri.parse(ApiUrls.ADD_EVENT),
     );
 
     try {
@@ -84,7 +111,7 @@ class EventServices  {
 
     request.fields.addAll(body);
     request.headers.addAll(headers);
-    print("Hitting====> $api_urls.ADD_EVENT ");
+    print("Hitting====> $ApiUrls.ADD_EVENT ");
     print("SENDING BODY ===> $body");
 
     http.StreamedResponse response = await request.send();

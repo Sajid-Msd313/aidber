@@ -12,7 +12,7 @@ import '../../../utils/utils.dart';
 typedef OnUploadProgressCallback = void Function(int sentBytes, int totalBytes);
 
 class create_post_services {
-  static String url_debug = api_urls.CREATE_POST;
+  static String url_debug = ApiUrls.CREATE_POST;
 
   static Future create_post(
       {required OnUploadProgressCallback callback,
@@ -45,7 +45,7 @@ class create_post_services {
 
     print("this is fields.... ${formData.fields.toString()}");
     response = await client.post(
-      api_urls.CREATE_POST,
+      ApiUrls.CREATE_POST,
       data: formData,
       options: dio.Options(
         method: 'POST',

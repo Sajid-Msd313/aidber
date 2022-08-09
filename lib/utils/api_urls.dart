@@ -1,4 +1,4 @@
-class api_urls {
+class ApiUrls {
   //===========BASE URLS============//
   static const String BASE_URL = "http://www.paakhealth.com/dochealth";
   static const String BASE_URL_PUBLIC = "http://www.paakhealth.com/dochealth/public/";
@@ -35,6 +35,10 @@ class api_urls {
   //===========EVENT URLS============//
   static const String ADD_EVENT = "$BASE_URL/$API_URL/add_event";
   static const String GET_ALL_EVENTS = "$BASE_URL/$API_URL/get_all_events";
+  static const String COMMING_THIS_WEEKEVENTS = "$BASE_URL/$API_URL/coming-week-event";
+  static const String GO_TO_EVENT = "$BASE_URL/$API_URL/go-to-event";
+  static const String SHARE_EVENT = "$BASE_URL/$API_URL/share-event";
+  static const String SEARCH_EVENT = "$BASE_URL/$API_URL/search-event";
 
   //===========EVENT ENDS HEREURLS============//
 
@@ -51,6 +55,7 @@ class api_urls {
   //===========FUNDRAISER URLS============//
 
   static const String GET_FUND_RAISERS = "$BASE_URL/$API_URL/get-fund-raisers";
+  static const String GET_FUND_RAISER_DETAIL = "$BASE_URL/$API_URL/get-fund-raiser-detail";
   static const String CREATE_FUND_RAISER = "$BASE_URL/$API_URL/create-fund-raiser";
 
 }

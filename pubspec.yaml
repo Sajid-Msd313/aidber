@@ -58,7 +58,9 @@ dependencies:
   jiffy:
   file_picker:
   easy_refresh:
-  simple_progress_indicators:
+  simple_progress_indicators:  #for progress of money bar.
+  search_app_bar_page:
+  flutter_typeahead: 3.2.4
 
 dev_dependencies:
   flutter_test:
