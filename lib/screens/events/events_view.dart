@@ -26,7 +26,7 @@ class EventsScreen extends StatelessWidget {
         ),
         actions: [
           InkWell(
-            onTap: ()=>Get.to(SearchEventScreen()),
+            onTap: ()=>Get.to(const SearchEventScreen()),
             child: Container(
                 padding: const EdgeInsets.only(right: 10),
                 alignment: Alignment.center,

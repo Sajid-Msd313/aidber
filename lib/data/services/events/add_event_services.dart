@@ -47,7 +47,7 @@ class EventServices {
     Map<String, String> headersV2 = {'x-api-key': Get.find<storage_controller>().box.read("token")};
     var response = await client.getData(ApiUrls.GET_ALL_EVENTS + "/$id", headers: headersV2);
     try {
-      if (response.statusCode == 200 && response.body["data"] != null) {
+      if (response.statusCode == 200) {
         return AllEventsModel.fromJson(response.body);
       } else {
         return null;
@@ -57,6 +57,36 @@ class EventServices {
       print("error from api_urls.getAllEvents");
     }
   }
+  static Future shareEventById({required String id}) async {
+    Map<String, String> headersV2 = {'x-api-key': Get.find<storage_controller>().box.read("token")};
+    var response = await client.getData(ApiUrls.SHARE_EVENT + "/$id", headers: headersV2);
+    try {
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print(e);
+      print("error from api_urls.getAllEvents");
+    }
+  }
+
+  static Future attendEventById({required String id}) async {
+    var headers = {'x-api-key': Get.find<storage_controller>().userModel.result!.token.toString()};
+    var response = await client.postData(ApiUrls.GO_TO_EVENT, {"event_id": id}, headers: headers);
+    try {
+      if (response.statusCode == 200 && response.body["data"] != null) {
+        return response.body;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print(e);
+      print("error from api_urls.getAllEvents");
+    }
+  }
+
 
   static Future searchEventByKeyword({required String keyword}) async {
     var headers = {'x-api-key': Get.find<storage_controller>().userModel.result!.token.toString()};
