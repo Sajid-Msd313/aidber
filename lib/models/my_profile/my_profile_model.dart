@@ -17,11 +17,11 @@ class MyProfileModel {
   });
 
   bool? status;
-  Data? data;
+  User? data;
 
   factory MyProfileModel.fromJson(Map<String, dynamic> json) => MyProfileModel(
     status: json["status"],
-    data:json["data"] == null ? null : Data.fromJson(json["data"]),
+    data:json["data"] == null ? null : User.fromJson(json["data"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -30,8 +30,8 @@ class MyProfileModel {
   };
 }
 
-class Data {
-  Data({
+class User {
+  User({
     this.id,
     this.userType,
     this.email,
@@ -91,7 +91,7 @@ class Data {
   int? following;
   List<Posts>? posts;
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory User.fromJson(Map<String, dynamic> json) => User(
     id: json["id"],
     userType: json["user_type"],
     email: json["email"],

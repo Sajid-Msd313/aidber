@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:aidber/models/my_profile/my_profile_model.dart';
 import 'package:aidber/screens/create_a_post/widgets/tag_people_search.dart';
 import 'package:aidber/utils/api_urls.dart';
 import 'package:dio/dio.dart' as dio;

@@ -8,6 +8,32 @@ import 'package:google_maps_webservice/src/places.dart';
 import 'package:intl/src/intl/date_format.dart';
 import 'package:jiffy/jiffy.dart';
 
+showConfirmAlertDialog(
+    {required BuildContext context,
+    required String title,
+    required String message,
+    required VoidCallback onPressed,
+    required VoidCallback onCancel}) {
+  // set up the buttons
+  Widget cancelButton = TextButton(child: const Text("Cancel"), onPressed: onCancel);
+  Widget continueButton = TextButton(child: const Text("Continue"), onPressed: onPressed);
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+    content: Text(message),
+    actions: [cancelButton, continueButton],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
 String formate_Date1(String datetime) {
   if (datetime.toString() == "" || datetime.toString() == "null") {
     return "";
@@ -36,11 +62,8 @@ String hisFroamteToReadableTimeFormate(String? time) {
   }).format("h:mm a");
 }
 
-
-String dateFormateAgo(DateTime? time){
-  return Jiffy(
-    time
-  ).fromNow();
+String dateFormateAgo(DateTime? time) {
+  return Jiffy(time).fromNow();
 }
 
 Future<PlacesDetailsResponse?> displayPrediction(
@@ -100,7 +123,6 @@ void showSnackBarInformation({required String description}) {
 show_snackBarError({required String title, required String description}) {
   Get.snackbar(
     title,
-
     description,
     colorText: Colors.white,
     borderRadius: 10,

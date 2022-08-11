@@ -1,5 +1,6 @@
 import 'package:aidber/controllers/storage_controller/storage_controller.dart';
 import 'package:aidber/screens/create_a_post/controller/create_post_controller.dart';
+import 'package:aidber/screens/home_screen/controller/all_post_controller.dart';
 import 'package:aidber/utils/constants.dart';
 import 'package:aidber/utils/extension.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class make_profileImage_name extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: Row(
@@ -58,8 +60,9 @@ class make_profileImage_name extends StatelessWidget {
                             if (controller.selectedPeople.isNotEmpty)
                               TextSpan(
                                   text: controller.selectedPeople.length == 1
-                                      ? controller.selectedPeople.first?.name
-                                      : controller.selectedPeople.join(", "),
+                                      ? controller.selectedPeople.first!.name
+                                    //  : controller.selectedPeople.value.length.toString(),
+                                      : controller.selectedPeople.map((e) => e!.name).join(', '),
                                   style: const TextStyle(fontWeight: FontWeight.bold)),
                           ],
                         ),

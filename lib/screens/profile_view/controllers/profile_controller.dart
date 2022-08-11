@@ -26,7 +26,7 @@ class profile_controller extends GetxController {
     isLoading = false;
   }
 
-  updateLocallyData(Data? user) {
+  updateLocallyData(User? user) {
     myProfileModel.data = user;
     isLoading = false;
   }

@@ -6,7 +6,6 @@ class ApiUrls {
 
   static const String BASE_URL_POSTS = "$BASE_URL/public/Posts";
 
-
   //===========BASE URLS ENDS HERE============//
 
   //===========AUTH URLS============//
@@ -31,6 +30,8 @@ class ApiUrls {
   //===========PROFILE URLS============//
   static const String USER_PROFILE = "$BASE_URL/$API_URL/user-profile";
   static const String UPDATE_PROFILE = "$BASE_URL/$API_URL/update-profile";
+  static const String GET_FRIEND_LIST = "$BASE_URL/$API_URL/get-friend-list";
+
 
   //===========EVENT URLS============//
   static const String ADD_EVENT = "$BASE_URL/$API_URL/add_event";
@@ -43,13 +44,20 @@ class ApiUrls {
   //===========EVENT ENDS HEREURLS============//
 
 //===========BUSINESS URLS============//
+
   static const String CREATE_BUSINESS = "$BASE_URL/$API_URL/create-business";
   static const String GET_BUSINESSES = "$BASE_URL/$API_URL/get-businesses";
+  static const String DELETE_BUSINESS = "$BASE_URL/$API_URL/delete-business";
+  static const String UPDATE_BUISNESS = "$BASE_URL/$API_URL/update-business";
+
 //===========BUSINESS ENDS URLS============//
 
 //===========INNOVATIONS URLS============//
+
   static const String CREATE_INNOVATION = "$BASE_URL/$API_URL/create-innovation";
   static const String GET_INNOVATIONS = "$BASE_URL/$API_URL/get-innovations";
+  static const String SHARE_INNOVATION = "$BASE_URL/$API_URL/share-innovation";
+
   //===========INNOVATIONS ENDS URLS============//
 
   //===========FUNDRAISER URLS============//
@@ -57,5 +65,4 @@ class ApiUrls {
   static const String GET_FUND_RAISERS = "$BASE_URL/$API_URL/get-fund-raisers";
   static const String GET_FUND_RAISER_DETAIL = "$BASE_URL/$API_URL/get-fund-raiser-detail";
   static const String CREATE_FUND_RAISER = "$BASE_URL/$API_URL/create-fund-raiser";
-
 }

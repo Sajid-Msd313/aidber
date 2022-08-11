@@ -10,8 +10,9 @@ import '../innovation_detail_screen.dart';
 
 class InnovationItemTile extends StatelessWidget {
   final InnovationItemModel model;
+  final VoidCallback onShare;
 
-  const InnovationItemTile({Key? key, required this.model}) : super(key: key);
+  const InnovationItemTile({Key? key, required this.model, required this.onShare}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class InnovationItemTile extends StatelessWidget {
         ),
         ListTile(
           onTap: () => {
-            Get.to( InnovationDetailScreen(model: model), transition: Transition.topLevel),
+            Get.to( InnovationDetailScreen(model: model, onShare: onShare), transition: Transition.topLevel),
           },
           leading: CacheNetworkImageWidget(
             shouldHaveCenterProgressIndicator: false,
@@ -53,9 +54,9 @@ class InnovationItemTile extends StatelessWidget {
              const  SizedBox(
                 height: 6,
               ),
-            const  Text(
-                'Added by: Lorem Ipsum',
-                style: TextStyle(fontSize: 12),
+              Text(
+                'Added by: ${model.author?.fullName}',
+                style: const TextStyle(fontSize: 12),
               ),
             const  SizedBox(
                 height: 12,
@@ -76,7 +77,7 @@ class InnovationItemTile extends StatelessWidget {
                 IconButton(
                     padding: EdgeInsets.zero,
                     visualDensity: const VisualDensity(horizontal: -4, vertical: -3),
-                    onPressed: () => {},
+                    onPressed:onShare,
                     splashRadius: 20,
                     icon: const FaIcon(FontAwesomeIcons.share, color: Colors.grey, size: 15)),
                 IconButton(

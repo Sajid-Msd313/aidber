@@ -15,6 +15,7 @@ class storage_controller extends GetxController implements GetxService {
   }
 
   String? getUserName() {
+
     return userModel.result?.userName;
   }
 

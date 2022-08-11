@@ -1,7 +1,6 @@
 import 'package:aidber/screens/innovations/widgets/innovation_item.dart';
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import '../../global_widgets/colors.dart';
@@ -51,37 +50,24 @@ class InnovationMainScreen extends GetView<InnovationMainController> {
                         ));
                       }
                       return EasyRefresh(
-
                         simultaneously: true,
                         controller: controller.controller,
                         onRefresh: controller.onRefresh,
                         onLoad: controller.onLoading,
-                        header:const ClassicHeader(
-
-                          processedDuration:  Duration(milliseconds: 100)
-                        ),
+                        header: const ClassicHeader(processedDuration: Duration(milliseconds: 100)),
                         footer: const ClassicFooter(
-
                           noMoreText: "No more Events",
                         ),
-                        child:ListView.separated(
-                          padding: const EdgeInsets.only(top: 10),
-                          separatorBuilder: (_, __) => Divider(thickness: 2, color: Colors.grey.shade100),
-                          itemCount: controller.innovationList.length,
-                          itemBuilder: (BuildContext context, index) => InnovationItemTile(
-                            model: controller.innovationList[index],
-                          ),
-                        ),
+                        child: ListView.separated(
+                            padding: const EdgeInsets.only(top: 10),
+                            separatorBuilder: (_, __) => Divider(thickness: 2, color: Colors.grey.shade100),
+                            itemCount: controller.innovationList.length,
+                            itemBuilder: (BuildContext context, index) => InnovationItemTile(
+                                model: controller.innovationList[index],
+                                onShare: () {
+                                  controller.shareInnovation(id: controller.innovationList[index].id.toString());
+                                })),
                       );
-                      // return ListView.separated(
-                      //   padding: const EdgeInsets.only(top: 10),
-                      //   separatorBuilder: (_, __) => Divider(thickness: 2, color: Colors.grey.shade100),
-                      //   physics: const BouncingScrollPhysics(),
-                      //   itemCount: controller.innovationList.length,
-                      //   itemBuilder: (BuildContext context, index) => InnovationItemTile(
-                      //     model: controller.innovationList[index],
-                      //   ),
-                      // );
                     })))
           ],
         ),

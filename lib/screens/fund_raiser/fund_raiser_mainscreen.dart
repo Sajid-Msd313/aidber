@@ -29,7 +29,7 @@ class FundRaiserMainScreen extends GetView<FundRaiserController> {
       appBar: CustomAppBar(
         title: 'Raise Funds',
         actions: [
-          IconButton(onPressed: () => Get.to(const AddFundRaiserScreen(), binding: AddFundRaiserBindings()), icon: Icon(Icons.add))
+          // IconButton(onPressed: () => Get.to(const AddFundRaiserScreen(), binding: AddFundRaiserBindings()), icon: Icon(Icons.add))
         ],
       ),
       body: ListView(
@@ -48,7 +48,7 @@ class FundRaiserMainScreen extends GetView<FundRaiserController> {
             alignment: Alignment.center,
             padding: const EdgeInsets.symmetric(vertical: 24),
             child: CustomButton4(
-              onTap: () {},
+              onTap: ()=>Get.to(const AddFundRaiserScreen(), binding: AddFundRaiserBindings()),
               padding: const EdgeInsets.symmetric(vertical: 10),
               text: 'Request For Funds',
               fontSize: 16,

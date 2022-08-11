@@ -20,7 +20,7 @@ class AddFundRaiserScreen extends GetView<AddFundRaiserController> {
         elevation: 0,
         centerTitle: true,
         iconTheme: const IconThemeData(color: Colors.black),
-        title: const Text("Found Heal", style: TextStyle(fontSize: 26, color: Colors.black, fontWeight: FontWeight.bold)),
+        title: const Text("Request For Funds", style: TextStyle(fontSize: 26, color: Colors.black, fontWeight: FontWeight.bold)),
       ),
       body: Form(
         key: controller.formKey,
@@ -28,11 +28,14 @@ class AddFundRaiserScreen extends GetView<AddFundRaiserController> {
           children: [
             // Align(alignment: Alignment.center, child: Text("Found Heal", style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold))),
             const SizedBox(height: 8),
-            const Align(
-                alignment: Alignment.center,
-                child: Text("To put up fundraiser request provide the following details",
-                    textAlign: TextAlign.center, style: TextStyle(fontSize: 14))),
-            const SizedBox(height: 8),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24),
+              child: Align(
+                  alignment: Alignment.center,
+                  child: Text("To put up fundraiser request provide the following details",
+                      textAlign: TextAlign.center, style: TextStyle(fontSize: 14))),
+            ),
+            const SizedBox(height: 16),
             TitleWithChild(
                 title: "Title",
                 child: CustomAuthTextFormField(hint: "Enter title", controller: controller.titleC, hintStyle: hintStyle)),
@@ -49,11 +52,11 @@ class AddFundRaiserScreen extends GetView<AddFundRaiserController> {
                     controller: controller.requestNameC)),
             TitleWithChild(
                 title: "Amount",
-
                 child: CustomAuthTextFormField(
                     textInputType: const TextInputType.numberWithOptions(decimal: false),
-
-                    hintStyle: hintStyle, hint: "Amount Required", controller: controller.amountC)),
+                    hintStyle: hintStyle,
+                    hint: "Amount Required",
+                    controller: controller.amountC)),
             TitleWithChild(
                 title: "Select Account",
                 child: InkWell(
@@ -109,15 +112,15 @@ class AddFundRaiserScreen extends GetView<AddFundRaiserController> {
                   height: 100,
                   child: controller.caseImages.isEmpty
                       ? InkWell(
-                    onTap: controller.pickImages,
-                        child: Container(
+                          onTap: controller.pickImages,
+                          child: Container(
                             margin: const EdgeInsets.only(top: 10),
                             color: Colors.grey,
                             height: 100,
                             width: 100,
                             child: const Icon(Icons.add, color: Colors.white),
                           ),
-                      )
+                        )
                       : ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: controller.caseImages.length,
@@ -136,7 +139,7 @@ class AddFundRaiserScreen extends GetView<AddFundRaiserController> {
                                     fit: BoxFit.cover,
                                   ),
                                 ),
-                               // child: const Icon(Icons.add, color: Colors.white),
+                                // child: const Icon(Icons.add, color: Colors.white),
                               ))))),
           TitleWithChild(
               title: "Show Case Videos",
@@ -144,14 +147,14 @@ class AddFundRaiserScreen extends GetView<AddFundRaiserController> {
                 height: 100,
                 child: controller.caseVideosPath.isEmpty
                     ? InkWell(
-                  onTap: controller.pickVideos,
-                      child: Container(
-                          margin: const EdgeInsets.only(top: 10),
-                          color: Colors.grey,
-                          height: 100,
-                          width: 100,
-                          child: const Icon(Icons.add, color: Colors.white)),
-                    )
+                        onTap: controller.pickVideos,
+                        child: Container(
+                            margin: const EdgeInsets.only(top: 10),
+                            color: Colors.grey,
+                            height: 100,
+                            width: 100,
+                            child: const Icon(Icons.add, color: Colors.white)),
+                      )
                     : ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: controller.caseVideosPath.length,

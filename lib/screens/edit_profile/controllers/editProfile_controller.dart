@@ -12,7 +12,7 @@ class editProfile_controller extends GetxController {
 
   @override
   onInit(){
-    Data? userData =   Get.find<profile_controller>().myProfileModel.data;
+    User? userData =   Get.find<profile_controller>().myProfileModel.data;
     fullnameC.text = userData?.fullName??"";
     emailC.text = userData?.email??"";
     phoneC.text = userData?.phone??"";

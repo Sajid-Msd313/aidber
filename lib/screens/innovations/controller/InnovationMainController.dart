@@ -4,6 +4,7 @@ import 'package:easy_refresh/easy_refresh.dart';
 import 'package:get/get.dart';
 
 import '../../../models/innovations/innovation_response_model.dart';
+import '../../../utils/utils.dart';
 
 class InnovationMainController extends GetxController {
   @override
@@ -19,7 +20,7 @@ class InnovationMainController extends GetxController {
 
   ///TODO: Look for isReset because no addAll is being implemented here...
   fetchInnovations({bool isInitial = true, bool isReset = false, String? nextPageUrl}) async {
-    if(_loadMore == false) return;
+    if (_loadMore == false) return;
     if (isInitial) isLoading = true;
     var detail = await CreateInnovationServices.getInnovations(nextPageUrl);
     isLoading = false;
@@ -31,9 +32,28 @@ class InnovationMainController extends GetxController {
       update();
     }
   }
-  insertLocally(InnovationItemModel model){
+
+  insertLocally(InnovationItemModel model) {
     innovationList.insert(0, model);
     update();
+  }
+
+  ///SHares Innovations..
+  void shareInnovation({required String id}) async {
+    try{
+      print("Sharing Innovation");
+      var detail = await CreateInnovationServices.shareInnovation(id: id);
+      if (detail != null) {
+        if (detail['status'] == true) {
+          showSnackBarInformation(description: detail['message']);
+        } else {
+          show_snackBarError(title: "Couldn't share", description: detail['message']);
+        }
+      }
+    }catch(e){
+      print(e);
+    }
+
   }
 
   //=====================================>> refresh things here
@@ -55,8 +75,7 @@ class InnovationMainController extends GetxController {
     fetchInnovations(isInitial: false, nextPageUrl: responseModel.data?.nextPageUrl);
   }
 
-
-
+  //================================ Getters setters below
   bool get isLoading => _isLoading;
 
   set isLoading(bool value) {
@@ -65,11 +84,9 @@ class InnovationMainController extends GetxController {
   }
 }
 
-
 class InnovationMainBinding extends Bindings {
   @override
   void dependencies() {
-   Get.lazyPut(() => InnovationMainController());
+    Get.lazyPut(() => InnovationMainController());
   }
-
 }

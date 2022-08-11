@@ -1,5 +1,8 @@
 import 'dart:math';
 
+import 'package:aidber/controllers/storage_controller/storage_controller.dart';
+import 'package:aidber/global_widgets/cache_network_image.dart';
+import 'package:aidber/screens/profile_view/see_friendlist_screen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,14 +18,13 @@ class profile_page_mainScreen extends GetView<profile_controller> {
   const profile_page_mainScreen({Key? key}) : super(key: key);
 
   @override
-
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 0,
-        backgroundColor: PRIMARY_COLOR,
-        systemOverlayStyle: SystemUiOverlayStyle.light,
-      ),
+        appBar: AppBar(
+          toolbarHeight: 0,
+          backgroundColor: PRIMARY_COLOR,
+          systemOverlayStyle: SystemUiOverlayStyle.light,
+        ),
         backgroundColor: Colors.white,
         body: Column(
           children: [
@@ -51,18 +53,25 @@ class profile_page_mainScreen extends GetView<profile_controller> {
                                   child: SizedBox.fromSize(
                                       size: const Size.fromRadius(80),
                                       // Image radius
-                                      child: Image.asset('assets/sajidmsd.jpg', fit: BoxFit.cover))),
+                                      child: CacheNetworkImageWidget(
+                                        url: Get.find<storage_controller>().getProfileImage() ?? "",
+                                      ))),
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 18),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
-                                    make_column_follow(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      textColor: Colors.white,
-                                      subtitle: controller.myProfileModel.data?.followers.toString() ?? "0",
-                                      heading: "Community",
+                                    InkWell(
+                                      onTap: () {
+                                        Get.to(const SeeFriendListScreen());
+                                      },
+                                      child: make_column_follow(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        textColor: Colors.white,
+                                        subtitle: controller.myProfileModel.data?.followers.toString() ?? "0",
+                                        heading: "Community",
+                                      ),
                                     ),
                                     const SizedBox(
                                       height: 15,
@@ -70,7 +79,7 @@ class profile_page_mainScreen extends GetView<profile_controller> {
                                     Text(
                                         controller.myProfileModel.data == null
                                             ? 'Name'
-                                            : controller.myProfileModel.data!.fullName ?? '',
+                                            : controller.myProfileModel.data?.fullName ?? '',
                                         style: const TextStyle(
                                             color: Colors.white, fontWeight: FontWeight.w700, wordSpacing: 2, fontSize: 24)),
                                     Visibility(
@@ -90,9 +99,7 @@ class profile_page_mainScreen extends GetView<profile_controller> {
                                             child: Padding(
                                                 padding: EdgeInsets.only(right: 4),
                                                 child: Icon(Icons.location_on, color: Colors.white, size: 18))),
-                                        TextSpan(
-                                          text: controller.myProfileModel.data?.country ?? "Location not specified",
-                                        ),
+                                        TextSpan(text: controller.myProfileModel.data?.country ?? "Location not specified"),
                                       ])),
                                     )
                                   ],
@@ -138,22 +145,17 @@ class profile_page_mainScreen extends GetView<profile_controller> {
                       );
                     }
                     if (controller.postList.isEmpty) {
-                      return const Center(
-                        child: Text("No Posts"),
-                      );
+                      return const Center(child: Text("No Posts"));
                     }
-                    // return Text(
-                    //     "Need Api Changes, below uncomment if ok ${controller.postList.length}");
+
                     return ListView.builder(
                       primary: true,
-                      //   physics: const NeverScrollableScrollPhysics(),
                       padding: const EdgeInsets.all(4),
                       shrinkWrap: true,
                       cacheExtent: 50,
                       scrollDirection: Axis.vertical,
                       itemCount: controller.postList.length,
                       itemBuilder: (context, int index) {
-                        //  print(controller.getAllPost.data![index].postUrl);
                         return single_post(singleItemPost: controller.postList[index]);
                       },
                     );

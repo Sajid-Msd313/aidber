@@ -27,6 +27,18 @@ class CreateInnovationServices {
       print("error from /get-innovations");
     }
   }
+  static Future shareInnovation({required String id}) async {
+    Map<String, String> headersV2 = {'x-api-key': Get.find<storage_controller>().box.read("token")};
+    var response = await client.getData(ApiUrls.SHARE_INNOVATION + "/$id", headers: headersV2);
+    try {
+      if (response.statusCode == 200) {
+        return response.body;
+      }
+    } catch (e) {
+      print(e);
+      print("error from /get-innovations");
+    }
+  }
 
   static Future createInnovationPost(
       {required OnUploadProgressCallback callback,
@@ -78,4 +90,6 @@ class CreateInnovationServices {
     }
 
   }
+
+
 }

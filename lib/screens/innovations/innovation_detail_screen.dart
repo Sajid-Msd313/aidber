@@ -8,8 +8,8 @@ import '../../utils/error_image_builder.dart';
 
 class InnovationDetailScreen extends StatelessWidget {
   final InnovationItemModel model;
-
-  const InnovationDetailScreen({Key? key, required this.model}) : super(key: key);
+  final VoidCallback onShare;
+  const InnovationDetailScreen({Key? key, required this.model,required this.onShare}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class InnovationDetailScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 12),
-                  const Text("Added By: Lorem Bhai", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
+                   Text( 'Added by: ${model.author?.fullName}', style:const  TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
                   const SizedBox(height: 6),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -61,7 +61,7 @@ class InnovationDetailScreen extends StatelessWidget {
                           IconButton(
                               padding: EdgeInsets.zero,
                               visualDensity: const VisualDensity(horizontal: -4, vertical: -3),
-                              onPressed: () => {},
+                              onPressed: onShare,
                               splashRadius: 20,
                               icon: const FaIcon(FontAwesomeIcons.share, color: Colors.grey, size: 15)),
                           IconButton(
@@ -74,7 +74,11 @@ class InnovationDetailScreen extends StatelessWidget {
                       )
                     ],
                   ),
-                  if (model.link != null) Text(model.link!),
+                  if (model.link != null) InkWell(
+                      onTap: (){
+
+                      },
+                      child: Text(model.link!)),
                   const SizedBox(height: 12),
                   RichText(
                       text: TextSpan(

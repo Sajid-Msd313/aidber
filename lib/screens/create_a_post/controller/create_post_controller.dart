@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:aidber/data/services/my_profile/my_profile.dart';
 import 'package:aidber/data/services/posts/create_post_services.dart';
+import 'package:aidber/screens/home_screen/controller/all_post_controller.dart';
 import 'package:aidber/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,8 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
 
 import '../../../data/api.dart';
+import '../../../models/my_profile/friend_list_model.dart';
+import '../../../models/my_profile/my_profile_model.dart';
 import '../../../utils/utils.dart';
 import '../../../utils/uuid_generator.dart';
 import '../widgets/select_gallery_camera_widget.dart';
@@ -101,6 +105,10 @@ class create_post_controller extends GetxController {
   }
 
   //Tag People work
+  // RxList<User> selectedPeople = RxList<User>([]);
+  // List<String> selectedPeopleNames = [];
+  // List<MultiSelectItem<User>> dummyUsertagPeople = [
+  // ];
   List<UserModel?> selectedPeople = [];
   List<String> selectedPeopleNames = [];
   List<MultiSelectItem<UserModel?>> dummyUsertagPeople = [
@@ -108,32 +116,71 @@ class create_post_controller extends GetxController {
     MultiSelectItem(UserModel(id: "2", createdAt: DateTime.now(), name: "Rndom"), "Rndom"),
     MultiSelectItem(UserModel(id: "5", createdAt: DateTime.now(), name: "Somone"), "Somone"),
   ];
-
   void showtagPeopleDialog(BuildContext context) async {
     await showDialog(
       context: context,
       builder: (ctx) {
-        return MultiSelectDialog<UserModel?>(
-          items: dummyUsertagPeople,
-          searchable: true,
-          searchHint: "Search user",
-          cancelText: const Text("Clear"),
-          unselectedColor: Colors.white,
-          title: const Text("Select People to tag"),
-          itemsTextStyle: const TextStyle(color: Colors.black),
-          selectedItemsTextStyle: const TextStyle(color: Colors.white),
-          selectedColor: Theme.of(context).primaryColor,
-          listType: MultiSelectListType.CHIP,
-          initialValue: selectedPeople,
-          onConfirm: (users) {
-            selectedPeople.clear();
-            selectedPeopleNames.clear();
-            selectedPeople.addAll(users);
-            for (UserModel? element in users) {
-              selectedPeopleNames.add(element!.name.toString());
+        return FutureBuilder(
+          initialData: const [],
+          future: myProfile_services.getFriendList(),
+          builder: (BuildContext context, snap){
+            dummyUsertagPeople = [];
+            if(snap.connectionState == ConnectionState.waiting){
+              return  Center(
+                child: Container(
+                  margin:const  EdgeInsets.symmetric(horizontal: 50),
+                  color: Colors.white,
+                  height: 200,
+                  child:  const Center(child: CircularProgressIndicator()),
+                ),
+              );
             }
-            update();
+            if(snap.hasError){
+              return const Center(
+                child: Text("No Users Found"),
+              );
+            }
+           var detail = snap.data;
+            if(detail is FriendListModel){
+              detail.users?.forEach((u) {
+                dummyUsertagPeople.add(MultiSelectItem(UserModel(id: u.id.toString(), createdAt: DateTime.now(), name: u.username), u
+                    .username??""));
+              });
+              return MultiSelectDialog<UserModel?>(
+                items: dummyUsertagPeople,
+                searchable: true,
+                searchHint: "Search user",
+                cancelText: const Text("Clear"),
+                unselectedColor: Colors.white,
+                title: const Text("Select People to tag"),
+                itemsTextStyle: const TextStyle(color: Colors.black),
+                selectedItemsTextStyle: const TextStyle(color: Colors.white),
+                selectedColor: Theme.of(context).primaryColor,
+                listType: MultiSelectListType.CHIP,
+                initialValue: selectedPeople,
+                onConfirm: (users) {
+                  selectedPeople.clear();
+                  selectedPeopleNames.clear();
+                  selectedPeople.addAll(users);
+                  for (UserModel? element in users) {
+                    selectedPeopleNames.add(element!.name.toString());
+                  }
+               /*   selectedPeople.clear();
+                  selectedPeopleNames.clear();
+                  selectedPeople.addAll(users);
+                  for (User? element in users) {
+                    selectedPeopleNames.add(element!.username.toString());
+                  }
+                  selectedPeopleNames.distinctBy((e) => e);
+                  selectedPeople.value.distinctBy((e) => e.username??"");
+                  print("LENGHT = > ${selectedPeople.value.length}");*/
+                  update();
+                },
+              );
+            }
+            return Container();
           },
+
         );
       },
     );

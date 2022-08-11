@@ -16,6 +16,7 @@ class InnovationItemModel {
     this.innovationImages,
     this.innovationVideos,
     this.innovationFiles,
+    this.author,
   });
 
   final String? title;
@@ -30,6 +31,7 @@ class InnovationItemModel {
   final List<InnovationContent>? innovationImages;
   final List<InnovationContent>? innovationVideos;
   final List<InnovationContent>? innovationFiles;
+  final Author? author;
 
   factory InnovationItemModel.fromJson(Map<String, dynamic> json) => InnovationItemModel(
         title: json["title"],
@@ -38,8 +40,8 @@ class InnovationItemModel {
         description: json["description"],
         userId: json["user_id"],
         status: json["status"],
-        updatedAt:json["updated_at"] == null?null : DateTime.parse(json["updated_at"]),
-        createdAt: json["created_at"] == null? null: DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
         id: json["id"],
         innovationImages: json["innovation_images"] == null
             ? []
@@ -50,6 +52,7 @@ class InnovationItemModel {
         innovationFiles: json["innovation_files"] == null
             ? []
             : List<InnovationContent>.from(json["innovation_files"].map((x) => InnovationContent.fromJson(x))),
+        author: Author.fromJson(json["user"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -65,6 +68,7 @@ class InnovationItemModel {
         "innovation_images": innovationImages == null ? [] : List<dynamic>.from(innovationImages!.map((x) => x.toJson())),
         "innovation_videos": innovationVideos == null ? [] : List<dynamic>.from(innovationVideos!.map((x) => x.toJson())),
         "innovation_files": innovationFiles == null ? [] : List<dynamic>.from(innovationFiles!.map((x) => x.toJson())),
+        "user": author?.toJson(),
       };
 }
 
@@ -117,5 +121,29 @@ class InnovationContent {
         "content": content,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
+      };
+}
+
+class Author {
+  Author({
+    this.id,
+    this.username,
+    this.fullName,
+  });
+
+  final int? id;
+  final String? username;
+  final String? fullName;
+
+  factory Author.fromJson(Map<String, dynamic> json) => Author(
+        id: json["id"],
+        username: json["username"],
+        fullName: json["full_name"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "username": username,
+        "full_name": fullName,
       };
 }

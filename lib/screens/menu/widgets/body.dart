@@ -80,8 +80,8 @@ class bodymenu extends StatelessWidget {
                     )),
               ),
               InkWell(
-                onTap: (){
-                  Get.to(() => const FundRaiserMainScreen(),binding: FundRaiserBindings());
+                onTap: () {
+                  Get.to(() => const FundRaiserMainScreen(), binding: FundRaiserBindings());
                 },
                 child: Container(
                     decoration: BoxDecoration(color: PRIMARY_COLOR, borderRadius: BorderRadius.circular(10)),
@@ -132,11 +132,7 @@ class bodymenu extends StatelessWidget {
             btnText: "Create Business Account",
             primary: true,
             onPressed: () {
-              Get.to(
-                () => const create_business_accountview(),
-                binding: BindingsBuilder(() => {Get.put(create_business_controller())}),
-                //   binding: BindingsBuilder(()=>Get.put(create_business_controller()))
-              );
+              Get.to(() => const CreateBusinessAccountScreen(), binding: BindingsBuilder(() => {Get.put(CreateBusinessController())}));
             }),
         const SizedBox(
           height: 7,
@@ -148,7 +144,7 @@ class bodymenu extends StatelessWidget {
             Get.to(
               () => const show_business_accountScreen(),
               // binding: BindingsBuilder(()=>Get.put( business_mainController())),
-              binding: BindingsBuilder(() => {Get.put(business_mainController())}),
+              binding: BindingsBuilder(() => {Get.put(BusinessMainController())}),
             );
           },
         ),
