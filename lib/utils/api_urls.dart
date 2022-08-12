@@ -32,7 +32,6 @@ class ApiUrls {
   static const String UPDATE_PROFILE = "$BASE_URL/$API_URL/update-profile";
   static const String GET_FRIEND_LIST = "$BASE_URL/$API_URL/get-friend-list";
 
-
   //===========EVENT URLS============//
   static const String ADD_EVENT = "$BASE_URL/$API_URL/add_event";
   static const String GET_ALL_EVENTS = "$BASE_URL/$API_URL/get_all_events";
@@ -65,4 +64,12 @@ class ApiUrls {
   static const String GET_FUND_RAISERS = "$BASE_URL/$API_URL/get-fund-raisers";
   static const String GET_FUND_RAISER_DETAIL = "$BASE_URL/$API_URL/get-fund-raiser-detail";
   static const String CREATE_FUND_RAISER = "$BASE_URL/$API_URL/create-fund-raiser";
+
+//===========FUNDRAISER ENDS URLS============//
+
+  //===========NETWORK URLS============//
+
+  static const String GET_FOLLOWER_REQUEST = "$BASE_URL/$API_URL/follower-requests";
+  static const String UPDATE_BUSINESS_FOLLOW_STATUS = "$BASE_URL/$API_URL/update-business-follow-status";
+//===========NETWORK ENDS URLS============//
 }

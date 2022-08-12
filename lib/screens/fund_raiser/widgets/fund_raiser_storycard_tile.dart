@@ -112,10 +112,12 @@ class _ProgressBarFundRaiserStory extends StatelessWidget {
         const Text("Target: \$ 3000", style: TextStyle(fontSize: 12, color: Colors.grey)),
         Container(
             decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(25)),
-            child: const ProgressBar(
+            child:  ProgressBar(
                 value: 0.7,
                 gradient:
-                    LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [Colors.green, Colors.greenAccent])))
+                LinearGradient(
+                    begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [ Theme.of(context).primaryColor.withOpacity(.8), Theme.of
+    (context).primaryColor])))
       ],
     );
   }

@@ -88,6 +88,7 @@ class Event {
     this.userId,
     this.createdAt,
     this.updatedAt,
+    this.attendentCount
   });
 
   final int? id;
@@ -102,6 +103,7 @@ class Event {
   final String? time;
   final String? whatToExpect;
   final String? userId;
+  final String? attendentCount;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
@@ -118,6 +120,7 @@ class Event {
         time: json["time"],
         whatToExpect: json["what_to_expect"],
         userId: json["user_id"],
+        attendentCount: json["attendent_count"],
         createdAt: json["created_at"] != null? DateTime.parse(json["created_at"]) : null,
         updatedAt: json["updated_at"] != null? DateTime.parse(json["updated_at"]) : null,
       );
@@ -136,6 +139,7 @@ class Event {
         "time": time,
         "what_to_expect": whatToExpect,
         "user_id": userId,
+        "attendent_count": attendentCount,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
       };

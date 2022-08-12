@@ -4,6 +4,7 @@ import 'package:aidber/global_widgets/colors.dart';
 import 'package:aidber/global_widgets/custom_button.dart';
 import 'package:aidber/screens/fund_raiser/add_fund_raiser.dart';
 import 'package:aidber/screens/fund_raiser/controllers/fund_raiser_details_controller.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -71,7 +72,29 @@ class FundRaiserDetailScreen extends StatelessWidget {
             alignment: Alignment.centerRight,
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
             child: CustomButton4(
-                onTap: () {},
+                onTap: () {
+                  showCupertinoDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return CupertinoAlertDialog(
+                          title:  Text("Contribute to ${model.data?.title}", style: const TextStyle(fontWeight: FontWeight.bold)),
+                          content: Text("Bank Name: ${model.data?.bank ?? ""} \nBank Account Number: ${model.data?.accountNumber}"),
+                          actions: [
+                            CupertinoDialogAction(
+                              child: const Text("Cancel", style: TextStyle(color: Colors.grey),),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                            CupertinoDialogAction(
+                              child: const Text("Donated"),
+                              onPressed: () {
+                                Navigator.pop(context);
+                                Get.back();
+                              },
+                            ),
+                          ],
+                        );
+                      });
+                },
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 text: 'Contribute',
                 fontSize: 16,
@@ -123,10 +146,12 @@ class FundRaiserDetailScreen extends StatelessWidget {
           Container(
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(25)),
-              child: const ProgressBar(
+              child:  ProgressBar(
                   value: 0.7,
                   gradient: LinearGradient(
-                      begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [Colors.green, Colors.greenAccent]))),
+                      begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [ Theme.of(context).primaryColor.withOpacity(.7)
+                    , Theme.of
+                    (context).primaryColor]))),
           const SizedBox(
             height: 10,
           ),

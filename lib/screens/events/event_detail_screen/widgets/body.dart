@@ -66,8 +66,8 @@ class EventDetailBody extends StatelessWidget {
                 "${Jiffy(eventModel.date).format("dd MMM yyyy")}  |  ${hisFroamteToReadableTimeFormate(eventModel.time)}",
                 style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black),
               ),
-              const Text(
-                "86 going",
+               Text(
+                "${eventModel.attendentCount} going",
                 style: TextStyle(fontSize: 14, color: Colors.black),
               ),
             ],

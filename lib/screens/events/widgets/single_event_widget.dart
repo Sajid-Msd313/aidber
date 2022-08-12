@@ -112,7 +112,7 @@ class SingleEventWidget extends StatelessWidget {
                     const SizedBox(
                       height: 5,
                     ),
-                    const Text("86 going", style: TextStyle(fontSize: 10, fontWeight: FontWeight.normal, color: Colors.grey)),
+                     Text("${model.attendentCount} going", style: TextStyle(fontSize: 10, fontWeight: FontWeight.normal, color: Colors.grey)),
                     const SizedBox(
                       height: 5,
                     ),
@@ -122,7 +122,7 @@ class SingleEventWidget extends StatelessWidget {
                         children: [
                           ElevatedButton(
                             onPressed: onAttendCallBack,
-                            child: const Text("Going"),
+                            child:  Text("${model.attendentCount} Going"),
                             style: ElevatedButton.styleFrom(
                                 padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 0),
                                 onPrimary: Colors.white,
